@@ -1,0 +1,31 @@
+{
+  "name": "solidareduca",
+  "version": "1.0.0",
+  "description": "Este Projeto é fruto",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/squad37/solidareduca.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/squad37/solidareduca/issues"
+  },
+  "homepage": "https://github.com/squad37/solidareduca#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "jquery": "^3.6.0",
+    "semantic-ui-css": "^2.4.1",
+    "vanilla-router": "^1.2.8"
+  }
+}
