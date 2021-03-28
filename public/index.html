@@ -37,19 +37,19 @@
             </h2>
         </div>
     </script>
-    <!-- Currency Rates Template -->
+    <!-- Ranking Template -->
     <script id="ranking-template" type="text/x-handlebars-template">
         <h1 class="ui header">Ranking</h1>
         <hr>
         <div class="ui loading basic segment">
-            <div class="ui horizontal list">
-                <div class="item">
-                    <i class="calendar alternate outline icon"></i>
-                    <div class="content">
-                        <div class="ui sub header">Data</div>
-                        <span>{{date}}</span>
-                    </div>
-                </div>
+            <!--<div class="ui horizontal list">-->
+                <!--<div class="item">-->
+                    <!--<i class="calendar alternate outline icon"></i>-->
+                    <!--<div class="content">-->
+                        <!--<div class="ui sub header">Data</div>-->
+                        <!--<span>{{date}}</span>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!--<div class="item">-->
                     <!--<i class="money bill alternate outline icon"></i>-->
                     <!--<div class="content">-->
@@ -57,23 +57,27 @@
                         <!--<span>{{base}}</span>-->
                     <!--</div>-->
                 <!--</div>-->
-            </div>
+            <!--</div>-->
 
             <table class="ui celled striped selectable inverted table">
                 <thead>
                 <tr>
-                    <th>Código Escola</th>
                     <th>Escola</th>
                     <th>Endereço</th>
+                    <th>Pontos</th>
+                    <th>Parceira</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!--{{#each rates}}-->
-                <!--<tr>-->
+                {{#each escolas}}
+                <tr>
                     <!--<td>{{@key}}</td>-->
-                    <!--<td>{{this}}</td>-->
-                <!--</tr>-->
-                <!--{{/each}}-->
+                    <td>{{this.nome}}</td>
+                    <td>{{this.endereco}}</td>
+                    <td>{{this.pontos}}</td>
+                    <td>{{this.parceira}}</td>
+                </tr>
+                {{/each}}
                 </tbody>
             </table>
         </div>
@@ -83,8 +87,7 @@
     <script id="cadastro-template" type="text/x-handlebars-template">
         <h1 class="ui header">Cadastro</h1>
         <hr>
-        <div class="ui basic segment">
-        <!--<div class="ui basic loading segment">-->
+        <div class="ui basic loading segment">
             <form class="ui form">
                 <div class="three fields">
                     <div class="field">
