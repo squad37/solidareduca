@@ -157,12 +157,13 @@
                         <br>
                         <div class="field">
                             <label>Escola</label>
-                            <input >
+                            <!--<input >-->
                             <select class="ui dropdown" name="escola" id="escola">
                                 <option value="">Selecione a Escola</option>
-                                <!--{{#each symbols}}-->
-                                <!--<option value="{{@key}}">{{this}}</option>-->
-                                <!--{{/each}}-->
+                                {{#each escolas}}
+                                <!--<option>{{@key}}</option>-->
+                                <option value="{{this.id}}">{{this.nome}}</option>
+                                {{/each}}
                             </select>
                             <input type="hidden" value="" name="id_escola" id="id_escola">
                         </div>
