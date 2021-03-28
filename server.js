@@ -1,4 +1,4 @@
-const { getRates, getSymbols, getEscolas } = require('./lib/api-solidareduca');
+const { getRates, getSymbols, getEscolas, getAlunos } = require('./lib/api-solidareduca');
 const { convertCurrency } = require('./lib/free-currency-service');
 
 require('dotenv').config(); // read .env files
@@ -38,6 +38,17 @@ app.get('/api/escolas',async (req, res) => {
        errorHandler(error, req, res);
    }
 });
+
+//Fetch Alunos
+app.get('/api/alunos',async (req, res) => {
+    try{
+        const data = await getAlunos();
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        errorHandler(error, req, res);
+    }
+ });
 
 // Fetch Latest Currency Rates
 // app.get('/api/rates', async (req, res) => {
