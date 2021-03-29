@@ -43,10 +43,12 @@ window.addEventListener('load', () => {
         el.html(html);
         try {
             // Load Currency Rates
-            const response = await api.get('/rates');
-            const { base, date, rates } = response.data;
+            const response = await api.get('/escolas');
+            const escolas  = response.data;
+            console.log("escolas");
+            console.log(escolas);
             // Display Rates Table
-            html = rankingTemplate({ base, date, rates });
+            html = rankingTemplate({ escolas });
             el.html(html);
         } catch (error) {
             showError(error);
@@ -56,9 +58,24 @@ window.addEventListener('load', () => {
         }
     });
 
-    router.add('/cadastro', () => {
+    router.add('/cadastro', async () => {
         let html = cadastroTemplate();
         el.html(html);
+        try {
+            // Load Currency Rates
+            const response = await api.get('/escolas');
+            const escolas  = response.data;
+            console.log("escolas");
+            console.log(escolas);
+            // Display Rates Table
+            html = cadastroTemplate({ escolas });
+            el.html(html);
+        } catch (error) {
+            showError(error);
+        } finally {
+            // Remove loader status
+            $('.loading').removeClass('loading');
+        }
     });
 
     router.add('/sobre', () => {

@@ -1,4 +1,4 @@
-const { getRates, getSymbols, } = require('./lib/fixer-service');
+const { getRates, getSymbols, getEscolas, getAlunos } = require('./lib/api-solidareduca');
 const { convertCurrency } = require('./lib/free-currency-service');
 
 require('dotenv').config(); // read .env files
@@ -28,40 +28,62 @@ const errorHandler = (err, req, res) => {
     }
 };
 
-// Fetch Latest Currency Rates
-app.get('/api/rates', async (req, res) => {
-    try {
-        const data = await getRates();
+//Fetch Escolas
+app.get('/api/escolas',async (req, res) => {
+   try{
+       const data = await getEscolas();
+       res.setHeader('Content-Type', 'application/json');
+       res.send(data);
+   } catch (error) {
+       errorHandler(error, req, res);
+   }
+});
+
+//Fetch Alunos
+app.get('/api/alunos',async (req, res) => {
+    try{
+        const data = await getAlunos();
         res.setHeader('Content-Type', 'application/json');
         res.send(data);
     } catch (error) {
         errorHandler(error, req, res);
     }
-});
+ });
+
+// Fetch Latest Currency Rates
+// app.get('/api/rates', async (req, res) => {
+//     try {
+//         const data = await getRates();
+//         res.setHeader('Content-Type', 'application/json');
+//         res.send(data);
+//     } catch (error) {
+//         errorHandler(error, req, res);
+//     }
+// });
 
 // Fetch Symbols
-app.get('/api/symbols', async (req, res) => {
-    try {
-        const data = await getSymbols();
-        res.setHeader('Content-Type', 'application/json');
-        res.send(data);
-    } catch (error) {
-        errorHandler(error, req, res);
-    }
-});
+// app.get('/api/symbols', async (req, res) => {
+//     try {
+//         const data = await getSymbols();
+//         res.setHeader('Content-Type', 'application/json');
+//         res.send(data);
+//     } catch (error) {
+//         errorHandler(error, req, res);
+//     }
+// });
 
 // Convert Currency
-app.post('/api/convert', async (req, res) => {
-    try {
-        const { from, to } = req.body;
-        const data = await convertCurrency(from, to);
-        res.setHeader('Content-Type', 'application/json');
-        console.log(data);
-        res.send(data);
-    } catch (error) {
-        errorHandler(error, req, res);
-    }
-});
+// app.post('/api/convert', async (req, res) => {
+//     try {
+//         const { from, to } = req.body;
+//         const data = await convertCurrency(from, to);
+//         res.setHeader('Content-Type', 'application/json');
+//         console.log(data);
+//         res.send(data);
+//     } catch (error) {
+//         errorHandler(error, req, res);
+//     }
+// });
 
 // Redirect all traffic to index.html
 app.use((req, res) => res.sendFile(`${__dirname}/public/index.html`));
@@ -93,4 +115,10 @@ app.listen(port, () => {
 //     console.log(data);
 // }
 //
+// Test Escolas Endpoint
+// const test = async() => {
+//     const data = await getEscolas();
+//     console.log(data);
+// }
+
 // test();
