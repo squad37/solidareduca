@@ -154,9 +154,8 @@ window.addEventListener('load', () => {
     });
     
 
-    //==================================
-    // Perform POST request, cadastrar aluno
-    const getCadatrarAlunoResults = async () => {
+    // Requisição POST, cadastrar aluno
+    const getCadastrarAlunoResults = async () => {
         // Extract form data
         const nome = $('#nome').val();
         const email = $('#email').val(); 
@@ -168,40 +167,42 @@ window.addEventListener('load', () => {
         const id_escola  = $('#id_escola').val();
 
         const aluno = {
-            "nome": nome,
-            "email": email,
-            "cpf": cpf,
-            "uf": uf,
-            "cep": cep,
-            "endereco": endereco,
-            "nome_responsavel": nome_responsavel,
-            "id_escola": id_escola
+            "nome": `${nome}`,
+            "email": `${email}`,
+            "cpf": `${cpf}`,
+            "uf": `${uf}`,
+            "cep": `${cep}`,
+            "endereco": `${endereco}`,
+            "nome_responsavel": `${nome_responsavel}`,
+            "id_escola": `${id_escola}`
         };
 
-        const escola  = {"id_escola": id_escola};
+        const headers = new Headers({
+            "Content-Type":  "application/json",
+            "Accept": "application/json",
+            "Access_token": `${id_escola}`,
+            "id_escola": `${id_escola}`
+          });
 
-        const axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': escola,
-                'id_escola': id_escola
-            }
-        };
+        const httpOptions = {
+            headers: headers
+          };
+        
+        
         // Send post data to Express(proxy) server
         try {
-          const response = await api_solidareduca.post(`/alunos`,
-          aluno, axiosConfig)
+          const response = await api_solidareduca.post(`/alunos`, 
+          aluno, httpOptions)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
           });
+          //Mensagem de confirmação de cadastro
+          $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
 
-          const { rate } = response.data;
-          const result = rate;
-          $('#resultCadastro').html(`${result}`);
+
         } catch (error) {
           //showError(error);
         } finally {
@@ -216,7 +217,7 @@ window.addEventListener('load', () => {
           $('.ui.error.message').hide();
           // Post to Express server
           $('#result-segment').addClass('loading');
-          getCadatrarAlunoResults();
+          getCadastrarAlunoResults();
           // Prevent page from submitting to server
           return false;
         }
