@@ -108,7 +108,7 @@
                         <br>
                         <div class="field">
                             <label>UF do Estado</label>
-                            <select class="ui dropdown" name="estados_brasileiros" id="estados_brasileiros">
+                            <select class="ui dropdown" name="uf" id="uf">
                                 <option value=""></option>
                                 <option value="AC">Acre</option>
 	                            <option value="AL">Alagoas</option>
@@ -158,14 +158,13 @@
                         <div class="field">
                             <label>Escola</label>
                             <!--<input >-->
-                            <select class="ui dropdown" name="escola" id="escola">
+                            <select class="ui dropdown" name="id_escola" id="id_escola">
                                 <option value="">Selecione a Escola</option>
                                 {{#each escolas}}
                                 <!--<option>{{@key}}</option>-->
                                 <option value="{{this.id}}">{{this.nome}}</option>
                                 {{/each}}
                             </select>
-                            <input type="hidden" value="" name="id_escola" id="id_escola">
                         </div>
                     </div>
                     <!--<div class="field">-->
@@ -178,6 +177,13 @@
                         <!--</select>-->
                     <!--</div>-->
                 </div>
+
+                <div id="result-segment" class="ui center aligned segment">
+                    <h2 id="resultCadastro" class="ui header">
+                      
+                    </h2>
+                </div>
+
                 <div class="ui primary submit button">Cadastrar</div>
                 <div class="ui error message"></div>
             </form>
