@@ -29,6 +29,13 @@ window.addEventListener('load', () => {
         timeout: 5000,
     });
 
+    
+    // Instantiate api handler
+    const api_solidareduca = axios.create({
+        baseURL: 'http://127.0.0.1:3333',
+        timeout: 5000,
+    });
+
     // Display Error Banner
     const showError = (error) => {
         const { title, message } = error.response.data;
@@ -76,7 +83,48 @@ window.addEventListener('load', () => {
             // Remove loader status
             $('.loading').removeClass('loading');
         }
+        try {
+          
+            $('.loading').removeClass('loading');
+            // Validate Form Inputs
+            $('.ui.form').form({
+              fields: {
+                nome: 'empty',
+                email: 'empty',
+                cpf: 'empty', 
+                uf: 'empty',
+                cep: 'empty',
+                endereco: 'empty', 
+                nome_responsavel: 'empty', 
+                id_escola: 'empty',
+              },
+            });
+            // Specify Submit Handler
+            $('.submit').click(cadastrarAlunoRatesHandler);
+          } catch (error) {
+            showError(error);
+          }
     });
+/*
+    router.add('/cadastro', async () => {
+        let html = cadastroTemplate();
+        el.html(html);
+        try {
+            // Load Currency Rates
+            const response = await api.get('/escolas');
+            const escolas  = response.data;
+            console.log("escolas");
+            console.log(escolas);
+            // Display Rates Table
+            html = cadastroTemplate({ escolas });
+            el.html(html);
+        } catch (error) {
+            showError(error);
+        } finally {
+            // Remove loader status
+            $('.loading').removeClass('loading');
+        }
+    });*/
 
     router.add('/sobre', () => {
         let html = sobreTemplate();
@@ -104,4 +152,80 @@ window.addEventListener('load', () => {
         const path = href.substr(href.lastIndexOf('/'));
         router.navigateTo(path);
     });
+    
+
+    // Requisição POST, cadastrar aluno
+    const getCadastrarAlunoResults = async () => {
+        // Extract form data
+        const nome = $('#nome').val();
+        const email = $('#email').val(); 
+        const cpf = $('#cpf').val(); 
+        const uf = $('#uf').val(); 
+        const cep  = $('#cep').val();
+        const endereco  = $('#endereco').val(); 
+        const nome_responsavel = $('#nome_responsavel').val();
+        const id_escola  = $('#id_escola').val();
+
+        const aluno = {
+            "nome": `${nome}`,
+            "email": `${email}`,
+            "cpf": `${cpf}`,
+            "uf": `${uf}`,
+            "cep": `${cep}`,
+            "endereco": `${endereco}`,
+            "nome_responsavel": `${nome_responsavel}`,
+            "id_escola": `${id_escola}`
+        };
+
+        const headers = new Headers({
+            "Content-Type":  "application/json",
+            "Accept": "application/json",
+            "Access_token": `${id_escola}`,
+            "id_escola": `${id_escola}`
+          });
+
+        const httpOptions = {
+            headers: headers
+          };
+        
+        
+        // Send post data to Express(proxy) server
+        try {
+          const response = await api_solidareduca.post(`/alunos`, 
+          aluno, httpOptions)
+          .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+          })
+          .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+          });
+          //Mensagem de confirmação de cadastro
+          $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
+
+
+        } catch (error) {
+          //showError(error);
+        } finally {
+          $('#result-segment').removeClass('loading');
+        }
+      };
+      
+      // Handle Convert Button Click Event
+      const cadastrarAlunoRatesHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getCadastrarAlunoResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
+      
+      
+      
 });
+
+
