@@ -25,14 +25,14 @@ window.addEventListener('load', () => {
 
     // Instantiate api handler
     const api = axios.create({
-        baseURL: 'solidareduca.com:3000/api',
+        baseURL: 'http://localhost:3000/api',
         timeout: 5000,
     });
 
     
     // Instantiate api handler
     const api_solidareduca = axios.create({
-        baseURL: 'solidareduca.com:3333',
+        baseURL: 'http://127.0.0.1:3333',
         timeout: 5000,
     });
 
