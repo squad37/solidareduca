@@ -135,6 +135,21 @@ window.addEventListener('load', () => {
     router.add('/alunosDaescola', () => {
       let html = alunosDaEscolaTemplate();
       el.html(html);
+      try {
+           // Carregar alunos
+           const response = await api_solidareduca.get('alunos/escolas', {"id_escola": });
+           const escolas  = response.data;
+           console.log("escolas");
+           console.log(escolas);
+           // Display Rates Table
+           html = rankingTemplate({ escolas });
+           el.html(html);
+       } catch (error) {
+           showError(error);
+       } finally {
+           // Remove loader status
+           $('.loading').removeClass('loading');
+       }
     });
 
 // Navigate app to current url
