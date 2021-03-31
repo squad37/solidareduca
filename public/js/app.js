@@ -25,14 +25,14 @@ window.addEventListener('load', () => {
 
     // Instantiate api handler
     const api = axios.create({
-        baseURL: 'http://localhost:3000/api',
+        baseURL: 'http://solidareduca.com:3000/api',
         timeout: 5000,
     });
 
     
     // Instantiate api handler
     const api_solidareduca = axios.create({
-        baseURL: 'http://127.0.0.1:3333',
+        baseURL: 'http://solidareduca.com:3333',
         timeout: 5000,
     });
 
@@ -180,7 +180,6 @@ window.addEventListener('load', () => {
         const headers = new Headers({
             "Content-Type":  "application/json",
             "Accept": "application/json",
-            "Access_token": `${id_escola}`,
             "id_escola": `${id_escola}`
           });
 
@@ -195,12 +194,22 @@ window.addEventListener('load', () => {
           aluno, httpOptions)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
+            /*Comentando informação para aparecer no campo resultCadastro em index.html
+            //Mensagem de confirmação de cadastro
+            $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
+            */
+           alert(`CADASTRO REALIZDO COM SUCESSO`);
+            router.navigateTo(window.location.pathname);
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
+            /*Comentando informação para aparecer no campo resultCadastro em index.html
+            //Mensagem de erro de cadastro
+            $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+            */
+            alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
           });
-          //Mensagem de confirmação de cadastro
-          $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
+          
 
 
         } catch (error) {

@@ -98,20 +98,6 @@ app.get('/api/alunos',async (req, res) => {
 //     }
 // });
 
-// Cadastro de Aluno
-app.post('alunos', async (req, res) => {
-     try {
-         const { nome, email, cpf, cep, uf, endereco, nome_responsavel, id_escola } = req.body;
-         const data = await cadastrarAluno(nome, email, cpf, cep, uf, endereco, nome_responsavel, id_escola);
-         res.setHeader('Content-Type', 'application/json');
-         res.setHeader('id_escola', id_escola);
-         console.log(data);
-         res.send(data);
-     } catch (error) {
-         errorHandler(error, req, res);
-     }
- });
-
 // Redirect all traffic to index.html
 app.use((req, res) => res.sendFile(`${__dirname}/public/index.html`));
 
