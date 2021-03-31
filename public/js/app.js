@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
     const rankingTemplate = Handlebars.compile($('#ranking-template').html());
     const cadastroTemplate = Handlebars.compile($('#cadastro-template').html());
     const sobreTemplate = Handlebars.compile($('#sobre-template').html());
+    const alunosDaEscolaTemplate = Handlebars.compile($('#alunosDaEscola-template').html());
 
     // Router Declaration
     const router = new Router({
@@ -25,14 +26,14 @@ window.addEventListener('load', () => {
 
     // Instantiate api handler
     const api = axios.create({
-        baseURL: 'http://solidareduca.com:3000/api',
+        baseURL: 'http://localhost:3000/api',
         timeout: 5000,
     });
 
     
     // Instantiate api handler
     const api_solidareduca = axios.create({
-        baseURL: 'http://solidareduca.com:3333',
+        baseURL: 'http://localhost:3333',
         timeout: 5000,
     });
 
@@ -129,6 +130,11 @@ window.addEventListener('load', () => {
     router.add('/sobre', () => {
         let html = sobreTemplate();
         el.html(html);
+    });
+
+    router.add('/alunosDaescola', () => {
+      let html = alunosDaEscolaTemplate();
+      el.html(html);
     });
 
 // Navigate app to current url

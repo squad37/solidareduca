@@ -68,11 +68,16 @@
                     <th>Parceira</th>
                 </tr>
                 </thead>
-                <tbody>
+                <a>
                 {{#each escolas}}
+                
                 <tr>
                     <!--<td>{{@key}}</td>-->
-                    <td>{{this.nome}}</td>
+                    <td>
+                        <a class="item" href="alunosDaescola">
+                            {{this.nome}}
+                        </a>
+                    </td>
                     <td>{{this.endereco}}</td>
                     <td>{{this.pontos}}</td>
                     <td>{{this.parceira}}</td>
@@ -199,6 +204,12 @@
     <!-- Historical Rates Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
+        <hr>
+    </script>
+
+    <!-- Alunos de uma escola Template -->
+    <script id="alunosDaEscola-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Alunos</h1>
         <hr>
     </script>
     <!-- Application Root -->
