@@ -1,5 +1,4 @@
-const { getRates, getSymbols, getEscolas, getAlunos } = require('./lib/api-solidareduca');
-const { convertCurrency, cadastrarAluno } = require('./lib/free-currency-service');
+const { getEscolas, getAlunos, cadastrarAluno } = require('./lib/api-solidareduca');
 
 require('dotenv').config(); // read .env files
 const bodyParser = require('body-parser');
@@ -63,41 +62,6 @@ app.get('/api/alunos',async (req, res) => {
     }
  });
 
-// Fetch Latest Currency Rates
-// app.get('/api/rates', async (req, res) => {
-//     try {
-//         const data = await getRates();
-//         res.setHeader('Content-Type', 'application/json');
-//         res.send(data);
-//     } catch (error) {
-//         errorHandler(error, req, res);
-//     }
-// });
-
-// Fetch Symbols
-// app.get('/api/symbols', async (req, res) => {
-//     try {
-//         const data = await getSymbols();
-//         res.setHeader('Content-Type', 'application/json');
-//         res.send(data);
-//     } catch (error) {
-//         errorHandler(error, req, res);
-//     }
-// });
-
-// Convert Currency
-// app.post('/api/convert', async (req, res) => {
-//     try {
-//         const { from, to } = req.body;
-//         const data = await convertCurrency(from, to);
-//         res.setHeader('Content-Type', 'application/json');
-//         console.log(data);
-//         res.send(data);
-//     } catch (error) {
-//         errorHandler(error, req, res);
-//     }
-// });
-
 // Cadastro de Aluno
 app.post('alunos', async (req, res) => {
      try {
@@ -121,31 +85,16 @@ app.listen(port, () => {
 });
 
 
-
-// Place this block at the bottom
-// const test = async() => {
-//     const data = await getRates();
-//     console.log(data);
-// }
-//
-
-
-// Test Symbols Endpoint
-// const test = async() => {
-//     const data = await getSymbols();
-//     console.log(data);
-// }
-
-// Test Currency Conversion Endpoint
-// const test = async() => {
-//     const data = await convertCurrency('USD', 'KES');
-//     console.log(data);
-// }
-//
 // Test Escolas Endpoint
 // const test = async() => {
 //     const data = await getEscolas();
 //     console.log(data);
 // }
 
+// Test Escolas Endpoint
+// const test = async() => {
+//     const data = await getAlunos(`cbee6e2a-b526-4b35-86d1-4b2d927b7f22`);
+//     console.log(data);
+// };
+//
 // test();

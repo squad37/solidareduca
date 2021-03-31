@@ -42,23 +42,6 @@
         <h1 class="ui header">Ranking</h1>
         <hr>
         <div class="ui loading basic segment">
-            <!--<div class="ui horizontal list">-->
-                <!--<div class="item">-->
-                    <!--<i class="calendar alternate outline icon"></i>-->
-                    <!--<div class="content">-->
-                        <!--<div class="ui sub header">Data</div>-->
-                        <!--<span>{{date}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<i class="money bill alternate outline icon"></i>-->
-                    <!--<div class="content">-->
-                        <!--<div class="ui sub header">Base</div>-->
-                        <!--<span>{{base}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <table class="ui celled striped selectable inverted table">
                 <thead>
                 <tr>
@@ -83,7 +66,7 @@
         </div>
     </script>
 
-    <!-- Exchange Conversion Template -->
+    <!-- Cadastro Template -->
     <script id="cadastro-template" type="text/x-handlebars-template">
         <h1 class="ui header">Cadastro</h1>
         <hr>
@@ -161,42 +144,25 @@
                             <select class="ui dropdown" name="id_escola" id="id_escola">
                                 <option value="">Selecione a Escola</option>
                                 {{#each escolas}}
-                                <!--<option>{{@key}}</option>-->
                                 <option value="{{this.id}}">{{this.nome}}</option>
                                 {{/each}}
                             </select>
                         </div>
                     </div>
-                    <!--<div class="field">-->
-                        <!--<label>To</label>-->
-                        <!--<select class="ui dropdown" name="to" id="to">-->
-                            <!--<option value="">Select Currency</option>-->
-                            <!--{{#each symbols}}-->
-                            <!--<option value="{{@key}}">{{this}}</option>-->
-                            <!--{{/each}}-->
-                        <!--</select>-->
-                    <!--</div>-->
                 </div>
 
                 <div id="result-segment" class="ui center aligned segment">
                     <h2 id="resultCadastro" class="ui header">
-                      
                     </h2>
                 </div>
-
                 <div class="ui primary submit button">Cadastrar</div>
                 <div class="ui error message"></div>
             </form>
             <br>
-            <!--<div id="result-segment" class="ui center aligned segment">-->
-                <!--<h2 id="result" class="ui header">-->
-                    <!--0.00-->
-                <!--</h2>-->
-            <!--</div>-->
         </div>
     </script>
 
-    <!-- Historical Rates Template -->
+    <!-- Sobre Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
         <hr>

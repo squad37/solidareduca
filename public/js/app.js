@@ -25,14 +25,14 @@ window.addEventListener('load', () => {
 
     // Instantiate api handler
     const api = axios.create({
-        baseURL: 'http://localhost:3000/api',
+        baseURL: 'solidareduca.com:3000/api',
         timeout: 5000,
     });
 
     
     // Instantiate api handler
     const api_solidareduca = axios.create({
-        baseURL: 'http://127.0.0.1:3333',
+        baseURL: 'solidareduca.com:3333',
         timeout: 5000,
     });
 
@@ -49,12 +49,12 @@ window.addEventListener('load', () => {
         let html = rankingTemplate();
         el.html(html);
         try {
-            // Load Currency Rates
+            // Load Escolas Ranking
             const response = await api.get('/escolas');
             const escolas  = response.data;
             console.log("escolas");
             console.log(escolas);
-            // Display Rates Table
+            // Display Escolas Ranking Table
             html = rankingTemplate({ escolas });
             el.html(html);
         } catch (error) {
@@ -69,12 +69,12 @@ window.addEventListener('load', () => {
         let html = cadastroTemplate();
         el.html(html);
         try {
-            // Load Currency Rates
+            // Load Escolas
             const response = await api.get('/escolas');
             const escolas  = response.data;
             console.log("escolas");
             console.log(escolas);
-            // Display Rates Table
+            // Display Escolas select options
             html = cadastroTemplate({ escolas });
             el.html(html);
         } catch (error) {
@@ -105,33 +105,13 @@ window.addEventListener('load', () => {
             showError(error);
           }
     });
-/*
-    router.add('/cadastro', async () => {
-        let html = cadastroTemplate();
-        el.html(html);
-        try {
-            // Load Currency Rates
-            const response = await api.get('/escolas');
-            const escolas  = response.data;
-            console.log("escolas");
-            console.log(escolas);
-            // Display Rates Table
-            html = cadastroTemplate({ escolas });
-            el.html(html);
-        } catch (error) {
-            showError(error);
-        } finally {
-            // Remove loader status
-            $('.loading').removeClass('loading');
-        }
-    });*/
 
     router.add('/sobre', () => {
         let html = sobreTemplate();
         el.html(html);
     });
 
-// Navigate app to current url
+    // Navigate app to current url
     router.navigateTo(window.location.pathname);
 
     // Highlight Active Menu on Refresh/Page Reload
