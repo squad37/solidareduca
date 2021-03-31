@@ -42,23 +42,6 @@
         <h1 class="ui header">Ranking</h1>
         <hr>
         <div class="ui loading basic segment">
-            <!--<div class="ui horizontal list">-->
-                <!--<div class="item">-->
-                    <!--<i class="calendar alternate outline icon"></i>-->
-                    <!--<div class="content">-->
-                        <!--<div class="ui sub header">Data</div>-->
-                        <!--<span>{{date}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<i class="money bill alternate outline icon"></i>-->
-                    <!--<div class="content">-->
-                        <!--<div class="ui sub header">Base</div>-->
-                        <!--<span>{{base}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <table class="ui celled striped selectable inverted table">
                 <thead>
                 <tr>
@@ -66,6 +49,7 @@
                     <th>Endereço</th>
                     <th>Pontos</th>
                     <th>Parceira</th>
+                    <th>Comando</th>
                 </tr>
                 </thead>
                 <a>
@@ -73,14 +57,18 @@
                 
                 <tr>
                     <!--<td>{{@key}}</td>-->
-                    <td>
-                        <a class="item" href="alunosDaescola">
-                            {{this.nome}}
-                        </a>
-                    </td>
+                    <td>{{this.nome}}</td>
                     <td>{{this.endereco}}</td>
                     <td>{{this.pontos}}</td>
                     <td>{{this.parceira}}</td>
+                    <td>
+                        <form class="ui form">
+                            <input type="hidden" name="id_escola" id="id_escola" value="{{this.id}}">
+                            <div class="ui primary submit button">
+                                Ver alunos
+                            </div>
+                        </form>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
@@ -88,7 +76,7 @@
         </div>
     </script>
 
-    <!-- Exchange Conversion Template -->
+    <!-- Cadastro Template -->
     <script id="cadastro-template" type="text/x-handlebars-template">
         <h1 class="ui header">Cadastro</h1>
         <hr>
@@ -166,26 +154,15 @@
                             <select class="ui dropdown" name="id_escola" id="id_escola">
                                 <option value="">Selecione a Escola</option>
                                 {{#each escolas}}
-                                <!--<option>{{@key}}</option>-->
                                 <option value="{{this.id}}">{{this.nome}}</option>
                                 {{/each}}
                             </select>
                         </div>
                     </div>
-                    <!--<div class="field">-->
-                        <!--<label>To</label>-->
-                        <!--<select class="ui dropdown" name="to" id="to">-->
-                            <!--<option value="">Select Currency</option>-->
-                            <!--{{#each symbols}}-->
-                            <!--<option value="{{@key}}">{{this}}</option>-->
-                            <!--{{/each}}-->
-                        <!--</select>-->
-                    <!--</div>-->
                 </div>
                 <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
                 <div id="result-segment" class="ui center aligned segment">
                     <h2 id="resultCadastro" class="ui header">
-                      
                     </h2>
                 </div>
                  -->
@@ -193,15 +170,10 @@
                 <div class="ui error message"></div>
             </form>
             <br>
-            <!--<div id="result-segment" class="ui center aligned segment">-->
-                <!--<h2 id="result" class="ui header">-->
-                    <!--0.00-->
-                <!--</h2>-->
-            <!--</div>-->
         </div>
     </script>
 
-    <!-- Historical Rates Template -->
+    <!-- Sobre Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
         <hr>
@@ -223,17 +195,14 @@
                 </tr>
                 </thead>
                 <a>
-                {{#each escolas}}
+                {{#each alunos}}
                 
                 <tr>
-                    <td>
-                        <a class="item" href="alunosDaescola">
-                            {{this.nome}}
-                        </a>
-                    </td>
+                    <td>{{this.nome}}</td>
                     <td>{{this.endereco}}</td>
-                    <td>{{this.pontos}}</td>
-                    <td>{{this.parceira}}</td>
+                    <td>{{this.cep}}</td>
+                    <td>{{this.uf}}</td>
+                    <td>{{this.nome_responsavel}}</td>
                 </tr>
                 {{/each}}
                 </tbody>
