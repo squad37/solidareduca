@@ -39,7 +39,11 @@ window.addEventListener('load', () => {
 
     // Display Error Banner
     const showError = (error) => {
-        const { title, message } = error.response.data;
+        console.log(error);
+        if (error.hasOwnProperty('data')){
+            const { title, message } = error.response.data;
+        }
+
         const html = errorTemplate({ color: 'red', title, message });
         el.html(html);
     };
@@ -51,15 +55,20 @@ window.addEventListener('load', () => {
         el.html(html);
         try {
             // Load Escolas Ranking
+            //verificar se consegue usar o JSON dentro do template
+            // this.JSON = JSON;
             const response = await api.get('/escolas');
             const escolas  = response.data;
-            console.log("escolas");
-            console.log(escolas);
             // Display Escolas Ranking Table
             html = rankingTemplate({ escolas });
             el.html(html);
             // Specify Submit Handler
-            $('.submit').click(getListarAlunosDaEscola);
+
+            $('.alunosEscola').click( function(){
+
+                const id_escola = this.dataset.json;
+                getListarAlunosDaEscola(id_escola);
+            });
         } catch (error) {
             showError(error);
         } finally {
@@ -114,9 +123,19 @@ window.addEventListener('load', () => {
         el.html(html);
     });
 
-    router.add('/alunosDaescola', () => {
-      let html = alunosDaEscolaTemplate();
-      el.html(html);
+    router.add('/alunosDaescola', async (id_escola) => {
+        try{
+            const response = await api.get(`/alunos/${id_escola}`);
+            const alunos  = response.data;
+            let html = alunosDaEscolaTemplate({alunos});
+            el.html(html);
+        } catch (error){
+            showError(error);
+            console.log(error);
+        } finally {
+            // Remove loader status
+            $('.loading').removeClass('loading');
+        }
     });
 
     // Navigate app to current url
@@ -142,26 +161,14 @@ window.addEventListener('load', () => {
     });
     
     // Requisição GET, enviar id_escola para listar alunos
-    const getListarAlunosDaEscola = async () => {
-        // Extract form data
-        const id_escola = $('#id_escola').val();
-        const escola = {
-            "id_escola": `${id_escola}`
-        };
-        const headers = new Headers({
-            "Content-Type":  "application/json",
-            "Accept": "application/json",
-            "id_escola": `${id_escola}`
-          });
+    const getListarAlunosDaEscola = async (id_escola) => {
 
-        const httpOptions = {
-            headers: headers
-        };
         try {
-            console.log(escola);
+            console.log(id_escola);
             // Load Alunos da Escola
-            const response = await api_solidareduca.get('/alunos/escolas');
-            const alunos  = response.data;
+            const response = await api_solidareduca.get(`/alunos/${id_escola}`);
+            console.log(response);
+            const alunos  = response;
             console.log(alunos);
             // Display Alunos da Escola
             html = alunosDaEscolaTemplate({ alunos });
