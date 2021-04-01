@@ -8,6 +8,8 @@ window.addEventListener('load', () => {
     const errorTemplate = Handlebars.compile($('#error-template').html());
     const rankingTemplate = Handlebars.compile($('#ranking-template').html());
     const cadastroTemplate = Handlebars.compile($('#cadastro-template').html());
+    const cadastroAlunoTemplate = Handlebars.compile($('#cadastroAluno-template').html());
+    const cadastroDoadorTemplate = Handlebars.compile($('#cadastroDoador-template').html());
     const sobreTemplate = Handlebars.compile($('#sobre-template').html());
     const alunosDaEscolaTemplate = Handlebars.compile($('#alunosDaEscola-template').html());
 
@@ -68,8 +70,15 @@ window.addEventListener('load', () => {
         }
     });
 
-    router.add('/cadastro', async () => {
-        let html = cadastroTemplate();
+    //Rota do cadastro
+    router.add('/cadastro', () => {
+      let html = cadastroTemplate();
+      el.html(html);
+    });
+
+    //Rota do cadastro do aluno
+    router.add('/cadastroAluno', async () => {
+        let html = cadastroAlunoTemplate();
         el.html(html);
         try {
             // Load Escolas
@@ -78,7 +87,7 @@ window.addEventListener('load', () => {
             console.log("escolas");
             console.log(escolas);
             // Display Escolas select options
-            html = cadastroTemplate({ escolas });
+            html = cadastroAlunoTemplate({ escolas });
             el.html(html);
         } catch (error) {
             showError(error);
@@ -108,6 +117,45 @@ window.addEventListener('load', () => {
             showError(error);
           }
     });
+
+    //Rota do cadastro do doador
+    router.add('/cadastroDoador', async () => {
+      let html = cadastroDoadorTemplate();
+      el.html(html);
+      try {
+          // Load Escolas CÒDIGO ÚTIL APENAS PARA NÂO DA ERRO AO ENTRAR NO PRÒXIMO TRY CATCH
+          const response = await api.get('/escolas');
+          const escolas  = response.data;
+          console.log("escolas");
+          console.log(escolas);
+          // Display Escolas select options
+          //html = cadastroDoadorTemplate({ escolas });
+          //el.html(html);
+      } catch (error) {
+          showError(error);
+      } finally {
+          // Remove loader status
+          $('.loading').removeClass('loading');
+      }
+        try {
+            $('.loading').removeClass('loading');
+            // Validate Form Inputs
+            $('.ui.form').form({
+              fields: {
+                nome: 'empty',
+                email: 'empty',
+                cpf: 'empty', 
+                uf: 'empty',
+                cep: 'empty',
+                endereco: 'empty', 
+              },
+            });
+            // Specify Submit Handler
+            $('.submit').click(cadastrarDoadorHandler);
+          } catch (error) {
+            showError(error);
+          }
+  });
 
     router.add('/sobre', () => {
         let html = sobreTemplate();
@@ -160,7 +208,7 @@ window.addEventListener('load', () => {
         try {
             console.log(escola);
             // Load Alunos da Escola
-            const response = await api_solidareduca.get('/alunos/escolas');
+            const response = await api_solidareduca.get('/alunos/escolas', escola);
             const alunos  = response.data;
             console.log(alunos);
             // Display Alunos da Escola
@@ -176,6 +224,9 @@ window.addEventListener('load', () => {
         }
     };
     
+    //==========================================================
+    // CADASTRO DO ALUNO
+    //=========================================================
     // Requisição POST, cadastrar aluno
     const getCadastrarAlunoResults = async () => {
         // Extract form data
@@ -235,7 +286,7 @@ window.addEventListener('load', () => {
 
 
         } catch (error) {
-          //showError(error);
+          showError(error);
         } finally {
           $('#result-segment').removeClass('loading');
         }
@@ -254,8 +305,73 @@ window.addEventListener('load', () => {
         }
         return true;
       };
-      
-      
+
+      //==========================================================
+      // CADASTRO DO DOADOR
+      //=========================================================
+      // Requisição POST, cadastrar doador
+    const getCadastrarDoadorResults = async () => {
+      // Extract form data
+      const nome = $('#nome').val();
+      const email = $('#email').val(); 
+      const cpf = $('#cpf').val(); 
+      const uf = $('#uf').val(); 
+      const cep  = $('#cep').val();
+      const endereco  = $('#endereco').val(); 
+
+      const doador = {
+          "nome": `${nome}`,
+          "email": `${email}`,
+          "cpf": `${cpf}`,
+          "uf": `${uf}`,
+          "cep": `${cep}`,
+          "endereco": `${endereco}`
+      };
+
+      // Send post data to Express(proxy) server
+      try {
+        const response = await api_solidareduca.post(`/doadores`, 
+        doador)
+        .then((res) => {
+          console.log("RESPONSE RECEIVED: ", res);
+          /*Comentando informação para aparecer no campo resultCadastro em index.html
+          //Mensagem de confirmação de cadastro
+          $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
+          */
+         alert(`CADASTRO REALIZDO COM SUCESSO`);
+          router.navigateTo(window.location.pathname);
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+          /*Comentando informação para aparecer no campo resultCadastro em index.html
+          //Mensagem de erro de cadastro
+          $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+          */
+          alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+        });
+        
+
+
+      } catch (error) {
+        showError(error);
+      } finally {
+        $('#result-segment').removeClass('loading');
+      }
+    };
+
+      // Doador cadastro Button Click Event
+      const cadastrarDoadorHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getCadastrarDoadorResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
       
 });
 
