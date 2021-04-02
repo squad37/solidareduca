@@ -49,25 +49,19 @@
                     <th>Endereço</th>
                     <th>Pontos</th>
                     <th>Parceira</th>
-                    <th>Comando</th>
+                    <th>Alunos</th>
                 </tr>
                 </thead>
-                <a>
                 {{#each escolas}}
-                
                 <tr>
-                    <!--<td>{{@key}}</td>-->
                     <td>{{this.nome}}</td>
                     <td>{{this.endereco}}</td>
                     <td>{{this.pontos}}</td>
                     <td>{{this.parceira}}</td>
                     <td>
-                        <form class="ui form">
-                            <input type="hidden" name="id_escola" id="id_escola" value="{{this.id}}">
-                            <div class="ui primary submit button">
-                                Ver alunos
-                            </div>
-                        </form>
+                    <button class="ui primary button alunosEscola" data-json="{{this.id}}">
+                        Ver alunos
+                    </button>
                     </td>
                 </tr>
                 {{/each}}
@@ -276,7 +270,7 @@
 
     <!-- Alunos de uma escola Template -->
     <script id="alunosDaEscola-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Alunos da escola </h1>
+        <h1 class="ui header">Alunos da escola {{escola.nome}} </h1>
         <hr>
         <div class="ui loading basic segment">
             <table class="ui celled striped selectable inverted table">
@@ -289,9 +283,7 @@
                     <th>Nome Responsável</th>
                 </tr>
                 </thead>
-                <a>
                 {{#each alunos}}
-                
                 <tr>
                     <td>{{this.nome}}</td>
                     <td>{{this.endereco}}</td>

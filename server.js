@@ -65,7 +65,8 @@ app.get('/api/alunos',async (req, res) => {
  //Procurar por alunos de uma única escola
 app.get('/api/alunosDaescola',async (req, res) => {
     try{
-        const { id_escola } = req.body;
+        console.log(req);
+        const { id_escola } = "";
         const data = await getAlunosDaEscola(id_escola);
         res.setHeader('Content-Type', 'application/json');
         res.send(data);
