@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
     const sobreTemplate = Handlebars.compile($('#sobre-template').html());
     const alunosDaEscolaTemplate = Handlebars.compile($('#alunosDaEscola-template').html());
     const autenticacaoAlunoTemplate = Handlebars.compile($('#autenticacaoAluno-template').html());
+    const cadastrarPedidoTemplate = Handlebars.compile($('#cadastrarPedido-template').html());
 
     // Router Declaration
     const router = new Router({
@@ -208,6 +209,47 @@ window.addEventListener('load', () => {
       }
     });
 
+    router.add('/cadastrarPedido', async () => {
+      let html = cadastrarPedidoTemplate();
+      el.html(html);
+      try {
+        // Load Materiais
+        const response = await api.get('/materiais');
+        const materiais  = response.data;
+        console.log(materiais);
+
+        // Receber a string do LocalStorage
+        let alunoString = localStorage.getItem('aluno');
+        // transformar em objeto novamente
+        let alunoObj = JSON.parse(alunoString);
+
+        // Display Escolas select options
+        html = cadastrarPedidoTemplate({ materiais, alunoObj });
+        el.html(html);
+    } catch (error) {
+        showError(error);
+    } finally {
+        // Remove loader status
+        $('.loading').removeClass('loading');
+    }
+    try {
+      
+        $('.loading').removeClass('loading');
+        // Validate Form Inputs
+        $('.ui.form').form({
+          fields: {
+            id_material: 'empty',
+            quantidade: 'empty',
+            id_aluno: 'empty'
+          },
+        });
+        // Specify Submit Handler
+        $('.submit').click(cadastrarPedidoHandler);
+      } catch (error) {
+        showError(error);
+      }
+    });
+
     // Navigate app to current url
     router.navigateTo(window.location.pathname);
 
@@ -354,16 +396,20 @@ window.addEventListener('load', () => {
         aluno)
         .then((res) => {
           console.log("RESPONSE RECEIVED: ", res);
-          const aluno  = response.data;
+          const aluno  = res.data;
           console.log(aluno);
+
+          // Transformar o objeto em string e salvar em localStorage
+          localStorage.setItem('aluno', JSON.stringify(aluno));
+
           // Display Alunos da Escola
           html = autenticacaoAlunoTemplate({ aluno });
           el.html(html);
-          router.navigateTo("/cadastrarMaterial");
+          router.navigateTo("/cadastrarPedido");
         })
         .catch((err) => {
           console.log("AXIOS ERROR: ", err);
-          console.log(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+          //alert(`Dados não encontrados, tente novamente!`);
         });
         
 
@@ -383,6 +429,60 @@ window.addEventListener('load', () => {
           // Post to Express server
           $('#result-segment').addClass('loading');
           getLogarAlunoResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
+
+       // Requisição POST, cadastrar pedido
+      const getCadastrarPedidoResults = async () => {
+      // Extract form data
+      const id_material = $('#id_material').val(); 
+      const quantidade = $('#quantidade').val();
+      const id_aluno = $('#id_aluno').val();
+
+      const pedido = {
+          "id_material": `${id_material}`,
+          "quantidade": `${quantidade}`,
+          "id_aluno": `${id_aluno}`
+      };
+      
+      
+      // Send post data to Express(proxy) server
+      try {
+        const response = await api_solidareduca.post(`/pedidos`, 
+        pedido)
+        .then((res) => {
+          console.log("RESPONSE RECEIVED: ", res);
+          const pedido  = res.data;
+          console.log(pedido);
+
+          alert("CADASTRO DO PEDIDO REALIZADO COM SUCESSO!");
+          router.navigateTo(window.location.pathname);
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+          //alert(`Dados não encontrados, tente novamente!`);
+        });
+        
+
+
+      } catch (error) {
+        //showError(error);
+      } finally {
+        $('#result-segment').removeClass('loading');
+      }
+    };
+
+      // Handle Cadastrar Pedido Click Event
+      const cadastrarPedidoHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getCadastrarPedidoResults();
           // Prevent page from submitting to server
           return false;
         }

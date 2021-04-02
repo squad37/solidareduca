@@ -1,4 +1,4 @@
-const { getEscolas, getAlunos, cadastrarAluno, getAlunosDaEscola } = require('./lib/api-solidareduca');
+const { getEscolas, getAlunos, cadastrarAluno, getAlunosDaEscola, getMateriais } = require('./lib/api-solidareduca');
 
 require('dotenv').config(); // read .env files
 const bodyParser = require('body-parser');
@@ -55,6 +55,17 @@ app.get('/api/escolas',async (req, res) => {
 app.get('/api/alunos',async (req, res) => {
     try{
         const data = await getAlunos();
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        errorHandler(error, req, res);
+    }
+ });
+
+ //Fetch Materiais
+app.get('/api/materiais',async (req, res) => {
+    try{
+        const data = await getMateriais();
         res.setHeader('Content-Type', 'application/json');
         res.send(data);
     } catch (error) {
