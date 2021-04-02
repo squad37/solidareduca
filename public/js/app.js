@@ -176,18 +176,15 @@ window.addEventListener('load', () => {
 
     });
 
-    router.add('/autenticacaoAluno', () => {
+    router.add('/autenticacaoAluno', async () => {
       let html = autenticacaoAlunoTemplate();
       el.html(html);//código não usado
       try {
         // Load Escolas
         const response = await api.get('/escolas');
         const escolas  = response.data;
-        console.log("escolas");
         console.log(escolas);
-        // Display Escolas select options
-        html = cadastroAlunoTemplate({ escolas });
-        el.html(html);
+        
     } catch (error) {
         showError(error);
     } finally {
