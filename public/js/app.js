@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
     const cadastroDoadorTemplate = Handlebars.compile($('#cadastroDoador-template').html());
     const sobreTemplate = Handlebars.compile($('#sobre-template').html());
     const alunosDaEscolaTemplate = Handlebars.compile($('#alunosDaEscola-template').html());
+    const autenticacaoAlunoTemplate = Handlebars.compile($('#autenticacaoAluno-template').html());
 
     // Router Declaration
     const router = new Router({
@@ -175,6 +176,41 @@ window.addEventListener('load', () => {
 
     });
 
+    router.add('/autenticacaoAluno', () => {
+      let html = autenticacaoAlunoTemplate();
+      el.html(html);//código não usado
+      try {
+        // Load Escolas
+        const response = await api.get('/escolas');
+        const escolas  = response.data;
+        console.log("escolas");
+        console.log(escolas);
+        // Display Escolas select options
+        html = cadastroAlunoTemplate({ escolas });
+        el.html(html);
+    } catch (error) {
+        showError(error);
+    } finally {
+        // Remove loader status
+        $('.loading').removeClass('loading');
+    }//código usado
+    try {
+      
+        $('.loading').removeClass('loading');
+        // Validate Form Inputs
+        $('.ui.form').form({
+          fields: {
+            email: 'empty',
+            senha: 'empty'
+          },
+        });
+        // Specify Submit Handler
+        $('.submit').click(logarAlunoHandler);
+      } catch (error) {
+        showError(error);
+      }
+    });
+
     // Navigate app to current url
     router.navigateTo(window.location.pathname);
 
@@ -303,7 +339,58 @@ window.addEventListener('load', () => {
         return true;
       };
       
+      // Requisição POST, autenticar aluno
+    const getLogarAlunoResults = async () => {
+      // Extract form data
+      const email = $('#email').val(); 
+      const senha = $('#senha').val();
+
+      const aluno = {
+          "email": `${email}`,
+          "senha": `${senha}`
+      };
       
+      
+      // Send post data to Express(proxy) server
+      try {
+        const response = await api_solidareduca.post(`/alunos/autenticacao`, 
+        aluno)
+        .then((res) => {
+          console.log("RESPONSE RECEIVED: ", res);
+          const aluno  = response.data;
+          console.log(aluno);
+          // Display Alunos da Escola
+          html = autenticacaoAlunoTemplate({ aluno });
+          el.html(html);
+          router.navigateTo("/cadastrarMaterial");
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+          console.log(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+        });
+        
+
+
+      } catch (error) {
+        //showError(error);
+      } finally {
+        $('#result-segment').removeClass('loading');
+      }
+    };
+
+      // Handle Logar Aluno Click Event
+      const logarAlunoHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getLogarAlunoResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
       
 });
 

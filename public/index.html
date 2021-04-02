@@ -266,11 +266,37 @@
         </div>
     </script>
 
-
+    
     <!-- Sobre Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
         <hr>
+    </script>
+
+    <!-- Sobre Template -->
+    <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Login Aluno</h1>
+        <hr>
+        <div class="ui basic loading segment">
+            <form class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <div class="field">
+                            <label>E-mail</label>
+                            <input type="text" name="email" id="email" placeholder="E-mail">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Senha</label>
+                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui primary submit button">Logar</div>
+                <div class="ui error message"></div>
+            </form>
+            <br>
+        </div>
     </script>
 
     <!-- Alunos de uma escola Template -->
