@@ -117,6 +117,7 @@ window.addEventListener('load', () => {
                 endereco: 'empty', 
                 nome_responsavel: 'empty', 
                 id_escola: 'empty',
+                senha: 'empty'
               },
             });
             // Specify Submit Handler
@@ -232,6 +233,7 @@ window.addEventListener('load', () => {
         const endereco  = $('#endereco').val(); 
         const nome_responsavel = $('#nome_responsavel').val();
         const id_escola  = $('#id_escola').val();
+        const senha = $('#senha').val();
 
         const aluno = {
             "nome": `${nome}`,
@@ -241,7 +243,8 @@ window.addEventListener('load', () => {
             "cep": `${cep}`,
             "endereco": `${endereco}`,
             "nome_responsavel": `${nome_responsavel}`,
-            "id_escola": `${id_escola}`
+            "id_escola": `${id_escola}`,
+            "senha": `${senha}`
         };
 
         const headers = new Headers({
