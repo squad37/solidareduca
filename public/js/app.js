@@ -223,8 +223,13 @@ window.addEventListener('load', () => {
         // transformar em objeto novamente
         let alunoObj = JSON.parse(alunoString);
 
+         // Load Pedidos
+        const response2 = await api.get(`/pedidosDoAluno/${alunoObj.id_aluno}`);
+        const pedidos  = response2.data;
+        console.log(pedidos);
+
         // Display Escolas select options
-        html = cadastrarPedidoTemplate({ materiais, alunoObj });
+        html = cadastrarPedidoTemplate({ materiais, alunoObj, pedidos });
         el.html(html);
     } catch (error) {
         showError(error);
