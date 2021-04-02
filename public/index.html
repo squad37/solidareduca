@@ -372,6 +372,7 @@
                     <th>Cep</th>
                     <th>Uf</th>
                     <th>Nome Responsável</th>
+                    <th>Pedidos</th>
                 </tr>
                 </thead>
                 {{#each alunos}}
@@ -381,12 +382,52 @@
                     <td>{{this.cep}}</td>
                     <td>{{this.uf}}</td>
                     <td>{{this.nome_responsavel}}</td>
+                    <td>
+                        <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
+                            Ver materiais pedidos
+                        </button>
+                        </td>
                 </tr>
                 {{/each}}
                 </tbody>
             </table>
         </div>
     </script>
+
+     <!-- Pedidos de um aluno de uma escola Template -->
+     <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
+
+        <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
+        <hr>
+        <div class="ui loading basic segment">
+            <table class="ui celled striped selectable inverted table">
+                <thead>
+                <tr>
+                    <th>Nome do Responsável</th>
+                    <th>Nome do Material</th>
+                    <th>Quantidade</th>
+                    <th>Situação</th>
+                    <th>Doar</th>
+                </tr>
+                </thead>
+                {{#each pedidos}}
+                <tr>
+                    <td>{{this.aluno.nome_responsavel}}</td>
+                    <td>{{this.material.nome}}</td>
+                    <td>{{this.quantidade}}</td>
+                    <td>{{this.situacao}}</td>
+                    <td>
+                        <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
+                            Fazer Doação
+                        </button>
+                        </td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
     <!-- Application Root -->
     <div id="app"></div>
 </div>

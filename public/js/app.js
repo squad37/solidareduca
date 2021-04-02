@@ -14,7 +14,8 @@ window.addEventListener('load', () => {
     const alunosDaEscolaTemplate = Handlebars.compile($('#alunosDaEscola-template').html());
     const autenticacaoAlunoTemplate = Handlebars.compile($('#autenticacaoAluno-template').html());
     const cadastrarPedidoTemplate = Handlebars.compile($('#cadastrarPedido-template').html());
-
+    const pedidosDoAlunoDaEscolaTemplate = Handlebars.compile($('#pedidosDoAlunoDaEscola-template').html());
+    
     // Router Declaration
     const router = new Router({
         mode: 'history',
@@ -175,6 +176,14 @@ window.addEventListener('load', () => {
 
     router.add('/alunosDaescola', async () => {
 
+      $('.pedidosAluno').click( function(){
+        const id_aluno = this.dataset.json;
+        getListarPedidosDoAlunoDaEscola(id_aluno);
+      });
+    }); 
+
+    router.add('/pedidosDoAlunoDaEscola', async () => {
+
     });
 
     router.add('/autenticacaoAluno', async () => {
@@ -290,6 +299,7 @@ window.addEventListener('load', () => {
             html = alunosDaEscolaTemplate({ alunos });
             el.html(html);
             router.navigateTo("/alunosDaescola");
+            
         } catch (error) {
             showError(error);
             console.log(error);
@@ -298,6 +308,29 @@ window.addEventListener('load', () => {
             $('.loading').removeClass('loading');
         }
     };
+
+    // Requisição GET, enviar id_aluno para listar pedidos do aluno de uma escola
+    const getListarPedidosDoAlunoDaEscola = async (id_aluno) => {
+
+      try {
+          console.log(id_aluno);
+          // Load Alunos da Escola
+          const response = await api.get(`/pedidosDoAlunoDaEscola/${id_aluno}`);
+          const pedidos  = response.data;
+          console.log(pedidos);
+          // Display Pedidos do Aluno
+          html = pedidosDoAlunoDaEscolaTemplate({ pedidos });
+          el.html(html);
+          router.navigateTo("/pedidosDoAlunoDaEscola");
+          
+      } catch (error) {
+          showError(error);
+          console.log(error);
+      } finally {
+          // Remove loader status
+          $('.loading').removeClass('loading');
+      }
+  };
     
     //==========================================================
     // CADASTRO DO ALUNO
