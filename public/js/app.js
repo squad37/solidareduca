@@ -8,7 +8,10 @@ window.addEventListener('load', () => {
     const errorTemplate = Handlebars.compile($('#error-template').html());
     const rankingTemplate = Handlebars.compile($('#ranking-template').html());
     const cadastroTemplate = Handlebars.compile($('#cadastro-template').html());
+    const cadastroAlunoTemplate = Handlebars.compile($('#cadastroAluno-template').html());
+    const cadastroDoadorTemplate = Handlebars.compile($('#cadastroDoador-template').html());
     const sobreTemplate = Handlebars.compile($('#sobre-template').html());
+    const alunosDaEscolaTemplate = Handlebars.compile($('#alunosDaEscola-template').html());
 
     // Router Declaration
     const router = new Router({
@@ -25,7 +28,7 @@ window.addEventListener('load', () => {
 
     // Instantiate api handler
     const api = axios.create({
-        baseURL: 'http://localhost:3000/api',
+        baseURL: 'http://127.0.0.1:3000/api',
         timeout: 5000,
     });
 
@@ -38,7 +41,11 @@ window.addEventListener('load', () => {
 
     // Display Error Banner
     const showError = (error) => {
-        const { title, message } = error.response.data;
+        console.log(error);
+        if (error.hasOwnProperty('data')){
+            const { title, message } = error.response.data;
+        }
+
         const html = errorTemplate({ color: 'red', title, message });
         el.html(html);
     };
@@ -50,13 +57,19 @@ window.addEventListener('load', () => {
         el.html(html);
         try {
             // Load Escolas Ranking
+            //verificar se consegue usar o JSON dentro do template
+            // this.JSON = JSON;
             const response = await api.get('/escolas');
             const escolas  = response.data;
-            console.log("escolas");
-            console.log(escolas);
             // Display Escolas Ranking Table
             html = rankingTemplate({ escolas });
             el.html(html);
+            // Specify Submit Handler
+
+            $('.alunosEscola').click( function(){
+                const id_escola = this.dataset.json;
+                getListarAlunosDaEscola(id_escola);
+            });
         } catch (error) {
             showError(error);
         } finally {
@@ -65,8 +78,15 @@ window.addEventListener('load', () => {
         }
     });
 
-    router.add('/cadastro', async () => {
-        let html = cadastroTemplate();
+    //Rota do cadastro
+    router.add('/cadastro', () => {
+      let html = cadastroTemplate();
+      el.html(html);
+    });
+
+    //Rota do cadastro do aluno
+    router.add('/cadastroAluno', async () => {
+        let html = cadastroAlunoTemplate();
         el.html(html);
         try {
             // Load Escolas
@@ -75,7 +95,7 @@ window.addEventListener('load', () => {
             console.log("escolas");
             console.log(escolas);
             // Display Escolas select options
-            html = cadastroTemplate({ escolas });
+            html = cadastroAlunoTemplate({ escolas });
             el.html(html);
         } catch (error) {
             showError(error);
@@ -106,9 +126,52 @@ window.addEventListener('load', () => {
           }
     });
 
+    //Rota do cadastro do doador
+    router.add('/cadastroDoador', async () => {
+      let html = cadastroDoadorTemplate();
+      el.html(html);
+      try {
+          // Load Escolas CÒDIGO ÚTIL APENAS PARA NÂO DA ERRO AO ENTRAR NO PRÒXIMO TRY CATCH
+          const response = await api.get('/escolas');
+          const escolas  = response.data;
+          console.log("escolas");
+          console.log(escolas);
+          // Display Escolas select options
+          //html = cadastroDoadorTemplate({ escolas });
+          //el.html(html);
+      } catch (error) {
+          showError(error);
+      } finally {
+          // Remove loader status
+          $('.loading').removeClass('loading');
+      }
+        try {
+            $('.loading').removeClass('loading');
+            // Validate Form Inputs
+            $('.ui.form').form({
+              fields: {
+                nome: 'empty',
+                email: 'empty',
+                cpf: 'empty',
+                uf: 'empty',
+                cep: 'empty',
+                endereco: 'empty',
+              },
+            });
+            // Specify Submit Handler
+            $('.submit').click(cadastrarDoadorHandler);
+          } catch (error) {
+            showError(error);
+          }
+  });
+
     router.add('/sobre', () => {
         let html = sobreTemplate();
         el.html(html);
+    });
+
+    router.add('/alunosDaescola', async () => {
+
     });
 
     // Navigate app to current url
@@ -133,7 +196,31 @@ window.addEventListener('load', () => {
         router.navigateTo(path);
     });
     
+    // Requisição GET, enviar id_escola para listar alunos
+    const getListarAlunosDaEscola = async (id_escola) => {
 
+        try {
+            console.log(id_escola);
+            // Load Alunos da Escola
+            const response = await api.get(`/alunosDaescola/${id_escola}`);
+            const alunos  = response.data;
+            console.log(alunos);
+            // Display Alunos da Escola
+            html = alunosDaEscolaTemplate({ alunos });
+            el.html(html);
+            router.navigateTo("/alunosDaescola");
+        } catch (error) {
+            showError(error);
+            console.log(error);
+        } finally {
+            // Remove loader status
+            $('.loading').removeClass('loading');
+        }
+    };
+    
+    //==========================================================
+    // CADASTRO DO ALUNO
+    //=========================================================
     // Requisição POST, cadastrar aluno
     const getCadastrarAlunoResults = async () => {
         // Extract form data
@@ -160,7 +247,6 @@ window.addEventListener('load', () => {
         const headers = new Headers({
             "Content-Type":  "application/json",
             "Accept": "application/json",
-            "Access_token": `${id_escola}`,
             "id_escola": `${id_escola}`
           });
 
@@ -175,12 +261,22 @@ window.addEventListener('load', () => {
           aluno, httpOptions)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
+            /*Comentando informação para aparecer no campo resultCadastro em index.html
+            //Mensagem de confirmação de cadastro
+            $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
+            */
+           alert(`CADASTRO REALIZDO COM SUCESSO`);
+            router.navigateTo(window.location.pathname);
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
+            /*Comentando informação para aparecer no campo resultCadastro em index.html
+            //Mensagem de erro de cadastro
+            $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+            */
+            alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
           });
-          //Mensagem de confirmação de cadastro
-          $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
+          
 
 
         } catch (error) {
