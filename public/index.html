@@ -42,23 +42,6 @@
         <h1 class="ui header">Ranking</h1>
         <hr>
         <div class="ui loading basic segment">
-            <!--<div class="ui horizontal list">-->
-                <!--<div class="item">-->
-                    <!--<i class="calendar alternate outline icon"></i>-->
-                    <!--<div class="content">-->
-                        <!--<div class="ui sub header">Data</div>-->
-                        <!--<span>{{date}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<i class="money bill alternate outline icon"></i>-->
-                    <!--<div class="content">-->
-                        <!--<div class="ui sub header">Base</div>-->
-                        <!--<span>{{base}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <table class="ui celled striped selectable inverted table">
                 <thead>
                 <tr>
@@ -66,16 +49,20 @@
                     <th>Endereço</th>
                     <th>Pontos</th>
                     <th>Parceira</th>
+                    <th>Alunos</th>
                 </tr>
                 </thead>
-                <tbody>
                 {{#each escolas}}
                 <tr>
-                    <!--<td>{{@key}}</td>-->
                     <td>{{this.nome}}</td>
                     <td>{{this.endereco}}</td>
                     <td>{{this.pontos}}</td>
                     <td>{{this.parceira}}</td>
+                    <td>
+                    <button class="ui primary button alunosEscola" data-json="{{this.id}}">
+                        Ver alunos
+                    </button>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
@@ -83,9 +70,28 @@
         </div>
     </script>
 
-    <!-- Exchange Conversion Template -->
+    <!-- Cadastro Template -->
     <script id="cadastro-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Cadastro</h1>
+        <h1 class="ui header">Quem vamos cadastrar?</h1>
+        <hr>
+        <div class="ui basic segment">
+            
+            <a class="item" href="/cadastroAluno">
+                
+                <label style="font-size: 25px;">Aluno</label>
+            </a>
+            <br>
+            <br>
+            <a class="item" href="/cadastroDoador">
+                
+                <label style="font-size: 25px;">Doador</label>
+            </a>
+        </div>
+    </script>
+
+    <!-- Cadastro do aluno Template -->
+    <script id="cadastroAluno-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Cadastro do Aluno</h1>
         <hr>
         <div class="ui basic loading segment">
             <form class="ui form">
@@ -108,7 +114,7 @@
                         <br>
                         <div class="field">
                             <label>UF do Estado</label>
-                            <select class="ui dropdown" name="estados_brasileiros" id="estados_brasileiros">
+                            <select class="ui dropdown" name="uf" id="uf">
                                 <option value=""></option>
                                 <option value="AC">Acre</option>
 	                            <option value="AL">Alagoas</option>
@@ -158,42 +164,138 @@
                         <div class="field">
                             <label>Escola</label>
                             <!--<input >-->
-                            <select class="ui dropdown" name="escola" id="escola">
+                            <select class="ui dropdown" name="id_escola" id="id_escola">
                                 <option value="">Selecione a Escola</option>
                                 {{#each escolas}}
-                                <!--<option>{{@key}}</option>-->
                                 <option value="{{this.id}}">{{this.nome}}</option>
                                 {{/each}}
                             </select>
-                            <input type="hidden" value="" name="id_escola" id="id_escola">
                         </div>
                     </div>
-                    <!--<div class="field">-->
-                        <!--<label>To</label>-->
-                        <!--<select class="ui dropdown" name="to" id="to">-->
-                            <!--<option value="">Select Currency</option>-->
-                            <!--{{#each symbols}}-->
-                            <!--<option value="{{@key}}">{{this}}</option>-->
-                            <!--{{/each}}-->
-                        <!--</select>-->
-                    <!--</div>-->
+                </div>
+                <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
+                <div id="result-segment" class="ui center aligned segment">
+                    <h2 id="resultCadastro" class="ui header">
+                    </h2>
+                </div>
+                 -->
+                <div class="ui primary submit button">Cadastrar</div>
+                <div class="ui error message"></div>
+            </form>
+            <br>
+        </div>
+    </script>
+
+     <!-- Cadastro do doador Template -->
+     <script id="cadastroDoador-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Cadastro do Doador</h1>
+        <hr>
+        <div class="ui basic loading segment">
+            <form class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <div class="field">
+                            <label>Nome</label>
+                            <input type="text" name="nome" id="nome" placeholder="Nome">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>E-mail</label>
+                            <input type="text" name="email" id="email" placeholder="E-mail">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>CPF</label>
+                            <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>UF do Estado</label>
+                            <select class="ui dropdown" name="uf" id="uf">
+                                <option value=""></option>
+                                <option value="AC">Acre</option>
+	                            <option value="AL">Alagoas</option>
+	                            <option value="AP">Amapá</option>
+	                            <option value="AM">Amazonas</option>
+	                            <option value="BA">Bahia</option>
+	                            <option value="CE">Ceará</option>
+	                            <option value="DF">Distrito Federal</option>
+	                            <option value="ES">Espírito Santo</option>
+	                            <option value="GO">Goiás</option>
+	                            <option value="MA">Maranhão</option>
+	                            <option value="MT">Mato Grosso</option>
+	                            <option value="MS">Mato Grosso do Sul</option>
+	                            <option value="MG">Minas Gerais</option>
+	                            <option value="PA">Pará</option>
+	                            <option value="PB">Paraíba</option>
+	                            <option value="PR">Paraná</option>
+	                            <option value="PE">Pernambuco</option>
+	                            <option value="PI">Piauí</option>
+	                            <option value="RJ">Rio de Janeiro</option>
+	                            <option value="RN">Rio Grande do Norte</option>
+	                            <option value="RS">Rio Grande do Sul</option>
+	                            <option value="RO">Rondônia</option>
+	                            <option value="RR">Roraima</option>
+	                            <option value="SC">Santa Catarina</option>
+	                            <option value="SP">São Paulo</option>
+	                            <option value="SE">Sergipe</option>
+	                            <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>CEP</label>
+                            <input type="text" name="cep" id="cep" placeholder="CEP">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Endereço</label>
+                            <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                        </div>
+                    </div>
                 </div>
                 <div class="ui primary submit button">Cadastrar</div>
                 <div class="ui error message"></div>
             </form>
             <br>
-            <!--<div id="result-segment" class="ui center aligned segment">-->
-                <!--<h2 id="result" class="ui header">-->
-                    <!--0.00-->
-                <!--</h2>-->
-            <!--</div>-->
         </div>
     </script>
 
-    <!-- Historical Rates Template -->
+
+    <!-- Sobre Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
         <hr>
+    </script>
+
+    <!-- Alunos de uma escola Template -->
+    <script id="alunosDaEscola-template" type="text/x-handlebars-template">
+
+        <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
+        <hr>
+        <div class="ui loading basic segment">
+            <table class="ui celled striped selectable inverted table">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Cep</th>
+                    <th>Uf</th>
+                    <th>Nome Responsável</th>
+                </tr>
+                </thead>
+                {{#each alunos}}
+                <tr>
+                    <td>{{this.nome}}</td>
+                    <td>{{this.endereco}}</td>
+                    <td>{{this.cep}}</td>
+                    <td>{{this.uf}}</td>
+                    <td>{{this.nome_responsavel}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
     </script>
     <!-- Application Root -->
     <div id="app"></div>
