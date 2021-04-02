@@ -67,7 +67,6 @@ window.addEventListener('load', () => {
             // Specify Submit Handler
 
             $('.alunosEscola').click( function(){
-
                 const id_escola = this.dataset.json;
                 getListarAlunosDaEscola(id_escola);
             });
@@ -153,10 +152,10 @@ window.addEventListener('load', () => {
               fields: {
                 nome: 'empty',
                 email: 'empty',
-                cpf: 'empty', 
+                cpf: 'empty',
                 uf: 'empty',
                 cep: 'empty',
-                endereco: 'empty', 
+                endereco: 'empty',
               },
             });
             // Specify Submit Handler
@@ -172,7 +171,7 @@ window.addEventListener('load', () => {
     });
 
     router.add('/alunosDaescola', async () => {
-     
+
     });
 
     // Navigate app to current url
@@ -203,8 +202,7 @@ window.addEventListener('load', () => {
         try {
             console.log(id_escola);
             // Load Alunos da Escola
-            const response = await api_solidareduca.get(`/alunos/${id_escola}`);
-            console.log(response);
+            const response = await api.get(`/alunosDaescola/${id_escola}`);
             const alunos  = response.data;
             console.log(alunos);
             // Display Alunos da Escola
@@ -282,7 +280,7 @@ window.addEventListener('load', () => {
 
 
         } catch (error) {
-          showError(error);
+          //showError(error);
         } finally {
           $('#result-segment').removeClass('loading');
         }
@@ -301,73 +299,8 @@ window.addEventListener('load', () => {
         }
         return true;
       };
-
-      //==========================================================
-      // CADASTRO DO DOADOR
-      //=========================================================
-      // Requisição POST, cadastrar doador
-    const getCadastrarDoadorResults = async () => {
-      // Extract form data
-      const nome = $('#nome').val();
-      const email = $('#email').val(); 
-      const cpf = $('#cpf').val(); 
-      const uf = $('#uf').val(); 
-      const cep  = $('#cep').val();
-      const endereco  = $('#endereco').val(); 
-
-      const doador = {
-          "nome": `${nome}`,
-          "email": `${email}`,
-          "cpf": `${cpf}`,
-          "uf": `${uf}`,
-          "cep": `${cep}`,
-          "endereco": `${endereco}`
-      };
-
-      // Send post data to Express(proxy) server
-      try {
-        const response = await api_solidareduca.post(`/doadores`, 
-        doador)
-        .then((res) => {
-          console.log("RESPONSE RECEIVED: ", res);
-          /*Comentando informação para aparecer no campo resultCadastro em index.html
-          //Mensagem de confirmação de cadastro
-          $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
-          */
-         alert(`CADASTRO REALIZDO COM SUCESSO`);
-          router.navigateTo(window.location.pathname);
-        })
-        .catch((err) => {
-          console.log("AXIOS ERROR: ", err);
-          /*Comentando informação para aparecer no campo resultCadastro em index.html
-          //Mensagem de erro de cadastro
-          $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
-          */
-          alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
-        });
-        
-
-
-      } catch (error) {
-        showError(error);
-      } finally {
-        $('#result-segment').removeClass('loading');
-      }
-    };
-
-      // Doador cadastro Button Click Event
-      const cadastrarDoadorHandler = () => {
-        if ($('.ui.form').form('is valid')) {
-          // hide error message
-          $('.ui.error.message').hide();
-          // Post to Express server
-          $('#result-segment').addClass('loading');
-          getCadastrarDoadorResults();
-          // Prevent page from submitting to server
-          return false;
-        }
-        return true;
-      };
+      
+      
       
 });
 
