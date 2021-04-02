@@ -1,4 +1,4 @@
-const { getEscolas, getAlunos, cadastrarAluno } = require('./lib/api-solidareduca');
+const { getEscolas, getAlunos, cadastrarAluno, getAlunosDaEscola } = require('./lib/api-solidareduca');
 
 require('dotenv').config(); // read .env files
 const bodyParser = require('body-parser');
@@ -63,14 +63,15 @@ app.get('/api/alunos',async (req, res) => {
  });
 
  //Procurar por alunos de uma única escola
-app.get('/api/alunosDaescola',async (req, res) => {
+app.get('/api/alunosDaescola/:id_escola', async (req,res) => {
     try{
-        console.log(req);
-        const { id_escola } = "";
+        const  id_escola  = req.params.id_escola;
         const data = await getAlunosDaEscola(id_escola);
         res.setHeader('Content-Type', 'application/json');
         res.send(data);
     } catch (error) {
+        console.log("errochamadalocal");
+        console.log(error);
         errorHandler(error, req, res);
     }
  });
@@ -106,8 +107,8 @@ app.listen(port, () => {
 
 // Test Escolas Endpoint
 // const test = async() => {
-//     const data = await getAlunos(`cbee6e2a-b526-4b35-86d1-4b2d927b7f22`);
+//     const data = await getAlunos(`df177b49-d371-423b-b81d-082d92fd1c48`);
 //     console.log(data);
 // };
-//
+
 // test();

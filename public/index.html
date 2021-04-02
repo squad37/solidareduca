@@ -175,7 +175,8 @@
 
     <!-- Alunos de uma escola Template -->
     <script id="alunosDaEscola-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Alunos da escola {{escola.nome}} </h1>
+        {{log alunos}}
+        <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
         <hr>
         <div class="ui loading basic segment">
             <table class="ui celled striped selectable inverted table">

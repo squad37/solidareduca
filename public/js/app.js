@@ -65,7 +65,6 @@ window.addEventListener('load', () => {
             // Specify Submit Handler
 
             $('.alunosEscola').click( function(){
-
                 const id_escola = this.dataset.json;
                 getListarAlunosDaEscola(id_escola);
             });
@@ -125,10 +124,7 @@ window.addEventListener('load', () => {
 
     router.add('/alunosDaescola', async (id_escola) => {
         try{
-            const response = await api.get(`/alunos/${id_escola}`);
-            const alunos  = response.data;
-            let html = alunosDaEscolaTemplate({alunos});
-            el.html(html);
+
         } catch (error){
             showError(error);
             console.log(error);
@@ -166,12 +162,11 @@ window.addEventListener('load', () => {
         try {
             console.log(id_escola);
             // Load Alunos da Escola
-            const response = await api_solidareduca.get(`/alunos/${id_escola}`);
-            console.log(response);
-            const alunos  = response;
+            const response = await api.get(`/alunosDaescola/${id_escola}`);
+            const alunos  = response.data;
             console.log(alunos);
             // Display Alunos da Escola
-            html = alunosDaEscolaTemplate({ alunos });
+            html = alunosDaEscolaTemplate( {alunos} );
             el.html(html);
             router.navigateTo("/alunosDaescola");
         } catch (error) {
