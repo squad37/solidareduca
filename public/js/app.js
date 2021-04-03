@@ -16,6 +16,7 @@ window.addEventListener('load', () => {
     const cadastrarPedidoTemplate = Handlebars.compile($('#cadastrarPedido-template').html());
     const pedidosDoAlunoDaEscolaTemplate = Handlebars.compile($('#pedidosDoAlunoDaEscola-template').html());
     const autenticacaoDoadorTemplate = Handlebars.compile($('#autenticacaoDoador-template').html());
+    const doarPedidoTemplate = Handlebars.compile($('#doarPedido-template').html());
     
     // Router Declaration
     const router = new Router({
@@ -303,6 +304,38 @@ window.addEventListener('load', () => {
       // Remove loader status
       $('.loading').removeClass('loading');
       getAutenticarDoador();
+      
+    });
+    
+    router.add('/doarPedido', async () => {
+      let html = doarPedidoTemplate();
+      el.html(html);
+      // Remove loader status
+      $('.loading').removeClass('loading');
+      try {
+          // Load Escolas CÒDIGO ÚTIL APENAS PARA NÂO DA ERRO AO ENTRAR NO PRÒXIMO TRY CATCH
+          const response = await api.get('/escolas');
+      } catch (error) {
+          showError(error);
+      } finally {
+          // Remove loader status
+          $('.loading').removeClass('loading');
+      }
+        try {
+            $('.loading').removeClass('loading');
+            // Validate Form Inputs
+            $('.ui.form').form({
+              fields: {
+                doador_anonimo: 'empty',
+                local_entrega: 'empty',
+                previsao_entrega: 'empty'
+              },
+            });
+            // Specify Submit Handler
+            $('.submit').click(doarPedidoHandler);
+          } catch (error) {
+            showError(error);
+          }
       
     });
 
@@ -719,6 +752,66 @@ window.addEventListener('load', () => {
           // Post to Express server
           $('#result-segment').addClass('loading');
           getLogarDoadorResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
+
+       // Requisição POST, autenticar doador
+    const getDoarPedidoResults = async () => {
+      // Extract form data
+      const id_pedido = $('#id_pedido').val(); 
+      const id_doador = $('#id_doador').val();
+      const doador_anonimo = $('#doador_anonimo').val(); 
+      const local_entrega = $('#local_entrega').val();
+      const endereco_entrega = $('#endereco_entrega').val(); 
+      const previsao_entrega = $('#previsao_entrega').val();
+
+      const pedido = {
+          "id_pedido": `${id_pedido}`,
+          "id_doador": `${id_doador}`,
+          "doador_anonimo": `${doador_anonimo}`,
+          "local_entrega": `${local_entrega}`,
+          "endereco_entrega": `${endereco_entrega}`,
+          "previsao_entrega": `${previsao_entrega}`
+      };
+      
+      
+      // Send post data to Express(proxy) server
+      try {
+        const response = await api_solidareduca.put(`/pedidos/${id_pedido}/doador-encontrado`, 
+        pedido)
+        .then((res) => {
+          console.log("RESPONSE RECEIVED: ", res);
+          const pedido  = res.data;
+          console.log(pedido);
+
+          alert("DOAÇÃO CONFIRMADA");
+          router.navigateTo("/");
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+          //alert(`Dados não encontrados, tente novamente!`);
+        });
+        
+
+
+      } catch (error) {
+        //showError(error);
+      } finally {
+        $('#result-segment').removeClass('loading');
+      }
+    };
+
+      // Handle Logar Doador Click Event
+      const doarPedidoHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getDoarPedidoResults();
           // Prevent page from submitting to server
           return false;
         }
