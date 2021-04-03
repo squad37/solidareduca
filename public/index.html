@@ -496,14 +496,14 @@
                             <label>Quando pretende entregar está doação?</label>
                             <!--<input >-->
                             <input type="date" name="previsao_entrega" id="previsao_entrega">
-                            <input type="hidden" name="id_pedido" id="id_pedido" value="">
-                            <input type="hidden" name="id_doador" id="id_doador" value="">
-                            <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="">
-                            <input type="hidden" name="endereco_entrega_doador" id="endereco_entrega_doador" value="">
+                            <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
+                            <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
+                            <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
+                            <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
                         </div>
                     </div>
                 </div>
-                <div class="ui primary submit button">Logar</div>
+                <div class="ui primary submit button">Confirmar Doação</div>
                 <div class="ui error message"></div>
             </form>
             <br>

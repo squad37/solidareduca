@@ -192,7 +192,7 @@ window.addEventListener('load', () => {
       $('.fazerDoacao').click( function(){
          const id_pedido = this.dataset.json;
          // Transformar o objeto em string e salvar em localStorage
-         localStorage.setItem('pedido', JSON.stringify({"id_pedido": `${id_pedido}`}));
+         localStorage.setItem('pedido_aSerDoado', JSON.stringify({"id_pedido": `${id_pedido}`}));
 
         router.navigateTo("autenticacaoDoador");
         
@@ -311,7 +311,20 @@ window.addEventListener('load', () => {
     });
     
     router.add('/doarPedido', async () => {
-      let html = doarPedidoTemplate();
+      // Receber a string do LocalStorage
+      let pedido_aSerDoado = localStorage.getItem('pedido_aSerDoado');
+      // transformar em objeto novamente
+      let pedido_aSerDoadoObj = JSON.parse(pedido_aSerDoado);
+      // Receber a string do LocalStorage
+      let pedidos_do_aluno = localStorage.getItem('pedidos_do_aluno');
+      // transformar em objeto novamente
+      let pedidos_do_alunoObj = JSON.parse(pedidos_do_aluno);
+       // Receber a string do LocalStorage
+      let doador = localStorage.getItem('doador');
+      // transformar em objeto novamente
+      let doadorObj = JSON.parse(doador);
+
+      let html = doarPedidoTemplate({ pedido_aSerDoadoObj, pedidos_do_alunoObj, doadorObj });
       el.html(html);
       // Remove loader status
       $('.loading').removeClass('loading');
@@ -396,6 +409,11 @@ window.addEventListener('load', () => {
           const response = await api.get(`/pedidosDoAlunoDaEscola/${id_aluno}`);
           const pedidos  = response.data;
           console.log(pedidos);
+
+          //Salvar objeto com as informações desse aluno, para pegar os dados de endereço do localStorage para cadastrar doação em doarPedido
+          // Transformar o objeto em string e salvar em localStorage
+          localStorage.setItem('pedidos_do_aluno', JSON.stringify(pedidos));
+
           // Display Pedidos do Aluno
           html = pedidosDoAlunoDaEscolaTemplate({ pedidos });
           el.html(html);
@@ -768,9 +786,15 @@ window.addEventListener('load', () => {
       const id_doador = $('#id_doador').val();
       const doador_anonimo = $('#doador_anonimo').val(); 
       const local_entrega = $('#local_entrega').val();
-      const endereco_entrega = $('#endereco_entrega').val(); 
+      const endereco_entrega_aluno = $('#endereco_entrega_aluno').val();
+      const endereco_entrega_escola = $('#endereco_entrega_escola').val();  
       const previsao_entrega = $('#previsao_entrega').val();
-
+      var endereco_entrega = "";
+      if(local_entrega == "Escola"){
+        endereco_entrega = endereco_entrega_escola;
+      }else{
+        endereco_entrega = endereco_entrega_aluno;
+      }
       const pedido = {
           "id_pedido": `${id_pedido}`,
           "id_doador": `${id_doador}`,
