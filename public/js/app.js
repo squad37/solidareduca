@@ -128,7 +128,8 @@ window.addEventListener('load', () => {
                 endereco: 'empty', 
                 nome_responsavel: 'empty', 
                 id_escola: 'empty',
-                senha: 'empty'
+                senha: 'empty',
+                telefone: 'empty'
               },
             });
             // Specify Submit Handler
@@ -169,6 +170,7 @@ window.addEventListener('load', () => {
                 cep: 'empty',
                 endereco: 'empty',
                 senha: 'empty',
+                telefone: 'empty'
               },
             });
             // Specify Submit Handler
@@ -491,6 +493,7 @@ window.addEventListener('load', () => {
         const nome_responsavel = $('#nome_responsavel').val();
         const id_escola  = $('#id_escola').val();
         const senha = $('#senha').val();
+        const telefone = $('#telefone').val();
 
         const aluno = {
             "nome": `${nome}`,
@@ -501,7 +504,8 @@ window.addEventListener('load', () => {
             "endereco": `${endereco}`,
             "nome_responsavel": `${nome_responsavel}`,
             "id_escola": `${id_escola}`,
-            "senha": `${senha}`
+            "senha": `${senha}`,
+            "telefone": `${telefone}`
         };
 
         const headers = new Headers({
@@ -521,19 +525,11 @@ window.addEventListener('load', () => {
           aluno, httpOptions)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
-            /*Comentando informação para aparecer no campo resultCadastro em index.html
-            //Mensagem de confirmação de cadastro
-            $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
-            */
            alert(`CADASTRO REALIZDO COM SUCESSO`);
             router.navigateTo(window.location.pathname);
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
-            /*Comentando informação para aparecer no campo resultCadastro em index.html
-            //Mensagem de erro de cadastro
-            $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
-            */
             alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
           });
           
@@ -573,6 +569,7 @@ window.addEventListener('load', () => {
       const cep  = $('#cep').val();
       const endereco  = $('#endereco').val(); 
       const senha = $('#senha').val();
+      const telefone = $('#telefone').val();
 
       const doador = {
           "nome": `${nome}`,
@@ -581,7 +578,8 @@ window.addEventListener('load', () => {
           "uf": `${uf}`,
           "cep": `${cep}`,
           "endereco": `${endereco}`,
-          "senha": `${senha}`
+          "senha": `${senha}`,
+          "telefone": `${telefone}`
       };
 
       // Send post data to Express(proxy) server
