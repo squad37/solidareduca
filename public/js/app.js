@@ -77,6 +77,10 @@ window.addEventListener('load', () => {
                 const id_escola = this.dataset.json;
                 getListarAlunosDaEscola(id_escola);
             });
+
+            $('.receberDoacao').click( function(){
+              router.navigateTo("autenticacaoAluno");
+          });
         } catch (error) {
             showError(error);
         } finally {
