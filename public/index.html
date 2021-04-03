@@ -171,6 +171,11 @@
                                 {{/each}}
                             </select>
                         </div>
+                        <br>
+                        <div class="field">
+                            <label>Senha</label>
+                            <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                        </div>
                     </div>
                 </div>
                 <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
@@ -252,6 +257,11 @@
                             <label>Endereço</label>
                             <input type="text" name="endereco" id="endereco" placeholder="Endereço">
                         </div>
+                        <br>
+                        <div class="field">
+                            <label>Senha</label>
+                            <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                        </div>
                     </div>
                 </div>
                 <div class="ui primary submit button">Cadastrar</div>
@@ -261,11 +271,96 @@
         </div>
     </script>
 
-
+    
     <!-- Sobre Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
         <hr>
+    </script>
+
+    <!-- Autenticar Aluno Template -->
+    <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Login Aluno</h1>
+        <hr>
+        <div class="ui basic loading segment">
+            <form class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <div class="field">
+                            <label>E-mail</label>
+                            <input type="text" name="email" id="email" placeholder="E-mail">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Senha</label>
+                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui primary submit button">Logar</div>
+                <div class="ui error message"></div>
+            </form>
+            <br>
+        </div>
+    </script>
+
+    <!-- Cadastrar Pedido Template -->
+    <script id="cadastrarPedido-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
+        <hr>
+        <div class="ui basic loading segment">
+            <form class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <div class="field">
+                            <label>Material</label>
+                            <!--<input >-->
+                            <select class="ui dropdown" name="id_material" id="id_material">
+                                <option value="">Selecione o material</option>
+                                {{#each materiais}}
+                                <option value="{{this.id}}">{{this.nome}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Quantidade</label>
+                            <input type="number" name="quantidade" id="quantidade" placeholder="Quantidada do item">
+                        </div>
+                        <div class="field">
+                            <input type="hidden" name="id_aluno" id="id_aluno" value="{{alunoObj.id_aluno}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui primary submit button">Solicitar Pedido</div>
+                <div class="ui error message"></div>
+            </form>
+            <br>
+            <br>
+            <table class="ui celled striped selectable inverted table">
+                <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Quantidade</th>
+                    <th>Local de Entrega</th>
+                    <th>Endereço de Entrega</th>
+                    <th>Situação</th>
+                    <th>Previsão de Entrega</th>
+                </tr>
+                </thead>
+                {{#each pedidos}}
+                <tr>
+                    <td>{{this.material.nome}}</td>
+                    <td>{{this.quantidade}}</td>
+                    <td>{{this.local_entrega}}</td>
+                    <td>{{this.endereco_entrega}}</td>
+                    <td>{{this.situacao}}</td>
+                    <td>{{this.previsao_entrega}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
     </script>
 
     <!-- Alunos de uma escola Template -->
@@ -282,6 +377,7 @@
                     <th>Cep</th>
                     <th>Uf</th>
                     <th>Nome Responsável</th>
+                    <th>Pedidos</th>
                 </tr>
                 </thead>
                 {{#each alunos}}
@@ -291,12 +387,122 @@
                     <td>{{this.cep}}</td>
                     <td>{{this.uf}}</td>
                     <td>{{this.nome_responsavel}}</td>
+                    <td>
+                        <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
+                            Ver materiais pedidos
+                        </button>
+                        </td>
                 </tr>
                 {{/each}}
                 </tbody>
             </table>
         </div>
     </script>
+
+     <!-- Pedidos de um aluno de uma escola Template -->
+     <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
+
+        <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
+        <hr>
+        <div class="ui loading basic segment">
+            <table class="ui celled striped selectable inverted table">
+                <thead>
+                <tr>
+                    <th>Nome do Responsável</th>
+                    <th>Nome do Material</th>
+                    <th>Quantidade</th>
+                    <th>Situação</th>
+                    <th>Doar</th>
+                </tr>
+                </thead>
+                {{#each pedidos}}
+                <tr>
+                    <td>{{this.aluno.nome_responsavel}}</td>
+                    <td>{{this.material.nome}}</td>
+                    <td>{{this.quantidade}}</td>
+                    <td>{{this.situacao}}</td>
+                    <td>
+                        <button class="ui primary button fazerDoacao" data-json="{{this.id}}">
+                            Fazer Doação
+                        </button>
+                        </td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+     <!-- Autenticar Doador Template -->
+     <script id="autenticacaoDoador-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Login Doador</h1>
+        <hr>
+        <div class="ui basic loading segment">
+            <form class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <div class="field">
+                            <label>E-mail</label>
+                            <input type="text" name="email" id="email" placeholder="E-mail">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Senha</label>
+                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui primary submit button">Logar</div>
+                <div class="ui error message"></div>
+            </form>
+            <br>
+        </div>
+    </script>
+
+    <!-- doarPedido Template -->
+    <script id="doarPedido-template" type="text/x-handlebars-template">
+        <h1 class="ui header">Realizar Doação</h1>
+        <hr>
+        <div class="ui basic loading segment">
+            <form class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <div class="field">
+                            <label>Quer ser anônimo nessa doação?</label>
+                            <!--<input >-->
+                            <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
+                                <option value="true">SIM</option>
+                                <option value="false">NÃO</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Onde quer entregar está doação?</label>
+                            <!--<input >-->
+                            <select class="ui dropdown" name="local_entrega" id="local_entrega">
+                                <option value="Residência do Aluno">Residência do Aluno</option>
+                                <option value="Escola">Escola do Aluno</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Quando pretende entregar está doação?</label>
+                            <!--<input >-->
+                            <input type="date" name="previsao_entrega" id="previsao_entrega">
+                            <input type="hidden" name="id_pedido" id="id_pedido" value="">
+                            <input type="hidden" name="id_doador" id="id_doador" value="">
+                            <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="">
+                            <input type="hidden" name="endereco_entrega_doador" id="endereco_entrega_doador" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="ui primary submit button">Logar</div>
+                <div class="ui error message"></div>
+            </form>
+            <br>
+        </div>
+    </script>
+
     <!-- Application Root -->
     <div id="app"></div>
 </div>

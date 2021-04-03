@@ -1,4 +1,4 @@
-const { getEscolas, getAlunos, cadastrarAluno, getAlunosDaEscola } = require('./lib/api-solidareduca');
+const { getEscolas, getAlunos, cadastrarAluno, getAlunosDaEscola, getMateriais, getPedidosDoAluno, getPedidosDoAlunoDaEscola } = require('./lib/api-solidareduca');
 
 require('dotenv').config(); // read .env files
 const bodyParser = require('body-parser');
@@ -62,11 +62,50 @@ app.get('/api/alunos',async (req, res) => {
     }
  });
 
+ //Fetch Materiais
+app.get('/api/materiais',async (req, res) => {
+    try{
+        const data = await getMateriais();
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        errorHandler(error, req, res);
+    }
+ });
+
  //Procurar por alunos de uma única escola
 app.get('/api/alunosDaescola/:id_escola', async (req,res) => {
     try{
         const  id_escola  = req.params.id_escola;
         const data = await getAlunosDaEscola(id_escola);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        console.log("errochamadalocal");
+        console.log(error);
+        errorHandler(error, req, res);
+    }
+ });
+
+  //Procurar por pedidos de um aluno
+app.get('/api/pedidosDoAluno/:id_aluno', async (req,res) => {
+    try{
+        const  id_aluno  = req.params.id_aluno;
+        const data = await getPedidosDoAluno(id_aluno);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        console.log("errochamadalocal");
+        console.log(error);
+        errorHandler(error, req, res);
+    }
+ });
+
+ //Procurar por pedidos de um aluno de uma esocla
+app.get('/api/pedidosDoAlunoDaEscola/:id_aluno', async (req,res) => {
+    try{
+        const  id_aluno  = req.params.id_aluno;
+        const data = await getPedidosDoAlunoDaEscola(id_aluno);
         res.setHeader('Content-Type', 'application/json');
         res.send(data);
     } catch (error) {
