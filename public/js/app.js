@@ -230,6 +230,24 @@ window.addEventListener('load', () => {
     router.add('/cadastrarPedido', async () => {
       let html = cadastrarPedidoTemplate();
       el.html(html);
+      var auxError = false;
+      try {
+        // Receber a string do LocalStorage
+        let alunoString = localStorage.getItem('aluno');
+        // transformar em objeto novamente
+        let alunoObj = JSON.parse(alunoString);
+
+        // Load Pedidos
+        const responsex = await api.get(`/pedidosDoAluno/${alunoObj.id_aluno}`);
+        
+      }catch (error) {
+        
+        auxError = true;
+        
+      }finally {
+        // Remove loader status
+        $('.loading').removeClass('loading');
+      }
       try {
         // Load Materiais
         const response = await api.get('/materiais');
@@ -241,14 +259,20 @@ window.addEventListener('load', () => {
         // transformar em objeto novamente
         let alunoObj = JSON.parse(alunoString);
 
-         // Load Pedidos
-        const response2 = await api.get(`/pedidosDoAluno/${alunoObj.id_aluno}`);
-        const pedidos  = response2.data;
-        console.log(pedidos);
+        if(!auxError){
+          // Load Pedidos
+          const response2 = await api.get(`/pedidosDoAluno/${alunoObj.id_aluno}`);
+          const pedidos  = response2.data;
+          // Display Escolas select options
+          html = cadastrarPedidoTemplate({ materiais, alunoObj, pedidos });
+          el.html(html);
+        }else{
+          // Display Escolas select options
+          html = cadastrarPedidoTemplate({ materiais, alunoObj });
+          el.html(html);
+        }
 
-        // Display Escolas select options
-        html = cadastrarPedidoTemplate({ materiais, alunoObj, pedidos });
-        el.html(html);
+        
     } catch (error) {
         showError(error);
     } finally {
