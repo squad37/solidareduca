@@ -59,11 +59,13 @@ window.addEventListener('load', () => {
             // Load Escolas Ranking
             //verificar se consegue usar o JSON dentro do template
             // this.JSON = JSON;
+
             const response = await api.get('/escolas');
             const escolas  = response.data;
             // Display Escolas Ranking Table
             html = rankingTemplate({ escolas });
             el.html(html);
+            $(".rating").rating({interactive:false});
             // Specify Submit Handler
 
             $('.alunosEscola').click( function(){
@@ -168,6 +170,7 @@ window.addEventListener('load', () => {
     router.add('/sobre', () => {
         let html = sobreTemplate();
         el.html(html);
+        $(".rating").rating();
     });
 
     router.add('/alunosDaescola', async () => {
