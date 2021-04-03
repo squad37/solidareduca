@@ -10,518 +10,539 @@
     <title>SolidarEduca</title>
 </head>
 <body>
-<div class="banner">
-    <button class="btn btn-primary mr-auto" type="button">Quero doar</button>
-    <button class="btn btn-success mr-auto receberDoacao" type="button">Quero receber uma doação</button>
-</div>
-<div class="ui container fluid landing-image">
-    <!-- Navigation Menu -->
-    <div class="ui four item  white menu">
-        <div class="header item">
-           SolidarEduca
-        </div>
-        <a class="item" href="/">
-            Ranking
-        </a>
-        <a class="item" href="/cadastro">
-            Cadastro
-        </a>
-        <a class="item" href="/sobre">
-            Sobre
-        </a>
-    </div>
-    <!-- Error Template -->
-    <script id="error-template" type="text/x-handlebars-template">
-        <div class="ui {{color}} inverted segment" style="height:250px;">
-            <br>
-            <h2 class="ui center aligned icon header">
-                <i class="exclamation triangle icon"></i>
-                <div class="content">
-                    {{title}}
-                    <div class="sub header">{{message}}</div>
-                </div>
-            </h2>
-        </div>
-    </script>
-    <!-- Ranking Template -->
-    <script id="ranking-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Ranking</h1>
-        <hr>
-        <div class="ui loading basic segment">
-            <div class="ui internally celled grid">
-                {{#each escolas}}
-                    <div class="row" style="background-color: white;">
-                        <div class="three wide column">
-                            <div class="image">
-                                <img class="fluid ui image" src="assets/images/escola.jpg">
-                            </div>
-                        </div>
-                        <div class="white thirteen wide column">
-                            <div class="content">
-                                <a class="header" href="#">{{this.nome}}</a>
-                                <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
-                                <div class="meta">
-                                    <a>{{this.endereco}}</a>
-                                </div>
-                                <div class="ui one button" style="background-color: transparent!important;">
-                                    <button class="ui purple button alunosEscola" data-json="{{this.id}}">
-                                        Ver alunos
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
+    <div class="header-topo">
+        <div class="ui header">
+            <img class="image ui" src="assets/images/logo.png">
+            <div class="content">
             </div>
         </div>
-    </script>
-
-    <!-- Cadastro Template -->
-    <script id="cadastro-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Quem vamos cadastrar?</h1>
-        <hr>
-        <div class="ui basic segment">
-            
-            <a class="item" href="/cadastroAluno">
-                
-                <label style="font-size: 25px;">Aluno</label>
+    </div>
+    <div class="banner">
+        <div class="ui content botoes-doar-receber">
+            <div class="ui three column grid">
+                <div class="nine wide column">
+                </div>
+                <div class="three wide column">
+                    <button class="ui button fluid buttonDoar" type="button">Doar</button>
+                </div>
+                <div class="three wide column">
+                    <button class="ui button fluid buttonReceber" type="button">Receber doação</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui container fluid main">
+        <!-- Navigation Menu -->
+        <div class="ui four item  white menu">
+            <div class="header item">
+               SolidarEduca
+            </div>
+            <a class="item" href="/">
+                Ranking
             </a>
-            <br>
-            <br>
-            <a class="item" href="/cadastroDoador">
-                
-                <label style="font-size: 25px;">Doador</label>
+            <a class="item" href="/cadastro">
+                Cadastro
+            </a>
+            <a class="item" href="/sobre">
+                Sobre
             </a>
         </div>
-    </script>
+        <!-- Error Template -->
+        <script id="error-template" type="text/x-handlebars-template">
+            <div class="ui {{color}} inverted segment" style="height:250px;">
+                <br>
+                <h2 class="ui center aligned icon header">
+                    <i class="exclamation triangle icon"></i>
+                    <div class="content">
+                        {{title}}
+                        <div class="sub header">{{message}}</div>
+                    </div>
+                </h2>
+            </div>
+        </script>
+        <!-- Ranking Template -->
+        <script id="ranking-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Ranking</h1>
+            <hr>
+            <div class="ui loading basic segment rankingEscolas">
+                <div class="ui internally celled grid">
+                    {{#each escolas}}
+                        <div class="row cardEscolas" style="background-color: white;">
+                            <div class="three wide column">
+                                <div class="image">
+                                    <img class="fluid ui image" src="assets/images/escola.jpg">
+                                </div>
+                            </div>
+                            <div class="white thirteen wide column">
+                                <div class="content">
+                                    <a class="header" href="#">{{this.nome}}</a>
+                                    <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
+                                    <div class="meta">
+                                        <a>{{this.endereco}}</a>
+                                    </div>
+                                    <div class="ui one button" style="background-color: transparent!important;">
+                                        <button class="ui purple button alunosEscola" data-json="{{this.id}}">
+                                            Ver alunos
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </script>
 
-    <!-- Cadastro do aluno Template -->
-    <script id="cadastroAluno-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Cadastro do Aluno</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+        <!-- Cadastro Template -->
+        <script id="cadastro-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Quem vamos cadastrar?</h1>
+            <hr>
+            <div class="ui basic segment">
+
+                <a class="item" href="/cadastroAluno">
+
+                    <label style="font-size: 25px;">Aluno</label>
+                </a>
+                <br>
+                <br>
+                <a class="item" href="/cadastroDoador">
+
+                    <label style="font-size: 25px;">Doador</label>
+                </a>
+            </div>
+        </script>
+
+        <!-- Cadastro do aluno Template -->
+        <script id="cadastroAluno-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Cadastro do Aluno</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>Nome</label>
-                            <input type="text" name="nome" id="nome" placeholder="Nome">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>CPF</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="CPF">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>UF do Estado</label>
-                            <select class="ui dropdown" name="uf" id="uf">
-                                <option value=""></option>
-                                <option value="AC">Acre</option>
-	                            <option value="AL">Alagoas</option>
-	                            <option value="AP">Amapá</option>
-	                            <option value="AM">Amazonas</option>
-	                            <option value="BA">Bahia</option>
-	                            <option value="CE">Ceará</option>
-	                            <option value="DF">Distrito Federal</option>
-	                            <option value="ES">Espírito Santo</option>
-	                            <option value="GO">Goiás</option>
-	                            <option value="MA">Maranhão</option>
-	                            <option value="MT">Mato Grosso</option>
-	                            <option value="MS">Mato Grosso do Sul</option>
-	                            <option value="MG">Minas Gerais</option>
-	                            <option value="PA">Pará</option>
-	                            <option value="PB">Paraíba</option>
-	                            <option value="PR">Paraná</option>
-	                            <option value="PE">Pernambuco</option>
-	                            <option value="PI">Piauí</option>
-	                            <option value="RJ">Rio de Janeiro</option>
-	                            <option value="RN">Rio Grande do Norte</option>
-	                            <option value="RS">Rio Grande do Sul</option>
-	                            <option value="RO">Rondônia</option>
-	                            <option value="RR">Roraima</option>
-	                            <option value="SC">Santa Catarina</option>
-	                            <option value="SP">São Paulo</option>
-	                            <option value="SE">Sergipe</option>
-	                            <option value="TO">Tocantins</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>CEP</label>
-                            <input type="text" name="cep" id="cep" placeholder="CEP">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Endereço</label>
-                            <input type="text" name="endereco" id="endereco" placeholder="Endereço">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Nome do responsável</label>
-                            <input type="text" name="nome_responsavel" id="nome_responsavel" placeholder="Nome do responsável">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Escola</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="id_escola" id="id_escola">
-                                <option value="">Selecione a Escola</option>
-                                {{#each escolas}}
-                                <option value="{{this.id}}">{{this.nome}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                            <div class="field">
+                                <label>Nome</label>
+                                <input type="text" name="nome" id="nome" placeholder="Nome">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>CPF</label>
+                                <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>UF do Estado</label>
+                                <select class="ui dropdown" name="uf" id="uf">
+                                    <option value=""></option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>CEP</label>
+                                <input type="text" name="cep" id="cep" placeholder="CEP">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Endereço</label>
+                                <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Nome do responsável</label>
+                                <input type="text" name="nome_responsavel" id="nome_responsavel" placeholder="Nome do responsável">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Escola</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="id_escola" id="id_escola">
+                                    <option value="">Selecione a Escola</option>
+                                    {{#each escolas}}
+                                    <option value="{{this.id}}">{{this.nome}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Senha</label>
+                                <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
-                <div id="result-segment" class="ui center aligned segment">
-                    <h2 id="resultCadastro" class="ui header">
-                    </h2>
-                </div>
-                 -->
-                <div class="ui primary submit button">Cadastrar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-        </div>
-    </script>
+                    <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
+                    <div id="result-segment" class="ui center aligned segment">
+                        <h2 id="resultCadastro" class="ui header">
+                        </h2>
+                    </div>
+                     -->
+                    <div class="ui primary submit button">Cadastrar</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+            </div>
+        </script>
 
-     <!-- Cadastro do doador Template -->
-     <script id="cadastroDoador-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Cadastro do Doador</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+         <!-- Cadastro do doador Template -->
+         <script id="cadastroDoador-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Cadastro do Doador</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>Nome</label>
-                            <input type="text" name="nome" id="nome" placeholder="Nome">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>CPF</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="CPF">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>UF do Estado</label>
-                            <select class="ui dropdown" name="uf" id="uf">
-                                <option value=""></option>
-                                <option value="AC">Acre</option>
-	                            <option value="AL">Alagoas</option>
-	                            <option value="AP">Amapá</option>
-	                            <option value="AM">Amazonas</option>
-	                            <option value="BA">Bahia</option>
-	                            <option value="CE">Ceará</option>
-	                            <option value="DF">Distrito Federal</option>
-	                            <option value="ES">Espírito Santo</option>
-	                            <option value="GO">Goiás</option>
-	                            <option value="MA">Maranhão</option>
-	                            <option value="MT">Mato Grosso</option>
-	                            <option value="MS">Mato Grosso do Sul</option>
-	                            <option value="MG">Minas Gerais</option>
-	                            <option value="PA">Pará</option>
-	                            <option value="PB">Paraíba</option>
-	                            <option value="PR">Paraná</option>
-	                            <option value="PE">Pernambuco</option>
-	                            <option value="PI">Piauí</option>
-	                            <option value="RJ">Rio de Janeiro</option>
-	                            <option value="RN">Rio Grande do Norte</option>
-	                            <option value="RS">Rio Grande do Sul</option>
-	                            <option value="RO">Rondônia</option>
-	                            <option value="RR">Roraima</option>
-	                            <option value="SC">Santa Catarina</option>
-	                            <option value="SP">São Paulo</option>
-	                            <option value="SE">Sergipe</option>
-	                            <option value="TO">Tocantins</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>CEP</label>
-                            <input type="text" name="cep" id="cep" placeholder="CEP">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Endereço</label>
-                            <input type="text" name="endereco" id="endereco" placeholder="Endereço">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                            <div class="field">
+                                <label>Nome</label>
+                                <input type="text" name="nome" id="nome" placeholder="Nome">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>CPF</label>
+                                <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>UF do Estado</label>
+                                <select class="ui dropdown" name="uf" id="uf">
+                                    <option value=""></option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>CEP</label>
+                                <input type="text" name="cep" id="cep" placeholder="CEP">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Endereço</label>
+                                <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Senha</label>
+                                <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui primary submit button">Cadastrar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-        </div>
-    </script>
+                    <div class="ui primary submit button">Cadastrar</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+            </div>
+        </script>
 
-    
-    <!-- Sobre Template -->
-    <script id="sobre-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Sobre</h1>
-        <hr>
-        <div class="ui star rating" data-rating="3" interactive="false" data-max-rating="10"></div>
-    </script>
 
-    <!-- Autenticar Aluno Template -->
-    <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Login Aluno</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
-                        <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Senha">
-                        </div>
-                    </div>
-                </div>
-                <div class="ui primary submit button">Logar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-        </div>
-    </script>
+        <!-- Sobre Template -->
+        <script id="sobre-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Sobre</h1>
+            <hr>
+            <div class="ui star rating" data-rating="3" interactive="false" data-max-rating="10"></div>
+        </script>
 
-    <!-- Cadastrar Pedido Template -->
-    <script id="cadastrarPedido-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+        <!-- Autenticar Aluno Template -->
+        <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Login Aluno</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>Material</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="id_material" id="id_material">
-                                <option value="">Selecione o material</option>
-                                {{#each materiais}}
-                                <option value="{{this.id}}">{{this.nome}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Quantidade</label>
-                            <input type="number" name="quantidade" id="quantidade" placeholder="Quantidada do item">
-                        </div>
-                        <div class="field">
-                            <input type="hidden" name="id_aluno" id="id_aluno" value="{{alunoObj.id_aluno}}">
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Senha</label>
+                                <input type="password" name="senha" id="senha" placeholder="Senha">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui primary submit button">Solicitar Pedido</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-            <br>
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Material</th>
-                    <th>Quantidade</th>
-                    <th>Local de Entrega</th>
-                    <th>Endereço de Entrega</th>
-                    <th>Situação</th>
-                    <th>Previsão de Entrega</th>
-                </tr>
-                </thead>
-                {{#each pedidos}}
-                <tr>
-                    <td>{{this.material.nome}}</td>
-                    <td>{{this.quantidade}}</td>
-                    <td>{{this.local_entrega}}</td>
-                    <td>{{this.endereco_entrega}}</td>
-                    <td>{{this.situacao}}</td>
-                    <td>{{this.previsao_entrega}}</td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
+                    <div class="ui primary submit button">Logar</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+            </div>
+        </script>
 
-    <!-- Alunos de uma escola Template -->
-    <script id="alunosDaEscola-template" type="text/x-handlebars-template">
-
-        <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
-        <hr>
-        <div class="ui loading basic segment">
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Endereço</th>
-                    <th>Cep</th>
-                    <th>Uf</th>
-                    <th>Nome Responsável</th>
-                    <th>Pedidos</th>
-                </tr>
-                </thead>
-                {{#each alunos}}
-                <tr>
-                    <td>{{this.nome}}</td>
-                    <td>{{this.endereco}}</td>
-                    <td>{{this.cep}}</td>
-                    <td>{{this.uf}}</td>
-                    <td>{{this.nome_responsavel}}</td>
-                    <td>
-                        <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
-                            Ver materiais pedidos
-                        </button>
-                        </td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
-
-     <!-- Pedidos de um aluno de uma escola Template -->
-     <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
-
-        <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
-        <hr>
-        <div class="ui loading basic segment">
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Nome do Responsável</th>
-                    <th>Nome do Material</th>
-                    <th>Quantidade</th>
-                    <th>Situação</th>
-                    <th>Doar</th>
-                </tr>
-                </thead>
-                {{#each pedidos}}
-                <tr>
-                    <td>{{this.aluno.nome_responsavel}}</td>
-                    <td>{{this.material.nome}}</td>
-                    <td>{{this.quantidade}}</td>
-                    <td>{{this.situacao}}</td>
-                    <td>
-                        <button class="ui primary button fazerDoacao" data-json="{{this.id}}">
-                            Fazer Doação
-                        </button>
-                        </td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
-
-     <!-- Autenticar Doador Template -->
-     <script id="autenticacaoDoador-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Login Doador</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+        <!-- Cadastrar Pedido Template -->
+        <script id="cadastrarPedido-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                            <div class="field">
+                                <label>Material</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="id_material" id="id_material">
+                                    <option value="">Selecione o material</option>
+                                    {{#each materiais}}
+                                    <option value="{{this.id}}">{{this.nome}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Quantidade</label>
+                                <input type="number" name="quantidade" id="quantidade" placeholder="Quantidada do item">
+                            </div>
+                            <div class="field">
+                                <input type="hidden" name="id_aluno" id="id_aluno" value="{{alunoObj.id_aluno}}">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui primary submit button">Logar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-        </div>
-    </script>
+                    <div class="ui primary submit button">Solicitar Pedido</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+                <br>
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Quantidade</th>
+                        <th>Local de Entrega</th>
+                        <th>Endereço de Entrega</th>
+                        <th>Situação</th>
+                        <th>Previsão de Entrega</th>
+                    </tr>
+                    </thead>
+                    {{#each pedidos}}
+                    <tr>
+                        <td>{{this.material.nome}}</td>
+                        <td>{{this.quantidade}}</td>
+                        <td>{{this.local_entrega}}</td>
+                        <td>{{this.endereco_entrega}}</td>
+                        <td>{{this.situacao}}</td>
+                        <td>{{this.previsao_entrega}}</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
 
-    <!-- doarPedido Template -->
-    <script id="doarPedido-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Realizar Doação</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+        <!-- Alunos de uma escola Template -->
+        <script id="alunosDaEscola-template" type="text/x-handlebars-template">
+
+            <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
+            <hr>
+            <div class="ui loading basic segment">
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Cep</th>
+                        <th>Uf</th>
+                        <th>Nome Responsável</th>
+                        <th>Pedidos</th>
+                    </tr>
+                    </thead>
+                    {{#each alunos}}
+                    <tr>
+                        <td>{{this.nome}}</td>
+                        <td>{{this.endereco}}</td>
+                        <td>{{this.cep}}</td>
+                        <td>{{this.uf}}</td>
+                        <td>{{this.nome_responsavel}}</td>
+                        <td>
+                            <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
+                                Ver materiais pedidos
+                            </button>
+                            </td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+         <!-- Pedidos de um aluno de uma escola Template -->
+         <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
+
+            <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
+            <hr>
+            <div class="ui loading basic segment">
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Nome do Responsável</th>
+                        <th>Nome do Material</th>
+                        <th>Quantidade</th>
+                        <th>Situação</th>
+                        <th>Doar</th>
+                    </tr>
+                    </thead>
+                    {{#each pedidos}}
+                    <tr>
+                        <td>{{this.aluno.nome_responsavel}}</td>
+                        <td>{{this.material.nome}}</td>
+                        <td>{{this.quantidade}}</td>
+                        <td>{{this.situacao}}</td>
+                        <td>
+                            <button class="ui primary button fazerDoacao" data-json="{{this.id}}">
+                                Fazer Doação
+                            </button>
+                            </td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+         <!-- Autenticar Doador Template -->
+         <script id="autenticacaoDoador-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Login Doador</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>Quer ser anônimo nessa doação?</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
-                                <option value="true">SIM</option>
-                                <option value="false">NÃO</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Onde quer entregar está doação?</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="local_entrega" id="local_entrega">
-                                <option value="Residência do Aluno">Residência do Aluno</option>
-                                <option value="Escola">Escola do Aluno</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Quando pretende entregar está doação?</label>
-                            <!--<input >-->
-                            <input type="date" name="previsao_entrega" id="previsao_entrega">
-                            <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
-                            <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
-                            <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
-                            <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Senha</label>
+                                <input type="password" name="senha" id="senha" placeholder="Senha">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui primary submit button">Confirmar Doação</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
+                    <div class="ui primary submit button">Logar</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+            </div>
+        </script>
+
+        <!-- doarPedido Template -->
+        <script id="doarPedido-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Realizar Doação</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
+                        <div class="field">
+                            <div class="field">
+                                <label>Quer ser anônimo nessa doação?</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
+                                    <option value="true">SIM</option>
+                                    <option value="false">NÃO</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Onde quer entregar está doação?</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="local_entrega" id="local_entrega">
+                                    <option value="Residência do Aluno">Residência do Aluno</option>
+                                    <option value="Escola">Escola do Aluno</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Quando pretende entregar está doação?</label>
+                                <!--<input >-->
+                                <input type="date" name="previsao_entrega" id="previsao_entrega">
+                                <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
+                                <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
+                                <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
+                                <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui primary submit button">Confirmar Doação</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+            </div>
+        </script>
+
+        <!-- Application Root -->
+        <div id="app"></div>
+    </div>
+    <div class="footer">
+        <div class="content">
+            Todos os direitos reservados
         </div>
-    </script>
-
-    <!-- Application Root -->
-    <div id="app"></div>
-</div>
-
-<!-- JS Library Dependencies -->
-<script src="scripts/jquery/dist/jquery.min.js"></script>
-<script src="scripts/bootstrap/dist/js/bootstrap.js"></script>
-<script src="scripts/semantic-ui-css/semantic.min.js"></script>
-<script src="scripts/axios/dist/axios.min.js"></script>
-<script src="scripts/handlebars/dist/handlebars.min.js"></script>
-<script src="scripts/vanilla-router/dist/vanilla-router.min.js"></script>
-<script src="assets/js/index.js"></script>
-<script src="js/app.js"></script>
+    </div>
+    <!-- JS Library Dependencies -->
+    <script src="scripts/jquery/dist/jquery.min.js"></script>
+    <script src="scripts/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="scripts/semantic-ui-css/semantic.min.js"></script>
+    <script src="scripts/axios/dist/axios.min.js"></script>
+    <script src="scripts/handlebars/dist/handlebars.min.js"></script>
+    <script src="scripts/vanilla-router/dist/vanilla-router.min.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
