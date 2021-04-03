@@ -339,8 +339,17 @@ window.addEventListener('load', () => {
       let doador = localStorage.getItem('doador');
       // transformar em objeto novamente
       let doadorObj = JSON.parse(doador);
-
-      let html = doarPedidoTemplate({ pedido_aSerDoadoObj, pedidos_do_alunoObj, doadorObj });
+      var pedidos = "";
+      try {
+        
+          // Load Pedidos
+          const response = await api_solidareduca.get(`/pedidos/doador/${doadorObj.id_doador}`);
+          pedidos  = response.data;
+          console.log(pedidos);
+    } catch (error) {
+        //showError(error);
+    } 
+      let html = doarPedidoTemplate({ pedido_aSerDoadoObj, pedidos_do_alunoObj, doadorObj, pedidos });
       el.html(html);
       // Remove loader status
       $('.loading').removeClass('loading');
