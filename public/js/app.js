@@ -15,6 +15,7 @@ window.addEventListener('load', () => {
     const autenticacaoAlunoTemplate = Handlebars.compile($('#autenticacaoAluno-template').html());
     const cadastrarPedidoTemplate = Handlebars.compile($('#cadastrarPedido-template').html());
     const pedidosDoAlunoDaEscolaTemplate = Handlebars.compile($('#pedidosDoAlunoDaEscola-template').html());
+    const autenticacaoDoadorTemplate = Handlebars.compile($('#autenticacaoDoador-template').html());
     
     // Router Declaration
     const router = new Router({
@@ -160,6 +161,7 @@ window.addEventListener('load', () => {
                 uf: 'empty',
                 cep: 'empty',
                 endereco: 'empty',
+                senha: 'empty',
               },
             });
             // Specify Submit Handler
@@ -183,7 +185,14 @@ window.addEventListener('load', () => {
     }); 
 
     router.add('/pedidosDoAlunoDaEscola', async () => {
+      $('.fazerDoacao').click( function(){
+         const id_pedido = this.dataset.json;
+         // Transformar o objeto em string e salvar em localStorage
+         localStorage.setItem('pedido', JSON.stringify({"id_pedido": `${id_pedido}`}));
 
+        router.navigateTo("autenticacaoDoador");
+        
+      });
     });
 
     router.add('/autenticacaoAluno', async () => {
@@ -264,6 +273,15 @@ window.addEventListener('load', () => {
       }
     });
 
+    router.add('/autenticacaoDoador', async () => {
+      let html = autenticacaoDoadorTemplate();
+      el.html(html);
+      // Remove loader status
+      $('.loading').removeClass('loading');
+      getAutenticarDoador();
+      
+    });
+
     // Navigate app to current url
     router.navigateTo(window.location.pathname);
 
@@ -330,6 +348,40 @@ window.addEventListener('load', () => {
           // Remove loader status
           $('.loading').removeClass('loading');
       }
+  };
+
+  //===================================================
+  // AUTENTICAR DOADOR
+  const getAutenticarDoador = async () => {
+    let html = autenticacaoDoadorTemplate();
+    el.html(html);//código não usado
+    try {
+      // Load Escolas
+      const response = await api.get('/escolas');
+      const escolas  = response.data;
+      console.log(escolas);
+      
+  } catch (error) {
+      showError(error);
+  } finally {
+      // Remove loader status
+      $('.loading').removeClass('loading');
+  }//código usado
+  try {
+    
+      $('.loading').removeClass('loading');
+      // Validate Form Inputs
+      $('.ui.form').form({
+        fields: {
+          email: 'empty',
+          senha: 'empty'
+        },
+      });
+      // Specify Submit Handler
+      $('.submit').click(logarDoadorHandler);
+    } catch (error) {
+      showError(error);
+    }
   };
     
     //==========================================================
@@ -410,6 +462,71 @@ window.addEventListener('load', () => {
           // Post to Express server
           $('#result-segment').addClass('loading');
           getCadastrarAlunoResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
+
+      //==========================================================
+    // CADASTRO DO DOADOR
+    //=========================================================
+    // Requisição POST, cadastrar aluno
+    const getCadastrarDoadorResults = async () => {
+      // Extract form data
+      const nome = $('#nome').val();
+      const email = $('#email').val(); 
+      const cpf = $('#cpf').val(); 
+      const uf = $('#uf').val(); 
+      const cep  = $('#cep').val();
+      const endereco  = $('#endereco').val(); 
+      const senha = $('#senha').val();
+
+      const doador = {
+          "nome": `${nome}`,
+          "email": `${email}`,
+          "cpf": `${cpf}`,
+          "uf": `${uf}`,
+          "cep": `${cep}`,
+          "endereco": `${endereco}`,
+          "senha": `${senha}`
+      };
+
+      // Send post data to Express(proxy) server
+      try {
+        const response = await api_solidareduca.post(`/doadores`, 
+        doador)
+        .then((res) => {
+          console.log("RESPONSE RECEIVED: ", res);
+         alert(`CADASTRO REALIZDO COM SUCESSO`);
+          router.navigateTo(window.location.pathname);
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+          /*Comentando informação para aparecer no campo resultCadastro em index.html
+          //Mensagem de erro de cadastro
+          $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+          */
+          alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+        });
+        
+
+
+      } catch (error) {
+        //showError(error);
+      } finally {
+        $('#result-segment').removeClass('loading');
+      }
+    };
+
+      // Handle Convert Button Click Event
+      const cadastrarDoadorHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getCadastrarDoadorResults();
           // Prevent page from submitting to server
           return false;
         }
@@ -527,6 +644,63 @@ window.addEventListener('load', () => {
         return true;
       };
       
+      // Requisição POST, autenticar doador
+    const getLogarDoadorResults = async () => {
+      // Extract form data
+      const email = $('#email').val(); 
+      const senha = $('#senha').val();
+
+      const doador = {
+          "email": `${email}`,
+          "senha": `${senha}`
+      };
+      
+      
+      // Send post data to Express(proxy) server
+      try {
+        const response = await api_solidareduca.post(`/doadores/autenticacao`, 
+        doador)
+        .then((res) => {
+          console.log("RESPONSE RECEIVED: ", res);
+          const doador  = res.data;
+          console.log(doador);
+
+          // Transformar o objeto em string e salvar em localStorage
+          localStorage.setItem('doador', JSON.stringify(doador));
+
+          // Display Alunos da Escola
+          html = autenticacaoAlunoTemplate({ doador });
+          el.html(html);
+          router.navigateTo("/doarPedido");
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+          //alert(`Dados não encontrados, tente novamente!`);
+        });
+        
+
+
+      } catch (error) {
+        //showError(error);
+      } finally {
+        $('#result-segment').removeClass('loading');
+      }
+    };
+
+      // Handle Logar Doador Click Event
+      const logarDoadorHandler = () => {
+        if ($('.ui.form').form('is valid')) {
+          // hide error message
+          $('.ui.error.message').hide();
+          // Post to Express server
+          $('#result-segment').addClass('loading');
+          getLogarDoadorResults();
+          // Prevent page from submitting to server
+          return false;
+        }
+        return true;
+      };
+
 });
 
 
