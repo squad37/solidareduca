@@ -11,6 +11,7 @@ app.use(express.static('public'));
 
 // Allow front-end access to node_modules folder
 app.use('/scripts', express.static(`${__dirname}/node_modules/`));
+app.use('/assets', express.static(`${__dirname}/assets/`));
 
 const cors = require('cors');
 app.use(cors()); // Use this after the variable declaration

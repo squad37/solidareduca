@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
+    <link rel="stylesheet" href="scripts/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <title>SolidarEduca</title>
 </head>
 <body>
-<div class="ui container">
+<div class="banner">
+    <button class="btn btn-primary mr-auto" type="button">Quero doar</button>
+    <button class="btn btn-success mr-auto" type="button">Quero receber uma doação</button>
+</div>
+<div class="ui container fluid landing-image">
     <!-- Navigation Menu -->
-    <div class="ui four item inverted purple menu">
+    <div class="ui four item  white menu">
         <div class="header item">
            SolidarEduca
         </div>
@@ -42,31 +48,31 @@
         <h1 class="ui header">Ranking</h1>
         <hr>
         <div class="ui loading basic segment">
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Escola</th>
-                    <th>Endereço</th>
-                    <th>Pontos</th>
-                    <th>Parceira</th>
-                    <th>Alunos</th>
-                </tr>
-                </thead>
+            <div class="ui internally celled grid">
                 {{#each escolas}}
-                <tr>
-                    <td>{{this.nome}}</td>
-                    <td>{{this.endereco}}</td>
-                    <td>{{this.pontos}}</td>
-                    <td>{{this.parceira}}</td>
-                    <td>
-                    <button class="ui primary button alunosEscola" data-json="{{this.id}}">
-                        Ver alunos
-                    </button>
-                    </td>
-                </tr>
+                    <div class="row" style="background-color: white;">
+                        <div class="three wide column">
+                            <div class="image">
+                                <img class="fluid ui image" src="assets/images/escola.jpg">
+                            </div>
+                        </div>
+                        <div class="white thirteen wide column">
+                            <div class="content">
+                                <a class="header" href="#">{{this.nome}}</a>
+                                <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
+                                <div class="meta">
+                                    <a>{{this.endereco}}</a>
+                                </div>
+                                <div class="ui one button" style="background-color: transparent!important;">
+                                    <button class="ui purple button alunosEscola" data-json="{{this.id}}">
+                                        Ver alunos
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {{/each}}
-                </tbody>
-            </table>
+            </div>
         </div>
     </script>
 
@@ -276,6 +282,7 @@
     <script id="sobre-template" type="text/x-handlebars-template">
         <h1 class="ui header">Sobre</h1>
         <hr>
+        <div class="ui star rating" data-rating="3" interactive="false" data-max-rating="10"></div>
     </script>
 
     <!-- Autenticar Aluno Template -->
@@ -509,10 +516,12 @@
 
 <!-- JS Library Dependencies -->
 <script src="scripts/jquery/dist/jquery.min.js"></script>
+<script src="scripts/bootstrap/dist/js/bootstrap.js"></script>
 <script src="scripts/semantic-ui-css/semantic.min.js"></script>
 <script src="scripts/axios/dist/axios.min.js"></script>
 <script src="scripts/handlebars/dist/handlebars.min.js"></script>
 <script src="scripts/vanilla-router/dist/vanilla-router.min.js"></script>
+<script src="assets/js/index.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

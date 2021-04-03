@@ -1,0 +1,15 @@
+body {
+    background-image: url('/assets/images/background.jpg') !important;
+    background-size: cover !important;
+}
+
+.banner{
+    background-image: url('/assets/images/banner.jpg') !important;
+    background-size: inherit;
+    height: 27vh;
+    transform: scaleX(-1);
+}
+.banner button {
+    transform: scaleX(-1)!important;
+    margin-top: 20vh;
+} 
