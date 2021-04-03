@@ -255,6 +255,8 @@ window.addEventListener('load', () => {
       }finally {
         // Remove loader status
         $('.loading').removeClass('loading');
+
+        
       }
       try {
         // Load Materiais
@@ -271,6 +273,8 @@ window.addEventListener('load', () => {
           // Load Pedidos
           const response2 = await api.get(`/pedidosDoAluno/${alunoObj.id_aluno}`);
           const pedidos  = response2.data;
+
+          
           // Display Escolas select options
           html = cadastrarPedidoTemplate({ materiais, alunoObj, pedidos });
           el.html(html);
@@ -279,7 +283,7 @@ window.addEventListener('load', () => {
           html = cadastrarPedidoTemplate({ materiais, alunoObj });
           el.html(html);
         }
-
+       
         
     } catch (error) {
         showError(error);
@@ -303,6 +307,12 @@ window.addEventListener('load', () => {
       } catch (error) {
         showError(error);
       }
+     
+      $('.agradecerPedido').click( function(){
+        const id_pedido = this.dataset.json;
+        getAgradecerDoacao(id_pedido);
+      });
+      
     });
 
     router.add('/autenticacaoDoador', async () => {
@@ -849,6 +859,30 @@ window.addEventListener('load', () => {
         return true;
       };
 
+      //AGRADECER DOAÇÃO
+      const getAgradecerDoacao = (id_pedido) => {
+          //AGRADECER DOAÇÃO
+         
+            const mensagem_agradecimento = prompt("QUAL A MENSAGEM DE AGRADECIMENTO?");
+            
+  
+            try {
+            const response3 =  api_solidareduca.put(`/pedidos/${id_pedido}/doacao-concluida`, 
+            {"mensagem_agradecimento": `${mensagem_agradecimento}`})
+            .then((res) => {
+              console.log("RESPONSE RECEIVED: ", res);
+              alert(`AGRADECIMENTO ENVIADO COM SUCESSO`);
+              router.navigateTo(window.location.pathname);
+            })
+            .catch((err) => {
+              console.log("AXIOS ERROR: ", err);
+              //alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+            });
+          } catch (error) {
+            showError(error);
+          }
+          
+      };
 });
 
 

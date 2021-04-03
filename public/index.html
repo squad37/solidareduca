@@ -353,6 +353,7 @@
                     <th>Endereço de Entrega</th>
                     <th>Situação</th>
                     <th>Previsão de Entrega</th>
+                    <th>Agradecer</th>
                 </tr>
                 </thead>
                 {{#each pedidos}}
@@ -363,6 +364,11 @@
                     <td>{{this.endereco_entrega}}</td>
                     <td>{{this.situacao}}</td>
                     <td>{{this.previsao_entrega}}</td>
+                    <td>
+                        <button class="ui primary button agradecerPedido" data-json="{{this.id}}">
+                            Enviar Mensagem
+                        </button>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
@@ -398,7 +404,7 @@
                         <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
                             Ver materiais pedidos
                         </button>
-                        </td>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
