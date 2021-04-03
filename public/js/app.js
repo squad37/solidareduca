@@ -434,7 +434,7 @@ window.addEventListener('load', () => {
           router.navigateTo("/pedidosDoAlunoDaEscola");
           
       } catch (error) {
-          showError(error);
+          //showError(error);
           console.log(error);
       } finally {
           // Remove loader status
@@ -862,10 +862,11 @@ window.addEventListener('load', () => {
       //AGRADECER DOAÇÃO
       const getAgradecerDoacao = (id_pedido) => {
           //AGRADECER DOAÇÃO
-         
+        
             const mensagem_agradecimento = prompt("QUAL A MENSAGEM DE AGRADECIMENTO?");
-            
-  
+            if(mensagem_agradecimento == null || mensagem_agradecimento == "" || mensagem_agradecimento === ""){
+              getAgradecerDoacao(id_pedido);
+            }
             try {
             const response3 =  api_solidareduca.put(`/pedidos/${id_pedido}/doacao-concluida`, 
             {"mensagem_agradecimento": `${mensagem_agradecimento}`})
