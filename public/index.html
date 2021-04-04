@@ -179,6 +179,11 @@
                         </div>
                         <br>
                         <div class="field">
+                            <label>Número de Contato</label>
+                            <input type="text" name="telefone" id="telefone" placeholder="Digite o seu número de contato (celular/telefone)">
+                        </div>
+                        <br>
+                        <div class="field">
                             <label>Senha</label>
                             <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
                         </div>
@@ -262,6 +267,11 @@
                         <div class="field">
                             <label>Endereço</label>
                             <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label>Número de Contato</label>
+                            <input type="text" name="telefone" id="telefone" placeholder="Digite o seu número de contato (celular/telefone)">
                         </div>
                         <br>
                         <div class="field">
@@ -353,6 +363,7 @@
                     <th>Endereço de Entrega</th>
                     <th>Situação</th>
                     <th>Previsão de Entrega</th>
+                    <th>Agradecer</th>
                 </tr>
                 </thead>
                 {{#each pedidos}}
@@ -363,6 +374,11 @@
                     <td>{{this.endereco_entrega}}</td>
                     <td>{{this.situacao}}</td>
                     <td>{{this.previsao_entrega}}</td>
+                    <td>
+                        <button class="ui primary button agradecerPedido" data-json="{{this.id}}">
+                            Enviar Mensagem
+                        </button>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
@@ -398,7 +414,7 @@
                         <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
                             Ver materiais pedidos
                         </button>
-                        </td>
+                    </td>
                 </tr>
                 {{/each}}
                 </tbody>
@@ -507,6 +523,38 @@
                 <div class="ui error message"></div>
             </form>
             <br>
+            <br>
+            <table class="ui celled striped selectable inverted table">
+                <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Quantidade</th>
+                    <th>Local de Entrega</th>
+                    <th>Endereço de Entrega</th>
+                    <th>Situação</th>
+                    <th>Previsão de Entrega</th>
+                    <th>Anônimo</th>
+                    <th>Contato da Escola</th>
+                    <th>Contato do Aluno</th>
+                    <th>Mensagem</th>
+                </tr>
+                </thead>
+                {{#each pedidos}}
+                <tr>
+                    <td>{{this.material.nome}}</td>
+                    <td>{{this.quantidade}}</td>
+                    <td>{{this.local_entrega}}</td>
+                    <td>{{this.endereco_entrega}}</td>
+                    <td>{{this.situacao}}</td>
+                    <td>{{this.previsao_entrega}}</td>
+                    <td>{{this.doador_anonimo}}</td>
+                    <td>{{this.aluno.escola.telefone}}</td>
+                    <td>{{this.aluno.telefone}}</td>
+                    <td>{{this.mensagem_agradecimento}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
         </div>
     </script>
 
