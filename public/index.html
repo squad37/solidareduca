@@ -11,9 +11,27 @@
 </head>
 <body>
     <div class="header-topo">
-        <div class="ui header">
-            <img class="image ui" src="assets/images/logo.png">
-            <div class="content">
+        <div class="ui header two column grid">
+            <div class="one wide column">
+                <img class="image ui" src="assets/images/logo.png">
+            </div>
+            <div class="fifteen wide column">
+                <form class="ui padded  grid noborder">
+                    <div class="six wide column columnLogin"></div>
+                    <div class="four wide column columnLogin">
+                        <div class="ui action input emailInputHead">
+                            <input type="text" name="email" id="email" placeholder="E-mail">
+                        </div>
+                    </div>
+                    <div class="four wide column columnLogin">
+                        <div class="ui action input senhaInputHead">
+                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                        </div>
+                    </div>
+                    <div class="two wide column columnLogin">
+                        <div class="ui primary button logarButtonHead">Logar</div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -21,30 +39,30 @@
         <div class="ui content botoes-doar-receber">
             <div class="ui two column grid">
                 <div class="eight wide column">
-                    <button class="ui button fluid buttonDoar" type="button">Doar</button>
+                    <button class="ui button fluid buttonDoar" type="button" onclick="location.href='/cadastroDoador'">Doar</button>
                 </div>
                 <div class="eight wide column">
-                    <button class="ui button fluid buttonReceber" type="button">Receber doação</button>
+                    <button class="ui button fluid buttonReceber" type="button" onclick="location.href='/cadastroAluno'">Receber doação</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="ui container fluid main">
-        <!-- Navigation Menu -->
-        <div class="ui four item  white menu">
-            <div class="header item">
-               SolidarEduca
+    <!-- Navigation Menu -->
+    <div class="ui three item fluid white menu padMenu">
+        <a class="header item" href="/">
+            <img class="ui mini image logoIcon" src="assets/images/logo.png">
+            <div class="content">
+                SolidarEduca
             </div>
-            <a class="item" href="/">
-                Ranking
-            </a>
-            <a class="item" href="/cadastro">
-                Cadastro
-            </a>
-            <a class="item" href="/sobre">
-                Sobre
-            </a>
-        </div>
+        </a>
+        <a class="item" href="/cadastro">
+            Video
+        </a>
+        <a class="item" href="/sobre">
+            Sobre
+        </a>
+    </div>
+    <div class="ui container fluid main">
         <!-- Error Template -->
         <script id="error-template" type="text/x-handlebars-template">
             <div class="ui {{color}} inverted segment" style="height:250px;">

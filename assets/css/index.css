@@ -6,6 +6,11 @@ body {
     flex-direction: column;
 }
 
+.logoIcon {
+    margin-right: 0.5vw;
+    filter: brightness(1) invert(1)!important;
+}
+
 .banner{
     background-image: url('/assets/images/banner.jpg') !important;
     background-size: inherit;
@@ -16,14 +21,13 @@ body {
 .botoes-doar-receber {
     transform: scaleX(-1)!important;
     padding-top: 13vh;
-    /* padding-left: 70vw!important; */
+    padding-bottom: 1vw!important;
 }
 
 .header-topo {
     background: #5BADA7;
-    height: 5vh;
+    height: 8vh;
     padding-left: 1vw;
-    /* padding-top: 0.5vw; */
 }
 
 .buttonDoar {
@@ -34,6 +38,7 @@ body {
 .buttonDoar:hover {
     background: #FFFFFF!important;
     color: #5BADA7!important;
+    border: 1px solid #5BADA7;
 }
 
 .buttonReceber {
@@ -99,4 +104,31 @@ button.alunosEscola:hover {
 
 .contentEscolas {
     padding-left: 1vw;
+}
+
+.padMenu{
+    margin-top:0px!important;
+}
+
+.emailInputHead {
+    height: 5vh;
+    width: -webkit-fill-available;
+}
+
+.senhaInputHead {
+    height: 5vh;
+    width: -webkit-fill-available;
+}
+
+.logarButtonHead {
+    height: 5vh;
+    width: -webkit-fill-available;
+}
+
+.columnLogin {
+    padding: 0.4vh 0.1vw 1vh 0vw!important;
+}
+
+.noborder {
+    border: none!important;
 }
