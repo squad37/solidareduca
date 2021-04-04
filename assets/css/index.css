@@ -132,3 +132,7 @@ button.alunosEscola:hover {
 .noborder {
     border: none!important;
 }
+
+.buttonAdd {
+    margin-top: 2.5vh!important;
+}

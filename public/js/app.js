@@ -90,9 +90,27 @@ window.addEventListener('load', () => {
     });
 
     //Rota do cadastro
-    router.add('/cadastro', () => {
-      let html = cadastroTemplate();
-      el.html(html);
+    router.add('/cadastro', async () => {
+        let html = cadastroTemplate();
+        el.html(html);
+        try{
+            // Load Escolas
+            const responseEscola = await api.get('/escolas');
+            const escolas  = responseEscola.data;
+            // Load Materiais
+            const responseMateriais = await api.get('/materiais');
+            const materiais  = responseMateriais.data;
+            let html = cadastroTemplate({escolas,materiais});
+            el.html(html);
+            $('.ui.radio.checkbox').checkbox();
+            $('')
+        } catch (err) {
+
+        } finally {
+            // Remove loader status
+            $('.loading').removeClass('loading');
+        }
+
     });
 
     //Rota do cadastro do aluno

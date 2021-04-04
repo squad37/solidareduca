@@ -111,20 +111,174 @@
 
         <!-- Cadastro Template -->
         <script id="cadastro-template" type="text/x-handlebars-template">
-            <h1 class="ui header">Quem vamos cadastrar?</h1>
-            <hr>
-            <div class="ui basic segment">
+            <h1 class="ui header textCenter">Cadastro</h1>
+            <div class="ui padded  grid">
+                <div class="two wide column"></div>
+                <div class="twelve wide column">
+                    <div class="ui basic loading segment">
+                        <form class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Nome</label>
+                                    <input type="text" name="nome" id="nome" placeholder="Nome">
+                                </div>
+                                <div class="field">
+                                    <label>E-mail</label>
+                                    <input type="text" name="email" id="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>CPF</label>
+                                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                                </div>
+                                <div class="field">
+                                    <label>UF do Estado</label>
+                                    <select class="ui dropdown" name="uf" id="uf">
+                                        <option value=""></option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>CEP</label>
+                                    <input type="text" name="cep" id="cep" placeholder="CEP">
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Endereço</label>
+                                    <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                                </div>
 
-                <a class="item" href="/cadastroAluno">
-
-                    <label style="font-size: 25px;">Aluno</label>
-                </a>
-                <br>
-                <br>
-                <a class="item" href="/cadastroDoador">
-
-                    <label style="font-size: 25px;">Doador</label>
-                </a>
+                                <div class="field">
+                                    <label>Número de Contato</label>
+                                    <input type="text" name="telefone" id="telefone" placeholder="00999999999">
+                                </div>
+                            </div>
+                            <div class="one fields">
+                                <div class="field">
+                                    <label>Senha</label>
+                                    <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="inline fields">
+                                    <label>Doador ou aluno:</label>
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input id="tipoAluno" type="radio" name="tipoCadastro" tabindex="0" class="hidden">
+                                            <label>Aluno</label>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input id="tipoDoador" type="radio" name="tipoCadastro" tabindex="0" class="hidden">
+                                            <label>Doador</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="camposExtraAluno" class="field hide">
+                                <div  class="two fields" >
+                                    <div class="field">
+                                        <label>Nome do responsável</label>
+                                        <input type="text" name="nome_responsavel" id="nome_responsavel" placeholder="Nome do responsável">
+                                    </div>
+                                    <div class="field">
+                                        <label>Escola</label>
+                                        <!--<input >-->
+                                        <select class="ui dropdown" name="id_escola" id="id_escola">
+                                            <option value="">Selecione a Escola</option>
+                                            {{#each escolas}}
+                                            <option value="{{this.id}}">{{this.nome}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <h4 class="ui horizontal divider header">Lista de Material</h4>
+                                <div class="three fields">
+                                    <div class="field">
+                                        <label>Material</label>
+                                        <!--<input >-->
+                                        <select class="ui dropdown" name="id_material" id="id_material">
+                                            <option value="">Selecione o material</option>
+                                            {{#each materiais}}
+                                            <option value="{{this.id}}">{{this.nome}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <div class="field">
+                                        <label>Quantidade</label>
+                                        <input type="number" name="quantidade" id="quantidade" placeholder="Quantidade">
+                                    </div>
+                                    <div class="field buttonAdd">
+                                        <div class="ui primary submit fluid button buttonDoar"><i class="add icon"></i>Adicionar</div>
+                                    </div>
+                                </div>
+                                <h4 class="ui horizontal divider header">Materiais Pedidos</h4>
+                                <table class="center aligned ui celled striped selectable table">
+                                    <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Quantidade</th>
+                                        <th>Ação</th>
+                                    </thead>
+                                    <tr>
+                                        <td>nome</td>
+                                        <td>quantidade</td>
+                                        <td>
+                                            <button class="ui center button buttonReceber" data-json="{{this.id}}">
+                                                <i class="minus icon"></i>Remover Pedido
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>nome</td>
+                                        <td>quantidade</td>
+                                        <td>
+                                            <button class="ui center button buttonReceber" data-json="{{this.id}}">
+                                                <i class="minus icon"></i>Remover Pedido
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="field">
+                                <div class="ui primary submit fluid button buttonDoar">Cadastrar</div>
+                                <div class="ui error message"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="two wide column"></div>
             </div>
         </script>
 
@@ -239,8 +393,8 @@
         </div>
     </script>
 
-     <!-- Cadastro do doador Template -->
-     <script id="cadastroDoador-template" type="text/x-handlebars-template">
+    <!-- Cadastro do doador Template -->
+    <script id="cadastroDoador-template" type="text/x-handlebars-template">
         <h1 class="ui header textCenter">Cadastro do Doador</h1>
         <div class="ui padded  grid">
             <div class="two wide column"></div>
@@ -327,7 +481,6 @@
             </div>
             <div class="two wide column"></div>
         </div>
-
     </script>
 
     
