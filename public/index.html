@@ -20,16 +20,16 @@
                     <div class="six wide column columnLogin"></div>
                     <div class="four wide column columnLogin">
                         <div class="ui action input emailInputHead">
-                            <input type="text" name="email" id="email" placeholder="E-mail">
+                            <input type="text" name="emailUsuario" id="emailUsuario" placeholder="E-mail">
                         </div>
                     </div>
                     <div class="four wide column columnLogin">
                         <div class="ui action input senhaInputHead">
-                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                            <input type="password" name="senhaUsuario" id="senhaUsuario" placeholder="Senha">
                         </div>
                     </div>
                     <div class="two wide column columnLogin">
-                        <div class="ui primary button logarButtonHead">Logar</div>
+                        <div class="ui primary button logarButtonHead" onclick="location.href='/autenticacaoAluno'">Logar</div>
                     </div>
                 </form>
             </div>
@@ -139,31 +139,31 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Nome</label>
-                                <input type="text" name="nome" id="nome" placeholder="Nome">
+                                <input type="text" name="nomeAluno" id="nomeAluno" placeholder="Nome">
                             </div>
                             <div class="field">
                                 <label>E-mail</label>
-                                <input type="text" name="email" id="email" placeholder="E-mail">
+                                <input type="text" name="emailAluno" id="emailAluno" placeholder="E-mail">
                             </div>
                         </div>
                         <div class="two fields">
                             <div class="field">
                                 <label>CPF</label>
-                                <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                                <input type="text" name="cpfAluno" id="cpfAluno" placeholder="CPF">
                             </div>
                             <div class="field">
                                 <label>Nome do responsável</label>
-                                <input type="text" name="nome_responsavel" id="nome_responsavel" placeholder="Nome do responsável">
+                                <input type="text" name="nome_responsavelAluno" id="nome_responsavelAluno" placeholder="Nome do responsável">
                             </div>
                         </div>
                         <div class="fields">
                             <div class="four wide field">
                                 <label>CEP</label>
-                                <input type="text" name="cep" id="cep" placeholder="CEP">
+                                <input type="text" name="cepAluno" id="cepAluno" placeholder="CEP">
                             </div>
                             <div class="three wide field">
                                 <label>UF do Estado</label>
-                                <select class="ui dropdown" name="uf" id="uf">
+                                <select class="ui dropdown" name="ufAluno" id="ufAluno">
                                     <option value=""></option>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
@@ -196,18 +196,18 @@
                             </div>
                             <div class="eleven wide field">
                                 <label>Endereço</label>
-                                <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                                <input type="text" name="enderecoAluno" id="enderecoAluno" placeholder="Endereço">
                             </div>
                         </div>
                         <div class="two fields">
                             <div class="field">
                                 <label>Número de Contato</label>
-                                <input type="text" name="telefone" id="telefone" placeholder="(99) 999999999 ">
+                                <input type="text" name="telefoneAluno" id="telefoneAluno" placeholder="(99) 999999999 ">
                             </div>
                             <div class="field">
                                 <label>Escola</label>
                                 <!--<input >-->
-                                <select class="ui dropdown" name="id_escola" id="id_escola">
+                                <select class="ui dropdown" name="id_escolaAluno" id="id_escolaAluno">
                                     <option value="">Selecione a Escola</option>
                                     {{#each escolas}}
                                     <option value="{{this.id}}">{{this.nome}}</option>
@@ -218,7 +218,7 @@
                         <div class="one fields">
                             <div class="field">
                                 <label>Senha</label>
-                                <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                                <input type="password" name="senhaAluno" id="senhaAluno" placeholder="Crie uma senha">
                             </div>
                         </div>
 
@@ -250,21 +250,21 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Nome</label>
-                                <input type="text" name="nome" id="nome" placeholder="Nome">
+                                <input type="text" name="nomeDoador" id="nomeDoador" placeholder="Nome">
                             </div>
                             <div class="field">
                                 <label>E-mail</label>
-                                <input type="text" name="email" id="email" placeholder="E-mail">
+                                <input type="text" name="emailDoador" id="emailDoador" placeholder="E-mail">
                             </div>
                         </div>
                         <div class="three fields">
                                 <div class="field">
                                     <label>CPF</label>
-                                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                                    <input type="text" name="cpfDoador" id="cpfDoador" placeholder="CPF">
                                 </div>
                                 <div class="field">
                                     <label>UF do Estado</label>
-                                    <select class="ui dropdown" name="uf" id="uf">
+                                    <select class="ui dropdown" name="ufDoador" id="ufDoador">
                                         <option value=""></option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -297,24 +297,24 @@
                                 </div>
                                 <div class="field">
                                     <label>CEP</label>
-                                    <input type="text" name="cep" id="cep" placeholder="CEP">
+                                    <input type="text" name="cepDoador" id="cepDoador" placeholder="CEP">
                                 </div>
                         </div>
                         <div class="two fields">
                             <div class="field">
                                 <label>Endereço</label>
-                                <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                                <input type="text" name="enderecoDoador" id="enderecoDoador" placeholder="Endereço">
                             </div>
 
                             <div class="field">
                                 <label>Número de Contato</label>
-                                <input type="text" name="telefone" id="telefone" placeholder="Digite o seu número de contato (celular/telefone)">
+                                <input type="text" name="telefoneDoador" id="telefoneDoador" placeholder="Digite o seu número de contato (celular/telefone)">
                             </div>
                         </div>
                         <div class="one fields">
                                 <div class="field">
                                     <label>Senha</label>
-                                    <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                                    <input type="password" name="senhaDoador" id="senhaDoador" placeholder="Crie uma senha">
                                 </div>
                         </div>
                         <div class="field">

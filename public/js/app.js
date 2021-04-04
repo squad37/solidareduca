@@ -120,16 +120,16 @@ window.addEventListener('load', () => {
             // Validate Form Inputs
             $('.ui.form').form({
               fields: {
-                nome: 'empty',
-                email: 'empty',
-                cpf: 'empty', 
-                uf: 'empty',
-                cep: 'empty',
-                endereco: 'empty', 
-                nome_responsavel: 'empty', 
-                id_escola: 'empty',
-                senha: 'empty',
-                telefone: 'empty'
+                nomeAluno: 'empty',
+                emailAluno: 'empty',
+                cpfAluno: 'empty', 
+                ufAluno: 'empty',
+                cepAluno: 'empty',
+                enderecoAluno: 'empty', 
+                nome_responsavelAluno: 'empty', 
+                id_escolaAluno: 'empty',
+                senhaAluno: 'empty',
+                telefoneAluno: 'empty'
               },
             });
             // Specify Submit Handler
@@ -163,14 +163,14 @@ window.addEventListener('load', () => {
             // Validate Form Inputs
             $('.ui.form').form({
               fields: {
-                nome: 'empty',
-                email: 'empty',
-                cpf: 'empty',
-                uf: 'empty',
-                cep: 'empty',
-                endereco: 'empty',
-                senha: 'empty',
-                telefone: 'empty'
+                nomeDoador: 'empty',
+                emailDoador: 'empty',
+                cpfDoador: 'empty',
+                ufDoador: 'empty',
+                cepDoador: 'empty',
+                enderecoDoador: 'empty',
+                senhaDoador: 'empty',
+                telefoneDoador: 'empty'
               },
             });
             // Specify Submit Handler
@@ -493,34 +493,34 @@ window.addEventListener('load', () => {
     // Requisição POST, cadastrar aluno
     const getCadastrarAlunoResults = async () => {
         // Extract form data
-        const nome = $('#nome').val();
-        const email = $('#email').val(); 
-        const cpf = $('#cpf').val(); 
-        const uf = $('#uf').val(); 
-        const cep  = $('#cep').val();
-        const endereco  = $('#endereco').val(); 
-        const nome_responsavel = $('#nome_responsavel').val();
-        const id_escola  = $('#id_escola').val();
-        const senha = $('#senha').val();
-        const telefone = $('#telefone').val();
+        const nomeAluno = $('#nomeAluno').val();
+        const emailAluno = $('#emailAluno').val(); 
+        const cpfAluno = $('#cpfAluno').val(); 
+        const ufAluno = $('#ufAluno').val(); 
+        const cepAluno  = $('#cepAluno').val();
+        const enderecoAluno  = $('#enderecoAluno').val(); 
+        const nome_responsavelAluno = $('#nome_responsavelAluno').val();
+        const id_escolaAluno  = $('#id_escolaAluno').val();
+        const senhaAluno = $('#senhaAluno').val();
+        const telefoneAluno = $('#telefoneAluno').val();
 
         const aluno = {
-            "nome": `${nome}`,
-            "email": `${email}`,
-            "cpf": `${cpf}`,
-            "uf": `${uf}`,
-            "cep": `${cep}`,
-            "endereco": `${endereco}`,
-            "nome_responsavel": `${nome_responsavel}`,
-            "id_escola": `${id_escola}`,
-            "senha": `${senha}`,
-            "telefone": `${telefone}`
+            "nome": `${nomeAluno}`,
+            "email": `${emailAluno}`,
+            "cpf": `${cpfAluno}`,
+            "uf": `${ufAluno}`,
+            "cep": `${cepAluno}`,
+            "endereco": `${enderecoAluno}`,
+            "nome_responsavel": `${nome_responsavelAluno}`,
+            "id_escola": `${id_escolaAluno}`,
+            "senha": `${senhaAluno}`,
+            "telefone": `${telefoneAluno}`
         };
 
         const headers = new Headers({
             "Content-Type":  "application/json",
             "Accept": "application/json",
-            "id_escola": `${id_escola}`
+            "id_escola": `${id_escolaAluno}`
           });
 
         const httpOptions = {
@@ -571,24 +571,24 @@ window.addEventListener('load', () => {
     // Requisição POST, cadastrar aluno
     const getCadastrarDoadorResults = async () => {
       // Extract form data
-      const nome = $('#nome').val();
-      const email = $('#email').val(); 
-      const cpf = $('#cpf').val(); 
-      const uf = $('#uf').val(); 
-      const cep  = $('#cep').val();
-      const endereco  = $('#endereco').val(); 
-      const senha = $('#senha').val();
-      const telefone = $('#telefone').val();
+      const nomeDoador = $('#nomeDoador').val();
+      const emailDoador = $('#emailDoador').val(); 
+      const cpfDoador = $('#cpfDoador').val(); 
+      const ufDoador = $('#ufDoador').val(); 
+      const cepDoador  = $('#cepDoador').val();
+      const enderecoDoador  = $('#enderecoDoador').val(); 
+      const senhaDoador = $('#senhaDoador').val();
+      const telefoneDoador = $('#telefoneDoador').val();
 
       const doador = {
-          "nome": `${nome}`,
-          "email": `${email}`,
-          "cpf": `${cpf}`,
-          "uf": `${uf}`,
-          "cep": `${cep}`,
-          "endereco": `${endereco}`,
-          "senha": `${senha}`,
-          "telefone": `${telefone}`
+          "nome": `${nomeDoador}`,
+          "email": `${emailDoador}`,
+          "cpf": `${cpfDoador}`,
+          "uf": `${ufDoador}`,
+          "cep": `${cepDoador}`,
+          "endereco": `${enderecoDoador}`,
+          "senha": `${senhaDoador}`,
+          "telefone": `${telefoneDoador}`
       };
 
       // Send post data to Express(proxy) server
