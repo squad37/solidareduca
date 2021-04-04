@@ -241,87 +241,93 @@
 
      <!-- Cadastro do doador Template -->
      <script id="cadastroDoador-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Cadastro do Doador</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
-                        <div class="field">
-                            <label>Nome</label>
-                            <input type="text" name="nome" id="nome" placeholder="Nome">
+        <h1 class="ui header textCenter">Cadastro do Doador</h1>
+        <div class="ui padded  grid">
+            <div class="two wide column"></div>
+            <div class="twelve wide column">
+                <div class="ui basic loading segment">
+                    <form class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Nome</label>
+                                <input type="text" name="nome" id="nome" placeholder="Nome">
+                            </div>
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail">
+                            </div>
                         </div>
-                        <br>
-                        <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
+                        <div class="three fields">
+                                <div class="field">
+                                    <label>CPF</label>
+                                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                                </div>
+                                <div class="field">
+                                    <label>UF do Estado</label>
+                                    <select class="ui dropdown" name="uf" id="uf">
+                                        <option value=""></option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>CEP</label>
+                                    <input type="text" name="cep" id="cep" placeholder="CEP">
+                                </div>
                         </div>
-                        <br>
-                        <div class="field">
-                            <label>CPF</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Endereço</label>
+                                <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                            </div>
+
+                            <div class="field">
+                                <label>Número de Contato</label>
+                                <input type="text" name="telefone" id="telefone" placeholder="Digite o seu número de contato (celular/telefone)">
+                            </div>
                         </div>
-                        <br>
-                        <div class="field">
-                            <label>UF do Estado</label>
-                            <select class="ui dropdown" name="uf" id="uf">
-                                <option value=""></option>
-                                <option value="AC">Acre</option>
-	                            <option value="AL">Alagoas</option>
-	                            <option value="AP">Amapá</option>
-	                            <option value="AM">Amazonas</option>
-	                            <option value="BA">Bahia</option>
-	                            <option value="CE">Ceará</option>
-	                            <option value="DF">Distrito Federal</option>
-	                            <option value="ES">Espírito Santo</option>
-	                            <option value="GO">Goiás</option>
-	                            <option value="MA">Maranhão</option>
-	                            <option value="MT">Mato Grosso</option>
-	                            <option value="MS">Mato Grosso do Sul</option>
-	                            <option value="MG">Minas Gerais</option>
-	                            <option value="PA">Pará</option>
-	                            <option value="PB">Paraíba</option>
-	                            <option value="PR">Paraná</option>
-	                            <option value="PE">Pernambuco</option>
-	                            <option value="PI">Piauí</option>
-	                            <option value="RJ">Rio de Janeiro</option>
-	                            <option value="RN">Rio Grande do Norte</option>
-	                            <option value="RS">Rio Grande do Sul</option>
-	                            <option value="RO">Rondônia</option>
-	                            <option value="RR">Roraima</option>
-	                            <option value="SC">Santa Catarina</option>
-	                            <option value="SP">São Paulo</option>
-	                            <option value="SE">Sergipe</option>
-	                            <option value="TO">Tocantins</option>
-                            </select>
+                        <div class="one fields">
+                                <div class="field">
+                                    <label>Senha</label>
+                                    <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
+                                </div>
                         </div>
-                        <br>
                         <div class="field">
-                            <label>CEP</label>
-                            <input type="text" name="cep" id="cep" placeholder="CEP">
+                            <div class="ui primary submit fluid button buttonDoar">Cadastrar</div>
+                            <div class="ui error message"></div>
                         </div>
-                        <br>
-                        <div class="field">
-                            <label>Endereço</label>
-                            <input type="text" name="endereco" id="endereco" placeholder="Endereço">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Número de Contato</label>
-                            <input type="text" name="telefone" id="telefone" placeholder="Digite o seu número de contato (celular/telefone)">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Crie uma senha">
-                        </div>
-                    </div>
+                    </form>
+
                 </div>
-                <div class="ui primary submit button">Cadastrar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
+            </div>
+            <div class="two wide column"></div>
         </div>
+
     </script>
 
     
