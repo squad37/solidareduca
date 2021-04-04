@@ -61,6 +61,19 @@ body {
 .rankingEscolas {
     height: 49vh;
     overflow-y: auto;
+    margin-left: 10vw!important;
+    margin-right: 10vw!important;
+}
+
+button.alunosEscola {
+    background: #7D66AA!important;
+    color: #FFFFFF!important;
+}
+
+button.alunosEscola:hover {
+    background: #FFFFFF!important;
+    color: #7D66AA!important;
+    border: 1px solid #7D66AA;
 }
 
 .footer {
@@ -71,4 +84,19 @@ body {
     font-size: medium;
     padding: 0.5vw;
     margin-top: 1vh!important;
+}
+
+.thumbnail {
+    background-image: url('/assets/images/escola.jpg') !important;
+    background-size: cover !important;
+    border-top-left-radius: 12px!important;
+    border-bottom-left-radius: 12px!important;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.contentEscolas {
+    padding-left: 1vw;
 }

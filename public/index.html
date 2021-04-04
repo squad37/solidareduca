@@ -19,13 +19,11 @@
     </div>
     <div class="banner">
         <div class="ui content botoes-doar-receber">
-            <div class="ui three column grid">
-                <div class="nine wide column">
-                </div>
-                <div class="three wide column">
+            <div class="ui two column grid">
+                <div class="eight wide column">
                     <button class="ui button fluid buttonDoar" type="button">Doar</button>
                 </div>
-                <div class="three wide column">
+                <div class="eight wide column">
                     <button class="ui button fluid buttonReceber" type="button">Receber doação</button>
                 </div>
             </div>
@@ -62,29 +60,29 @@
         </script>
         <!-- Ranking Template -->
         <script id="ranking-template" type="text/x-handlebars-template">
-            <h1 class="ui header">Ranking</h1>
-            <hr>
+            <h1 class="ui header textCenter">Ranking das Escolas!</h1>
             <div class="ui loading basic segment rankingEscolas">
                 <div class="ui internally celled grid">
                     {{#each escolas}}
                         <div class="row cardEscolas" style="background-color: white;">
-                            <div class="three wide column">
-                                <div class="image">
-                                    <img class="fluid ui image" src="assets/images/escola.jpg">
-                                </div>
+                            <div class="three wide column thumbnail">
                             </div>
                             <div class="white thirteen wide column">
-                                <div class="content">
-                                    <a class="header" href="#">{{this.nome}}</a>
-                                    <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
-                                    <div class="meta">
-                                        <a>{{this.endereco}}</a>
+                                <div class="content contentEscolas">
+                                    <div class="row">
+                                        <div class="header">{{this.nome}}</div>
                                     </div>
-                                    <div class="ui one button" style="background-color: transparent!important;">
-                                        <button class="ui purple button alunosEscola" data-json="{{this.id}}">
-                                            Ver alunos
-                                        </button>
+                                    <div class="row">
+                                        <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
                                     </div>
+                                    <div class="row">
+                                        <div class="meta">
+                                            <a>{{this.endereco}}</a>
+                                        </div>
+                                    </div>
+                                    <button class="ui right floated button alunosEscola" data-json="{{this.id}}">
+                                        Ver alunos
+                                    </button>
                                 </div>
                             </div>
                         </div>
