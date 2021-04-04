@@ -128,7 +128,8 @@ window.addEventListener('load', () => {
                 endereco: 'empty', 
                 nome_responsavel: 'empty', 
                 id_escola: 'empty',
-                senha: 'empty'
+                senha: 'empty',
+                telefone: 'empty'
               },
             });
             // Specify Submit Handler
@@ -169,6 +170,7 @@ window.addEventListener('load', () => {
                 cep: 'empty',
                 endereco: 'empty',
                 senha: 'empty',
+                telefone: 'empty'
               },
             });
             // Specify Submit Handler
@@ -255,6 +257,8 @@ window.addEventListener('load', () => {
       }finally {
         // Remove loader status
         $('.loading').removeClass('loading');
+
+        
       }
       try {
         // Load Materiais
@@ -271,6 +275,8 @@ window.addEventListener('load', () => {
           // Load Pedidos
           const response2 = await api.get(`/pedidosDoAluno/${alunoObj.id_aluno}`);
           const pedidos  = response2.data;
+
+          
           // Display Escolas select options
           html = cadastrarPedidoTemplate({ materiais, alunoObj, pedidos });
           el.html(html);
@@ -279,7 +285,7 @@ window.addEventListener('load', () => {
           html = cadastrarPedidoTemplate({ materiais, alunoObj });
           el.html(html);
         }
-
+       
         
     } catch (error) {
         showError(error);
@@ -303,6 +309,12 @@ window.addEventListener('load', () => {
       } catch (error) {
         showError(error);
       }
+     
+      $('.agradecerPedido').click( function(){
+        const id_pedido = this.dataset.json;
+        getAgradecerDoacao(id_pedido);
+      });
+      
     });
 
     router.add('/autenticacaoDoador', async () => {
@@ -327,8 +339,17 @@ window.addEventListener('load', () => {
       let doador = localStorage.getItem('doador');
       // transformar em objeto novamente
       let doadorObj = JSON.parse(doador);
-
-      let html = doarPedidoTemplate({ pedido_aSerDoadoObj, pedidos_do_alunoObj, doadorObj });
+      var pedidos = "";
+      try {
+        
+          // Load Pedidos
+          const response = await api_solidareduca.get(`/pedidos/doador/${doadorObj.id_doador}`);
+          pedidos  = response.data;
+          console.log(pedidos);
+    } catch (error) {
+        //showError(error);
+    } 
+      let html = doarPedidoTemplate({ pedido_aSerDoadoObj, pedidos_do_alunoObj, doadorObj, pedidos });
       el.html(html);
       // Remove loader status
       $('.loading').removeClass('loading');
@@ -424,7 +445,7 @@ window.addEventListener('load', () => {
           router.navigateTo("/pedidosDoAlunoDaEscola");
           
       } catch (error) {
-          showError(error);
+          //showError(error);
           console.log(error);
       } finally {
           // Remove loader status
@@ -481,6 +502,7 @@ window.addEventListener('load', () => {
         const nome_responsavel = $('#nome_responsavel').val();
         const id_escola  = $('#id_escola').val();
         const senha = $('#senha').val();
+        const telefone = $('#telefone').val();
 
         const aluno = {
             "nome": `${nome}`,
@@ -491,7 +513,8 @@ window.addEventListener('load', () => {
             "endereco": `${endereco}`,
             "nome_responsavel": `${nome_responsavel}`,
             "id_escola": `${id_escola}`,
-            "senha": `${senha}`
+            "senha": `${senha}`,
+            "telefone": `${telefone}`
         };
 
         const headers = new Headers({
@@ -511,19 +534,11 @@ window.addEventListener('load', () => {
           aluno, httpOptions)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
-            /*Comentando informação para aparecer no campo resultCadastro em index.html
-            //Mensagem de confirmação de cadastro
-            $('#resultCadastro').html(`CADASTRO REALIZDO COM SUCESSO`);
-            */
            alert(`CADASTRO REALIZDO COM SUCESSO`);
             router.navigateTo(window.location.pathname);
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
-            /*Comentando informação para aparecer no campo resultCadastro em index.html
-            //Mensagem de erro de cadastro
-            $('#resultCadastro').html(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
-            */
             alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
           });
           
@@ -563,6 +578,7 @@ window.addEventListener('load', () => {
       const cep  = $('#cep').val();
       const endereco  = $('#endereco').val(); 
       const senha = $('#senha').val();
+      const telefone = $('#telefone').val();
 
       const doador = {
           "nome": `${nome}`,
@@ -571,7 +587,8 @@ window.addEventListener('load', () => {
           "uf": `${uf}`,
           "cep": `${cep}`,
           "endereco": `${endereco}`,
-          "senha": `${senha}`
+          "senha": `${senha}`,
+          "telefone": `${telefone}`
       };
 
       // Send post data to Express(proxy) server
@@ -849,6 +866,31 @@ window.addEventListener('load', () => {
         return true;
       };
 
+      //AGRADECER DOAÇÃO
+      const getAgradecerDoacao = (id_pedido) => {
+          //AGRADECER DOAÇÃO
+        
+            const mensagem_agradecimento = prompt("QUAL A MENSAGEM DE AGRADECIMENTO?");
+            if(mensagem_agradecimento == null || mensagem_agradecimento == "" || mensagem_agradecimento === ""){
+              getAgradecerDoacao(id_pedido);
+            }
+            try {
+            const response3 =  api_solidareduca.put(`/pedidos/${id_pedido}/doacao-concluida`, 
+            {"mensagem_agradecimento": `${mensagem_agradecimento}`})
+            .then((res) => {
+              console.log("RESPONSE RECEIVED: ", res);
+              alert(`AGRADECIMENTO ENVIADO COM SUCESSO`);
+              router.navigateTo(window.location.pathname);
+            })
+            .catch((err) => {
+              console.log("AXIOS ERROR: ", err);
+              //alert(`CADASTRO NÃO REALIZDO, TENTE NOVAMENTE`);
+            });
+          } catch (error) {
+            showError(error);
+          }
+          
+      };
 });
 
 
