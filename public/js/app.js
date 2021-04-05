@@ -543,99 +543,121 @@ window.addEventListener('load', () => {
             html = rankingTemplate({escolas});
             el.html(html);
             $(".rating").rating({interactive: false});
-            // Specify Submit Handler
-            $('body').on('keyup', '#nomeEscola', async function (element) {
-                console.log(element.currentTarget.value);
-                let searchEscola = element.currentTarget.value;
-                if (searchEscola == '') {
-                    $('#divError').hide();
-                    try {
-                        const response = await api.get('/escolas');
-                        const escolas = response.data;
-                        console.log({escolas});
-                        // Display Escolas Ranking Table
-                        html = rankingTemplate({escolas});
-                        el.html(html);
-                    } catch (err) {
-                        console.log('Error:', err);
-                    } finally {
-                        $('.loading').removeClass('loading');
-                    }
-                }
-                if (searchEscola.length > 3) {
-                    try {
-                        const escolasNome = await api_solidareduca.get(`/escolas/search/?nome=${searchEscola}`).catch(function (error) {
-                            console.log(error);
-                            error = {
-                                response: {
-                                    data: {
-                                        'title': 'Escola não encontrada',
-                                        'message': `Nenhuma escola encontrada com nome ${searchEscola}`
-                                    }
-                                }
-                            }
-                            showError(error);
-                        });
-                        if (escolasNome) {
-                            const escolas = escolasNome.data;
-                            console.log({escolas});
-                            // Display Escolas Ranking Table
-                            html = rankingTemplate({escolas});
-                            el.html(html);
-                        }
-                    } catch (err) {
-                        console.log('Error:', err);
-                    } finally {
-                        $('.loading').removeClass('loading');
-                    }
-                }
-            });
+            // Search Escola
+            $('body').on('click', '#searchEscola', async function () {
 
-            $('body').on('change', '#ufEscola', async function () {
+                const searchNomeEscola = $('#nomeEscola').val();
+                const searchUfEscola = $('#ufEscola').val();
                 $('#divError').hide();
-                const ufEscola = $('#ufEscola').val();
-                if (ufEscola && ufEscola != 'todos') {
-                    try {
-                        const escolasNome = await api_solidareduca.get(`/escolas/search/?uf=${ufEscola}`)
-                            .catch(function (error) {
+                if (searchNomeEscola == '' ) {
+                    if (searchUfEscola == 'todos') {
+                        try {
+                            const response = await api.get('/escolas').catch(function (error) {
                                 error = {
                                     response: {
                                         data: {
                                             'title': 'Escola não encontrada',
-                                            'message': `Nenhuma escola encontrada na uf ${ufEscola}`
+                                            'message': `Nenhuma escola encontrada!`
                                         }
                                     }
                                 };
                                 showError(error);
                             });
-                        if (escolasNome) {
-                            console.log(escolasNome);
-                            const escolas = escolasNome.data;
-                            console.log(escolas);
-                            html = rankingTemplate({escolas});
-                            el.html(html);
-                            $('#ufEscola').val(ufEscola);
+                            if (response) {
+                                const escolas = response.data;
+                                // Display Escolas Ranking Table
+                                html = rankingTemplate({escolas});
+                                el.html(html);
+                            }
+                        } catch (err) {
+                            console.log('Error:', err);
+                        } finally {
+                            $('.loading').removeClass('loading');
                         }
-                    } catch (err) {
-                        console.log('Error:', err);
-                        console.log(err.status);
-                    } finally {
-                        $('.loading').removeClass('loading');
+                    } else {
+                        try {
+                            const escolasUF = await api_solidareduca.get(`/escolas/search/?uf=${searchUfEscola}`)
+                                .catch(function (error) {
+                                    error = {
+                                        response: {
+                                            data: {
+                                                'title': 'Escola não encontrada',
+                                                'message': `Nenhuma escola encontrada na uf ${searchUfEscola}`
+                                            }
+                                        }
+                                    };
+                                    showError(error);
+                                });
+                            if (escolasUF) {
+                                const escolas = escolasUF.data;
+                                html = rankingTemplate({escolas});
+                                el.html(html);
+                                $('#ufEscola').val(searchUfEscola);
+                            }
+                        } catch (err) {
+                            console.log('Error:', err);
+                            console.log(err.status);
+                        } finally {
+                            $('.loading').removeClass('loading');
+                        }
                     }
                 } else {
-                    try {
-                        const response = await api.get('/escolas');
-                        const escolas = response.data;
-                        console.log({escolas});
-                        // Display Escolas Ranking Table
-                        html = rankingTemplate({escolas});
-                        el.html(html);
-                    } catch (err) {
-                        console.log('Error:', err);
-                        console.log(err.status);
-                    } finally {
-                        $('.loading').removeClass('loading');
+                    if (searchUfEscola == 'todos') {
+                        try {
+                            const escolasNome = await api_solidareduca.get(`/escolas/search/?nome=${searchNomeEscola}`).catch(function (error) {
+                                console.log(error);
+                                let textDefault = `Nenhuma escola encontrada com nome ${searchNomeEscola}`;
+                                error = {
+                                    response: {
+                                        data: {
+                                            'title': 'Escola não encontrada',
+                                            'message': textDefault
+                                        }
+                                    }
+                                };
+                                showError(error);
+                            });
+                            if (escolasNome) {
+                                const escolas = escolasNome.data;
+                                console.log({escolas});
+                                // Display Escolas Ranking Table
+                                html = rankingTemplate({escolas});
+                                el.html(html);
+                            }
+                        } catch (err) {
+                            console.log('Error:', err);
+                        } finally {
+                            $('.loading').removeClass('loading');
+                        }
+                    } else {
+                        try {
+                            const escolasNome = await api_solidareduca.get(`/escolas/search/?nome=${searchNomeEscola}&uf=${searchUfEscola}`).catch(function (error) {
+                                console.log(error);
+                                let textDefault = `Nenhuma escola encontrada com nome ${searchNomeEscola} na UF: ${searchUfEscola}`;
+                                error = {
+                                    response: {
+                                        data: {
+                                            'title': 'Escola não encontrada',
+                                            'message': textDefault
+                                        }
+                                    }
+                                };
+                                showError(error);
+                            });
+                            if (escolasNome) {
+                                const escolas = escolasNome.data;
+                                console.log({escolas});
+                                // Display Escolas Ranking Table
+                                html = rankingTemplate({escolas});
+                                el.html(html);
+                            }
+                        } catch (err) {
+                            console.log('Error:', err);
+                        } finally {
+                            $('.loading').removeClass('loading');
+                        }
                     }
+
                 }
             });
 
