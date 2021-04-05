@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="two wide column columnLogin">
-                        <div class="ui primary button logarButtonHead" onclick="location.href='/autenticacaoAluno'">Logar</div>
+                        <div class="ui primary button logarButtonHead buttonReceber" onclick="location.href='/autenticacaoAluno'">Logar</div>
                     </div>
                 </form>
             </div>
@@ -48,16 +48,16 @@
         </div>
     </div>
     <!-- Navigation Menu -->
-    <div class="ui three item fluid white menu padMenu">
+    <div class="ui two item fluid white menu padMenu">
         <a class="header item" href="/">
             <img class="ui mini image logoIcon" src="assets/images/logo.png">
             <div class="content">
                 SolidarEduca
             </div>
         </a>
-        <a class="item" href="/cadastro">
-            Video
-        </a>
+        <!--<a class="item" href="/cadastro">-->
+            <!--Cadastro-->
+        <!--</a>-->
         <a class="item" href="/sobre">
             Sobre
         </a>
@@ -114,15 +114,12 @@
             <h1 class="ui header">Quem vamos cadastrar?</h1>
             <hr>
             <div class="ui basic segment">
-
                 <a class="item" href="/cadastroAluno">
-
                     <label style="font-size: 25px;">Aluno</label>
                 </a>
                 <br>
                 <br>
                 <a class="item" href="/cadastroDoador">
-
                     <label style="font-size: 25px;">Doador</label>
                 </a>
             </div>
@@ -333,9 +330,173 @@
     
     <!-- Sobre Template -->
     <script id="sobre-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Sobre</h1>
-        <hr>
-        <div class="ui star rating" data-rating="3" interactive="false" data-max-rating="10"></div>
+        <div class="white container">
+            <h1 align="center">Solidareduca Web</h1>
+
+            <h4 align="center">
+                🚀 Concluído 🚀
+            </h4>
+
+            <h2 id="-sobre-o-projeto">📙 Sobre o Projeto</h2>
+            <p>
+                Projeto que visa possibilitar a conexão entre alunos que precisam de materiais escolares e doadores.
+                Desenvolvido durante o Programa de Formação FCamara, desafio lançado pelos organizadores, com intuito de
+                avaliar a capacidade de seus participantes e como interagem com suas equipes.
+            </p>
+            <p>
+                Foi divido em três frentes, back-end, front-end e design.
+            <p>
+            <p>
+                O back-end foi criado uma API REST-FULL em NodeJs, fornecendo assim um meio de acesso aos dados, podendo
+                realizar ações como consultar, cadastrar, deletar e atualizar dados fornecidos.
+                <h4><a href="https://github.com/squad37/solidareduca">Github da Api</a> </h4>
+            </p>
+            <p>
+                O front-end foi criado uma aplicação web em Javascript, utilizando de rotas com o Vanilla-routes,
+                templates javascripts com Handlebars e layout com Semantic-UI, consumindo os dados da api, podendo
+                realizar ações como consultar e cadastrar dados fornecidos.
+                <h4><a href="https://github.com/squad37/solidareduca">Github da Aplicação Web</a> </h4>
+            </p>
+            <p>
+                O design foi criado um protótipo, utilizando o Figma, além de utilizar a metodologia do Design Thinking.
+                Escolhendo alguns entregáveis para cada etapa a partir do duplo diamante.
+                <h4><a href="https://uxdesignlaliethais.medium.com/solidareduca-ajudando-alunos-que-necessitam-receber-material-escolar-4f7a895ba96d">Artigo</a></h4>
+            </p>
+            <hr>
+            <h2 id="-funcionalidades">💻 Funcionalidades</h2>
+            <ul>
+                <li>[x] Cadastro de Alunos e Doadores</li>
+                <li>[x] Listagem de todos os alunos cadastrados</li>
+                <li>[x] Listagem de todos os doadores cadastrados</li>
+                <li>[x] Listagem de todos os materiais cadastrados</li>
+                <li>[x] Autenticação do aluno</li>
+                <li>[x] Autenticação do doador</li>
+                <li><p>[x] Listagem de alunos por escola</p>
+                </li>
+                <li><p>[x] Listagem de todas as escolas cadastradas</p>
+                </li>
+                <li>[x] Ranking de escolas cadastradas<ul>
+                    <li>[x] A escola tem a possibilidade de ser parceira do site e receber doações para um determinado aluno na própria escola. A cada doação recebida, a escola ganha 10 pontos no ranking.</li>
+                </ul>
+                </li>
+                <li><p>[x] Ranking de doadores cadastrados</p>
+                    <ul>
+                        <li>[x] A cada doação realizada, o doador ganha 1 ponto no ranking.</li>
+                    </ul>
+                </li>
+                <li><p>[x] Cadastro de Pedidos</p>
+                    <ul>
+                        <li>[x] O Aluno pode escolher o material que necessita, escolher a quantidade e realizar o pedido.</li>
+                    </ul>
+                </li>
+                <li>[x] Listagem de todos os pedidos</li>
+                <li>[x] Listagem de todos os pedidos de um determinado aluno<ul>
+                    <li>[x] O aluno consegue visualizar e gerenciar os seus próprios pedidos.</li>
+                    <li>[x] O aluno consegue cancelar um pedido.</li>
+                    <li>[x] O aluno consegue confirmar o recebimento do material.</li>
+                </ul>
+                </li>
+                <li>[x] Listagem de todos os pedidos que estão na situação: Aguardando Doador<ul>
+                    <li>[x] O doador tem a possibilidade de selecionar um aluno, verificar o que ele precisa e escolher o que irá doar.</li>
+                </ul>
+                </li>
+                <li>[x] Listagem de todos os pedidos que um doador se prontificou a participar<ul>
+                    <li>[x] O doador consegue visualizar os materiais que se prontificou a doar.</li>
+                    <li>[x] Caso o doador escolha um pedido incorretamente, ele consegue cancelar o seu interesse no pedido.</li>
+                </ul>
+                </li>
+            </ul>
+            <hr>
+            <h2 id="-pr-requisitos">🔶Pré Requisitos</h2>
+            <h4>Api</h4>
+            <ul>
+              <li><a href="https://git-scm.com/">Git</a></li>
+              <li><a href="https://nodejs.org/en/">Node.js</a></li>
+              <li><a href="https://www.postgresql.org/">Postgresql versão: 12.3</a></li>
+              <li><a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/">Npm</a></li>
+            </ul>
+            <hr>
+            <h4>Aplicação web</h4>
+            <ul>
+                <li><a href="https://nodejs.org/en/download/">Node.js</a></li>
+                <li><a href="https://git-scm.com/downloads">Git</a> ou <a href="https://gitforwindows.org/">Git Bash</a> para usuários Windows</li>
+                <li>Baixar api para instalação local <a href="https://github.com/squad37/api-solidareduca">Api-solidareduca</a></li>
+                <li>Instalar a extensão <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc">Moesif Origin &amp; CORS Changer</a></li>
+            </ul>
+            <hr>
+            <h2 id="-instala-o">🔶 Instalação</h2>
+            <h4>Api</h4>
+            <ul>
+                <li>
+                    Criar banco de dados chamado solidareduca, no Postgresql;
+                </li>
+                <li>
+                    Instalar o <a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/">Npm</a>.
+                </li>
+                <li>
+                    Clone o repositorio do projeto:
+                    <code>git clone https://github.com/squad37/api-solidareduca.git</code>
+                </li>
+                <li>
+                    Copie e renomei o arquivo: <code>ormconfig-example.json</code>
+                    Para <code>ormconfig.json</code>
+                </li>
+                <li>
+                    Configure o arquivo: <code>ormconfig.json</code>
+                    <code>port username password</code>, referente ao banco de dados criado anteriormente
+                </li>
+                <li>
+                    Instale as dependências: <code>yarn</code></p>
+                </li>
+                <li>
+                    Execute as migrations : <code>yarn typeorm migration:run</code>
+                </li>
+                <li>
+                    Execute a aplicação : <code>yarn dev</code>
+                </li>
+                <li>
+                    A aplicação sera aberta na porta:3333
+                </li>
+                <li>
+                    Para acessar a documentação da API, acesse a url: <code>localhost:3333/api-docs</code>
+                </li>
+            </ul>
+            <hr>
+            <h4>Aplicação web</h4>
+            <ul>
+                <li>Copie o arquivo .env-example, renomeando para .env</li>
+                <li>npm install - para instalar as bibliotecas</li>
+                <li>Com a api em execução <a href="https://github.com/squad37/api-solidareduca">Api-solidareduca</a>;</li>
+                <li>npm start - para executar o projeto</li>
+                <li>Observação: Caso for realizar um cadastro e ficar retornando não cadastrado, verificar se em Console ao clicar com f12 não está dando erro referente ao CORS, caso sim será preciso adicionar a extensão <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc">https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc</a> para o navegador e ativa-la clicando em ON.</li>
+            </ul>
+            <h2 id="-tecnologias"><i class="desktop icon"></i> Tecnologias</h2>
+            <p>Essa aplicacão foi desenvolvida com as seguintes ferramentas:</p>
+            <ul>
+                <li><a href="https://expressjs.com/pt-br/">Express</a></li>
+                <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
+                <li><a href="https://typeorm.io">TypeORM</a></li>
+                <li><a href="https://www.postgresql.org/">Postgresql</a></li>
+                <li><a href="https://www.beekeeperstudio.io/">BeekeeperStudio</a></li>
+                <li><a href="https://swagger.io/">Swagger</a></li>
+                <li><a href="https://insomnia.rest/">Insomnia</a></li>
+                <li><a href="https://www.npmjs.com/package/vanilla-router">Vanilla Router</a></li>
+                <li><a href="https://semantic-ui.com/">Semantic UI</a></li>
+                <li><a href="https://handlebarsjs.com/">Handlebars</a></li>
+            </ul>
+            <hr>
+            <h2 id="-autores">📙 Autores</h2>
+            <ul>
+                <li><a href="https://www.linkedin.com/in/breno-moura-43b09b21/">Breno Moura</a></li>
+                <li><a href="https://www.linkedin.com/in/daniel-barbosa-da-silva-b1ab8b170/">Daniel Barbosa</a></li>
+                <li><a href="https://www.linkedin.com/in/guilherme-bento-7a1400128/">Guilherme Bento</a></li>
+                <li><a href="https://www.linkedin.com/in/jean-higa-8374311a6/">Jean Higa</a></li>
+                <li><a href="https://www.linkedin.com/in/laisa-mendes-6669b620a">Laísa Mendes</a></li>
+                <li><a href="https://www.linkedin.com/in/tais-rampani/">Taís Rampani</a></li>
+            </ul>
+            <hr>
+        </div>
+
     </script>
 
     <!-- Autenticar Aluno Template -->

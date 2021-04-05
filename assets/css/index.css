@@ -132,3 +132,6 @@ button.alunosEscola:hover {
 .noborder {
     border: none!important;
 }
+.white {
+    background-color: white;
+}
