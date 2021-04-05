@@ -46,9 +46,12 @@ window.addEventListener('load', () => {
 
     // Display Error Banner
     const showError = (error) => {
-        console.log(error);
-        if (error.hasOwnProperty('data')){
-            const { title, message } = error.response.data;
+        console.log(error.response);
+        console.log(error.response.hasOwnProperty('data'));
+        if (error.response.hasOwnProperty('data')) {
+            console.log(error.response.data);
+            var  title  = error.response.data.title;
+            var  message  = error.response.data.message;
         }
 
         const html = errorTemplate({ color: 'red', title, message });
@@ -67,11 +70,81 @@ window.addEventListener('load', () => {
 
             const response = await api.get('/escolas');
             const escolas  = response.data;
+            console.log({escolas});
             // Display Escolas Ranking Table
             html = rankingTemplate({ escolas });
             el.html(html);
             $(".rating").rating({interactive:false});
             // Specify Submit Handler
+
+            $('#nomeEscola').keyup(async function(element){
+                console.log(element.currentTarget.value);
+                let searchEscola = element.currentTarget.value;
+                if(searchEscola == ''){
+                    const response = await api.get('/escolas');
+                    const escolas  = response.data;
+                    console.log({escolas});
+                    // Display Escolas Ranking Table
+                    html = rankingTemplate({ escolas });
+                    el.html(html);
+                }
+                if (searchEscola.length > 3) {
+                    try{
+                        const escolasNome = await api_solidareduca.get(`/escolas/search/?nome=${searchEscola}`).catch(function (error) {
+                                console.log(error);
+                                error = {
+                                    response: {
+                                        data: {
+                                            'title': 'Escola não encontrada',
+                                            'message':`Escola com nome ${searchEscola}`
+                                        }
+                                    }
+                                }
+                                showError(error);
+                        });
+                        const escolas  = escolasNome.data;
+                        console.log({escolas});
+                        // Display Escolas Ranking Table
+                        html = rankingTemplate({ escolas });
+                        el.html(html);
+                    } catch (err) {
+                        console.log('Error:', err);
+                    } finally {
+                        $('.loading').removeClass('loading');
+                    }
+                }
+            });
+
+            $('#ufEscola').click( async function(){
+                const ufEscola = $('#ufEscola').val();
+                if (ufEscola) {
+                    try{
+                        const escolasNome = await api_solidareduca.get(`/escolas/search/?uf=${ufEscola}`)
+                            .catch(function (error) {
+                                error = {
+                                    response: {
+                                        data: {
+                                            'title': 'Escola não encontrada',
+                                            'message':`Escola com nome ${ufEscola}`
+                                        }
+                                    }
+                                };
+                                showError(error);
+
+                            });
+                        console.log(escolasNome);
+                        const escolas  = escolasNome.data;
+                        console.log(escolas);
+                        html = rankingTemplate({ escolas });
+                        el.html(html);
+                    } catch (err) {
+                        console.log('Error:', err);
+                        console.log(err.status);
+                    } finally {
+                        $('.loading').removeClass('loading');
+                    }
+                }
+            });
 
             $('.alunosEscola').click( function(){
                 const id_escola = this.dataset.json;
@@ -79,8 +152,9 @@ window.addEventListener('load', () => {
             });
 
             $('.receberDoacao').click( function(){
-              router.navigateTo("autenticacaoAluno");
-          });
+                router.navigateTo("autenticacaoAluno");
+            });
+
         } catch (error) {
             showError(error);
         } finally {
@@ -398,7 +472,12 @@ window.addEventListener('load', () => {
 
         // Navigate to clicked url
         const href = target.attr('href');
-        const path = href.substr(href.lastIndexOf('/'));
+        let path;
+        if (href!= undefined) {
+           path = href.substr(href.lastIndexOf('/'));
+        } else {
+            path = '/';
+        }
         router.navigateTo(path);
     });
     
@@ -527,14 +606,15 @@ window.addEventListener('load', () => {
             headers: headers
           };
         
-        
+        console.log(aluno);
+        console.log(httpOptions);
         // Send post data to Express(proxy) server
         try {
           const response = await api_solidareduca.post(`/alunos`, 
           aluno, httpOptions)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
-           alert(`CADASTRO REALIZDO COM SUCESSO`);
+            alert(`CADASTRO REALIZDO COM SUCESSO`);
             router.navigateTo(window.location.pathname);
           })
           .catch((err) => {

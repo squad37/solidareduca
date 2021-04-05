@@ -19,17 +19,17 @@
                 <form class="ui padded  grid noborder">
                     <div class="six wide column columnLogin"></div>
                     <div class="four wide column columnLogin">
-                        <div class="ui action input emailInputHead">
-                            <input type="text" name="emailUsuario" id="emailUsuario" placeholder="E-mail">
-                        </div>
+                        <!--<div class="ui action input emailInputHead">-->
+                            <!--<input type="text" name="emailUsuario" id="emailUsuario" placeholder="E-mail">-->
+                        <!--</div>-->
                     </div>
                     <div class="four wide column columnLogin">
-                        <div class="ui action input senhaInputHead">
-                            <input type="password" name="senhaUsuario" id="senhaUsuario" placeholder="Senha">
-                        </div>
+                        <!--<div class="ui action input senhaInputHead">-->
+                            <!--<input type="password" name="senhaUsuario" id="senhaUsuario" placeholder="Senha">-->
+                        <!--</div>-->
                     </div>
                     <div class="two wide column columnLogin">
-                        <div class="ui primary button logarButtonHead buttonReceber" onclick="location.href='/autenticacaoAluno'">Logar</div>
+                        <div class="ui primary button logarButtonHead buttonReceber" onclick="location.href='/autenticacaoAluno'">Login Aluno</div>
                     </div>
                 </form>
             </div>
@@ -81,6 +81,47 @@
             <h1 class="ui header textCenter">Ranking das Escolas!</h1>
             <div class="ui loading basic segment rankingEscolas">
                 <div class="ui internally celled grid">
+                    <form class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Nome da Escola</label>
+                                <input type="text" name="nomeEscola" id="nomeEscola" placeholder="Escola">
+                            </div>
+                            <div class="field">
+                                <label>Estado</label>
+                                <select class="ui dropdown" name="ufEscola" id="ufEscola">
+                                    <option value=""></option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                     {{#each escolas}}
                         <div class="row cardEscolas" style="background-color: white;">
                             <div class="three wide column thumbnail">
@@ -501,27 +542,34 @@
 
     <!-- Autenticar Aluno Template -->
     <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Login Aluno</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
-                        <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Senha">
-                        </div>
+        <div class="ui middle aligned center aligned grid">
+            <div class="four wide column"></div>
+            <div class="eight wide column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        Login Aluno
                     </div>
-                </div>
-                <div class="ui primary submit button">Logar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
+                </h2>
+                <form class="ui form">
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" id="email" name="email" placeholder="E-mail">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" id="senha" name="password" placeholder="Senha">
+                            </div>
+                        </div>
+                        <div class="ui fluid teal submit button">Logar</div>
+                    </div>
+                    <div class="ui error message"></div>
+                </form>
+            </div>
+            <div class="four wide column"></div>
         </div>
     </script>
 
