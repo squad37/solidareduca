@@ -63,19 +63,26 @@
         </a>
     </div>
     <div class="ui container fluid main">
-        <!-- Error Template -->
+        <div id="divError" class="ui negative message" style="display: none;">
+            <i id="closeDiv" class="close icon"></i>
+            <div id="headerMessageError" class="header"></div>
+            <p id="contentMessageError"></p>
+        </div>
+
+        <!-- Error Template-->
         <script id="error-template" type="text/x-handlebars-template">
-            <div class="ui {{color}} inverted segment" style="height:250px;">
-                <br>
-                <h2 class="ui center aligned icon header">
-                    <i class="exclamation triangle icon"></i>
-                    <div class="content">
-                        {{title}}
-                        <div class="sub header">{{message}}</div>
-                    </div>
-                </h2>
-            </div>
+           <!--<div class="ui {{color}} inverted segment" style="height:250px;">-->
+                <!--<br>-->
+                <!--<h2 class="ui center aligned icon header">-->
+                    <!--<i class="exclamation triangle icon"></i>-->
+                    <!--<div class="content">-->
+                        <!--{{title}}-->
+                        <!--<div class="sub header">{{message}}</div>-->
+                    <!--</div>-->
+                <!--</h2>-->
+            <!--</div>-->
         </script>
+
         <!-- Ranking Template -->
         <script id="ranking-template" type="text/x-handlebars-template">
             <h1 class="ui header textCenter">Ranking das Escolas!</h1>
@@ -90,7 +97,7 @@
                             <div class="field">
                                 <label>Estado</label>
                                 <select class="ui dropdown" name="ufEscola" id="ufEscola">
-                                    <option value=""></option>
+                                    <option value="todos">Todos</option>
                                     <option value="AC">Acre</option>
                                     <option value="AL">Alagoas</option>
                                     <option value="AP">Amapá</option>
@@ -152,157 +159,56 @@
 
         <!-- Cadastro Template -->
         <script id="cadastro-template" type="text/x-handlebars-template">
-            <h1 class="ui header">Quem vamos cadastrar?</h1>
-            <hr>
-            <div class="ui basic segment">
-                <a class="item" href="/cadastroAluno">
-                    <label style="font-size: 25px;">Aluno</label>
-                </a>
-                <br>
-                <br>
-                <a class="item" href="/cadastroDoador">
-                    <label style="font-size: 25px;">Doador</label>
-                </a>
-            </div>
-        </script>
-
-    <!-- Cadastro do aluno Template -->
-    <script id="cadastroAluno-template" type="text/x-handlebars-template">
-        <h1 class="ui header textCenter">Cadastro do Aluno</h1>
-        <div class="ui padded  grid">
-            <div class="two wide column"></div>
-            <div class="twelve wide column">
-                <div class="ui basic loading segment">
-                    <form class="ui form">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Nome</label>
-                                <input type="text" name="nomeAluno" id="nomeAluno" placeholder="Nome">
-                            </div>
-                            <div class="field">
-                                <label>E-mail</label>
-                                <input type="text" name="emailAluno" id="emailAluno" placeholder="E-mail">
-                            </div>
-                        </div>
-                        <div class="two fields">
-                            <div class="field">
-                                <label>CPF</label>
-                                <input type="text" name="cpfAluno" id="cpfAluno" placeholder="CPF">
-                            </div>
-                            <div class="field">
-                                <label>Nome do responsável</label>
-                                <input type="text" name="nome_responsavelAluno" id="nome_responsavelAluno" placeholder="Nome do responsável">
-                            </div>
-                        </div>
-                        <div class="fields">
-                            <div class="four wide field">
-                                <label>CEP</label>
-                                <input type="text" name="cepAluno" id="cepAluno" placeholder="CEP">
-                            </div>
-                            <div class="three wide field">
-                                <label>UF do Estado</label>
-                                <select class="ui dropdown" name="ufAluno" id="ufAluno">
-                                    <option value=""></option>
-                                    <option value="AC">Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SP">São Paulo</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
-                                </select>
-                            </div>
-                            <div class="eleven wide field">
-                                <label>Endereço</label>
-                                <input type="text" name="enderecoAluno" id="enderecoAluno" placeholder="Endereço">
-                            </div>
-                        </div>
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Número de Contato</label>
-                                <input type="text" name="telefoneAluno" id="telefoneAluno" placeholder="(99) 999999999 ">
-                            </div>
-                            <div class="field">
-                                <label>Escola</label>
-                                <!--<input >-->
-                                <select class="ui dropdown" name="id_escolaAluno" id="id_escolaAluno">
-                                    <option value="">Selecione a Escola</option>
-                                    {{#each escolas}}
-                                    <option value="{{this.id}}">{{this.nome}}</option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="one fields">
-                            <div class="field">
-                                <label>Senha</label>
-                                <input type="password" name="senhaAluno" id="senhaAluno" placeholder="Crie uma senha">
-                            </div>
-                        </div>
-
-                        <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
-                        <div id="result-segment" class="ui center aligned segment">
-                            <h2 id="resultCadastro" class="ui header">
-                            </h2>
-                        </div>
-                         -->
-                        <div class="field">
-                            <div class="ui primary submit fluid button buttonDoar">Cadastrar</div>
-                            <div class="ui error message"></div>
-                        </div>
-                    </form>
+                <h1 class="ui header">Quem vamos cadastrar?</h1>
+                <hr>
+                <div class="ui basic segment">
+                    <a class="item" href="/cadastroAluno">
+                        <label style="font-size: 25px;">Aluno</label>
+                    </a>
+                    <br>
+                    <br>
+                    <a class="item" href="/cadastroDoador">
+                        <label style="font-size: 25px;">Doador</label>
+                    </a>
                 </div>
-            </div>
-            <div class="two wide column"></div>
-        </div>
-    </script>
+            </script>
 
-     <!-- Cadastro do doador Template -->
-     <script id="cadastroDoador-template" type="text/x-handlebars-template">
-        <h1 class="ui header textCenter">Cadastro do Doador</h1>
-        <div class="ui padded  grid">
-            <div class="two wide column"></div>
-            <div class="twelve wide column">
-                <div class="ui basic loading segment">
-                    <form class="ui form">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Nome</label>
-                                <input type="text" name="nomeDoador" id="nomeDoador" placeholder="Nome">
-                            </div>
-                            <div class="field">
-                                <label>E-mail</label>
-                                <input type="text" name="emailDoador" id="emailDoador" placeholder="E-mail">
-                            </div>
-                        </div>
-                        <div class="three fields">
+        <!-- Cadastro do aluno Template -->
+        <script id="cadastroAluno-template" type="text/x-handlebars-template">
+            <h1 class="ui header textCenter">Cadastro do Aluno</h1>
+            <div class="ui padded  grid">
+                <div class="two wide column"></div>
+                <div class="twelve wide column">
+                    <div class="ui basic loading segment">
+                        <form class="ui form">
+                            <div class="two fields">
                                 <div class="field">
-                                    <label>CPF</label>
-                                    <input type="text" name="cpfDoador" id="cpfDoador" placeholder="CPF">
+                                    <label>Nome</label>
+                                    <input type="text" name="nomeAluno" id="nomeAluno" placeholder="Nome">
                                 </div>
                                 <div class="field">
+                                    <label>E-mail</label>
+                                    <input type="text" name="emailAluno" id="emailAluno" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>CPF</label>
+                                    <input type="text" name="cpfAluno" id="cpfAluno" placeholder="CPF">
+                                </div>
+                                <div class="field">
+                                    <label>Nome do responsável</label>
+                                    <input type="text" name="nome_responsavelAluno" id="nome_responsavelAluno" placeholder="Nome do responsável">
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="four wide field">
+                                    <label>CEP</label>
+                                    <input type="text" name="cepAluno" id="cepAluno" placeholder="CEP">
+                                </div>
+                                <div class="three wide field">
                                     <label>UF do Estado</label>
-                                    <select class="ui dropdown" name="ufDoador" id="ufDoador">
+                                    <select class="ui dropdown" name="ufAluno" id="ufAluno">
                                         <option value=""></option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -333,482 +239,582 @@
                                         <option value="TO">Tocantins</option>
                                     </select>
                                 </div>
-                                <div class="field">
-                                    <label>CEP</label>
-                                    <input type="text" name="cepDoador" id="cepDoador" placeholder="CEP">
+                                <div class="eleven wide field">
+                                    <label>Endereço</label>
+                                    <input type="text" name="enderecoAluno" id="enderecoAluno" placeholder="Endereço">
                                 </div>
-                        </div>
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Endereço</label>
-                                <input type="text" name="enderecoDoador" id="enderecoDoador" placeholder="Endereço">
                             </div>
-
-                            <div class="field">
-                                <label>Número de Contato</label>
-                                <input type="text" name="telefoneDoador" id="telefoneDoador" placeholder="Digite o seu número de contato (celular/telefone)">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Número de Contato</label>
+                                    <input type="text" name="telefoneAluno" id="telefoneAluno" placeholder="(99) 999999999 ">
+                                </div>
+                                <div class="field">
+                                    <label>Escola</label>
+                                    <!--<input >-->
+                                    <select class="ui dropdown" name="id_escolaAluno" id="id_escolaAluno">
+                                        <option value="">Selecione a Escola</option>
+                                        {{#each escolas}}
+                                        <option value="{{this.id}}">{{this.nome}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="one fields">
+                            <div class="one fields">
                                 <div class="field">
                                     <label>Senha</label>
-                                    <input type="password" name="senhaDoador" id="senhaDoador" placeholder="Crie uma senha">
+                                    <input type="password" name="senhaAluno" id="senhaAluno" placeholder="Crie uma senha">
                                 </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui primary submit fluid button buttonDoar">Cadastrar</div>
-                            <div class="ui error message"></div>
-                        </div>
-                    </form>
+                            </div>
 
+                            <!-- Comentado campo resulta para aparecer a informação de cadastro, também comentada em app.js
+                            <div id="result-segment" class="ui center aligned segment">
+                                <h2 id="resultCadastro" class="ui header">
+                                </h2>
+                            </div>
+                             -->
+                            <div class="field">
+                                <div class="ui primary submit fluid button buttonDoar">Cadastrar</div>
+                                <div class="ui error message"></div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                <div class="two wide column"></div>
             </div>
-            <div class="two wide column"></div>
-        </div>
+        </script>
 
-    </script>
+        <!-- Cadastro do doador Template -->
+        <script id="cadastroDoador-template" type="text/x-handlebars-template">
+            <h1 class="ui header textCenter">Cadastro do Doador</h1>
+            <div class="ui padded  grid">
+                <div class="two wide column"></div>
+                <div class="twelve wide column">
+                    <div class="ui basic loading segment">
+                        <form class="ui form">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Nome</label>
+                                    <input type="text" name="nomeDoador" id="nomeDoador" placeholder="Nome">
+                                </div>
+                                <div class="field">
+                                    <label>E-mail</label>
+                                    <input type="text" name="emailDoador" id="emailDoador" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="three fields">
+                                    <div class="field">
+                                        <label>CPF</label>
+                                        <input type="text" name="cpfDoador" id="cpfDoador" placeholder="CPF">
+                                    </div>
+                                    <div class="field">
+                                        <label>UF do Estado</label>
+                                        <select class="ui dropdown" name="ufDoador" id="ufDoador">
+                                            <option value=""></option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <label>CEP</label>
+                                        <input type="text" name="cepDoador" id="cepDoador" placeholder="CEP">
+                                    </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Endereço</label>
+                                    <input type="text" name="enderecoDoador" id="enderecoDoador" placeholder="Endereço">
+                                </div>
 
-    
-    <!-- Sobre Template -->
-    <script id="sobre-template" type="text/x-handlebars-template">
-        <div class="white container">
-            <h1 align="center">Solidareduca Web</h1>
+                                <div class="field">
+                                    <label>Número de Contato</label>
+                                    <input type="text" name="telefoneDoador" id="telefoneDoador" placeholder="Digite o seu número de contato (celular/telefone)">
+                                </div>
+                            </div>
+                            <div class="one fields">
+                                    <div class="field">
+                                        <label>Senha</label>
+                                        <input type="password" name="senhaDoador" id="senhaDoador" placeholder="Crie uma senha">
+                                    </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui primary submit fluid button buttonDoar">Cadastrar</div>
+                                <div class="ui error message"></div>
+                            </div>
+                        </form>
 
-            <h4 align="center">
-                🚀 Concluído 🚀
-            </h4>
-
-            <h2 id="-sobre-o-projeto">📙 Sobre o Projeto</h2>
-            <p>
-                Projeto que visa possibilitar a conexão entre alunos que precisam de materiais escolares e doadores.
-                Desenvolvido durante o Programa de Formação FCamara, desafio lançado pelos organizadores, com intuito de
-                avaliar a capacidade de seus participantes e como interagem com suas equipes.
-            </p>
-            <p>
-                Foi divido em três frentes, back-end, front-end e design.
-            <p>
-            <p>
-                O back-end foi criado uma API REST-FULL em NodeJs, fornecendo assim um meio de acesso aos dados, podendo
-                realizar ações como consultar, cadastrar, deletar e atualizar dados fornecidos.
-                <h4><a href="https://github.com/squad37/solidareduca">Github da Api</a> </h4>
-            </p>
-            <p>
-                O front-end foi criado uma aplicação web em Javascript, utilizando de rotas com o Vanilla-routes,
-                templates javascripts com Handlebars e layout com Semantic-UI, consumindo os dados da api, podendo
-                realizar ações como consultar e cadastrar dados fornecidos.
-                <h4><a href="https://github.com/squad37/solidareduca">Github da Aplicação Web</a> </h4>
-            </p>
-            <p>
-                O design foi criado um protótipo, utilizando o Figma, além de utilizar a metodologia do Design Thinking.
-                Escolhendo alguns entregáveis para cada etapa a partir do duplo diamante.
-                <h4><a href="https://uxdesignlaliethais.medium.com/solidareduca-ajudando-alunos-que-necessitam-receber-material-escolar-4f7a895ba96d">Artigo</a></h4>
-            </p>
-            <hr>
-            <h2 id="-funcionalidades">💻 Funcionalidades</h2>
-            <ul>
-                <li>[x] Cadastro de Alunos e Doadores</li>
-                <li>[x] Listagem de todos os alunos cadastrados</li>
-                <li>[x] Listagem de todos os doadores cadastrados</li>
-                <li>[x] Listagem de todos os materiais cadastrados</li>
-                <li>[x] Autenticação do aluno</li>
-                <li>[x] Autenticação do doador</li>
-                <li><p>[x] Listagem de alunos por escola</p>
-                </li>
-                <li><p>[x] Listagem de todas as escolas cadastradas</p>
-                </li>
-                <li>[x] Ranking de escolas cadastradas<ul>
-                    <li>[x] A escola tem a possibilidade de ser parceira do site e receber doações para um determinado aluno na própria escola. A cada doação recebida, a escola ganha 10 pontos no ranking.</li>
-                </ul>
-                </li>
-                <li><p>[x] Ranking de doadores cadastrados</p>
-                    <ul>
-                        <li>[x] A cada doação realizada, o doador ganha 1 ponto no ranking.</li>
-                    </ul>
-                </li>
-                <li><p>[x] Cadastro de Pedidos</p>
-                    <ul>
-                        <li>[x] O Aluno pode escolher o material que necessita, escolher a quantidade e realizar o pedido.</li>
-                    </ul>
-                </li>
-                <li>[x] Listagem de todos os pedidos</li>
-                <li>[x] Listagem de todos os pedidos de um determinado aluno<ul>
-                    <li>[x] O aluno consegue visualizar e gerenciar os seus próprios pedidos.</li>
-                    <li>[x] O aluno consegue cancelar um pedido.</li>
-                    <li>[x] O aluno consegue confirmar o recebimento do material.</li>
-                </ul>
-                </li>
-                <li>[x] Listagem de todos os pedidos que estão na situação: Aguardando Doador<ul>
-                    <li>[x] O doador tem a possibilidade de selecionar um aluno, verificar o que ele precisa e escolher o que irá doar.</li>
-                </ul>
-                </li>
-                <li>[x] Listagem de todos os pedidos que um doador se prontificou a participar<ul>
-                    <li>[x] O doador consegue visualizar os materiais que se prontificou a doar.</li>
-                    <li>[x] Caso o doador escolha um pedido incorretamente, ele consegue cancelar o seu interesse no pedido.</li>
-                </ul>
-                </li>
-            </ul>
-            <hr>
-            <h2 id="-pr-requisitos">🔶Pré Requisitos</h2>
-            <h4>Api</h4>
-            <ul>
-              <li><a href="https://git-scm.com/">Git</a></li>
-              <li><a href="https://nodejs.org/en/">Node.js</a></li>
-              <li><a href="https://www.postgresql.org/">Postgresql versão: 12.3</a></li>
-              <li><a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/">Npm</a></li>
-            </ul>
-            <hr>
-            <h4>Aplicação web</h4>
-            <ul>
-                <li><a href="https://nodejs.org/en/download/">Node.js</a></li>
-                <li><a href="https://git-scm.com/downloads">Git</a> ou <a href="https://gitforwindows.org/">Git Bash</a> para usuários Windows</li>
-                <li>Baixar api para instalação local <a href="https://github.com/squad37/api-solidareduca">Api-solidareduca</a></li>
-                <li>Instalar a extensão <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc">Moesif Origin &amp; CORS Changer</a></li>
-            </ul>
-            <hr>
-            <h2 id="-instala-o">🔶 Instalação</h2>
-            <h4>Api</h4>
-            <ul>
-                <li>
-                    Criar banco de dados chamado solidareduca, no Postgresql;
-                </li>
-                <li>
-                    Instalar o <a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/">Npm</a>.
-                </li>
-                <li>
-                    Clone o repositorio do projeto:
-                    <code>git clone https://github.com/squad37/api-solidareduca.git</code>
-                </li>
-                <li>
-                    Copie e renomei o arquivo: <code>ormconfig-example.json</code>
-                    Para <code>ormconfig.json</code>
-                </li>
-                <li>
-                    Configure o arquivo: <code>ormconfig.json</code>
-                    <code>port username password</code>, referente ao banco de dados criado anteriormente
-                </li>
-                <li>
-                    Instale as dependências: <code>yarn</code></p>
-                </li>
-                <li>
-                    Execute as migrations : <code>yarn typeorm migration:run</code>
-                </li>
-                <li>
-                    Execute a aplicação : <code>yarn dev</code>
-                </li>
-                <li>
-                    A aplicação sera aberta na porta:3333
-                </li>
-                <li>
-                    Para acessar a documentação da API, acesse a url: <code>localhost:3333/api-docs</code>
-                </li>
-            </ul>
-            <hr>
-            <h4>Aplicação web</h4>
-            <ul>
-                <li>Copie o arquivo .env-example, renomeando para .env</li>
-                <li>npm install - para instalar as bibliotecas</li>
-                <li>Com a api em execução <a href="https://github.com/squad37/api-solidareduca">Api-solidareduca</a>;</li>
-                <li>npm start - para executar o projeto</li>
-                <li>Observação: Caso for realizar um cadastro e ficar retornando não cadastrado, verificar se em Console ao clicar com f12 não está dando erro referente ao CORS, caso sim será preciso adicionar a extensão <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc">https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc</a> para o navegador e ativa-la clicando em ON.</li>
-            </ul>
-            <h2 id="-tecnologias"><i class="desktop icon"></i> Tecnologias</h2>
-            <p>Essa aplicacão foi desenvolvida com as seguintes ferramentas:</p>
-            <ul>
-                <li><a href="https://expressjs.com/pt-br/">Express</a></li>
-                <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
-                <li><a href="https://typeorm.io">TypeORM</a></li>
-                <li><a href="https://www.postgresql.org/">Postgresql</a></li>
-                <li><a href="https://www.beekeeperstudio.io/">BeekeeperStudio</a></li>
-                <li><a href="https://swagger.io/">Swagger</a></li>
-                <li><a href="https://insomnia.rest/">Insomnia</a></li>
-                <li><a href="https://www.npmjs.com/package/vanilla-router">Vanilla Router</a></li>
-                <li><a href="https://semantic-ui.com/">Semantic UI</a></li>
-                <li><a href="https://handlebarsjs.com/">Handlebars</a></li>
-            </ul>
-            <hr>
-            <h2 id="-autores">📙 Autores</h2>
-            <ul>
-                <li><a href="https://www.linkedin.com/in/breno-moura-43b09b21/">Breno Moura</a></li>
-                <li><a href="https://www.linkedin.com/in/daniel-barbosa-da-silva-b1ab8b170/">Daniel Barbosa</a></li>
-                <li><a href="https://www.linkedin.com/in/guilherme-bento-7a1400128/">Guilherme Bento</a></li>
-                <li><a href="https://www.linkedin.com/in/jean-higa-8374311a6/">Jean Higa</a></li>
-                <li><a href="https://www.linkedin.com/in/laisa-mendes-6669b620a">Laísa Mendes</a></li>
-                <li><a href="https://www.linkedin.com/in/tais-rampani/">Taís Rampani</a></li>
-            </ul>
-            <hr>
-        </div>
-
-    </script>
-
-    <!-- Autenticar Aluno Template -->
-    <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
-        <div class="ui middle aligned center aligned grid">
-            <div class="four wide column"></div>
-            <div class="eight wide column">
-                <h2 class="ui teal image header">
-                    <div class="content">
-                        Login Aluno
                     </div>
-                </h2>
+                </div>
+                <div class="two wide column"></div>
+            </div>
+
+        </script>
+
+        <!-- Sobre Template -->
+        <script id="sobre-template" type="text/x-handlebars-template">
+            <div class="white container">
+                <h1 align="center">Solidareduca Web</h1>
+
+                <h4 align="center">
+                    🚀 Concluído 🚀
+                </h4>
+
+                <h2 id="-sobre-o-projeto">📙 Sobre o Projeto</h2>
+                <p>
+                    Projeto que visa possibilitar a conexão entre alunos que precisam de materiais escolares e doadores.
+                    Desenvolvido durante o Programa de Formação FCamara, desafio lançado pelos organizadores, com intuito de
+                    avaliar a capacidade de seus participantes e como interagem com suas equipes.
+                </p>
+                <p>
+                    Foi divido em três frentes, back-end, front-end e design.
+                <p>
+                <p>
+                    O back-end foi criado uma API REST-FULL em NodeJs, fornecendo assim um meio de acesso aos dados, podendo
+                    realizar ações como consultar, cadastrar, deletar e atualizar dados fornecidos.
+                    <h4><a href="https://github.com/squad37/solidareduca">Github da Api</a> </h4>
+                </p>
+                <p>
+                    O front-end foi criado uma aplicação web em Javascript, utilizando de rotas com o Vanilla-routes,
+                    templates javascripts com Handlebars e layout com Semantic-UI, consumindo os dados da api, podendo
+                    realizar ações como consultar e cadastrar dados fornecidos.
+                    <h4><a href="https://github.com/squad37/solidareduca">Github da Aplicação Web</a> </h4>
+                </p>
+                <p>
+                    O design foi criado um protótipo, utilizando o Figma, além de utilizar a metodologia do Design Thinking.
+                    Escolhendo alguns entregáveis para cada etapa a partir do duplo diamante.
+                    <h4><a href="https://uxdesignlaliethais.medium.com/solidareduca-ajudando-alunos-que-necessitam-receber-material-escolar-4f7a895ba96d">Artigo</a></h4>
+                </p>
+                <hr>
+                <h2 id="-funcionalidades">💻 Funcionalidades</h2>
+                <ul>
+                    <li>[x] Cadastro de Alunos e Doadores</li>
+                    <li>[x] Listagem de todos os alunos cadastrados</li>
+                    <li>[x] Listagem de todos os doadores cadastrados</li>
+                    <li>[x] Listagem de todos os materiais cadastrados</li>
+                    <li>[x] Autenticação do aluno</li>
+                    <li>[x] Autenticação do doador</li>
+                    <li><p>[x] Listagem de alunos por escola</p>
+                    </li>
+                    <li><p>[x] Listagem de todas as escolas cadastradas</p>
+                    </li>
+                    <li>[x] Ranking de escolas cadastradas<ul>
+                        <li>[x] A escola tem a possibilidade de ser parceira do site e receber doações para um determinado aluno na própria escola. A cada doação recebida, a escola ganha 10 pontos no ranking.</li>
+                    </ul>
+                    </li>
+                    <li><p>[x] Ranking de doadores cadastrados</p>
+                        <ul>
+                            <li>[x] A cada doação realizada, o doador ganha 1 ponto no ranking.</li>
+                        </ul>
+                    </li>
+                    <li><p>[x] Cadastro de Pedidos</p>
+                        <ul>
+                            <li>[x] O Aluno pode escolher o material que necessita, escolher a quantidade e realizar o pedido.</li>
+                        </ul>
+                    </li>
+                    <li>[x] Listagem de todos os pedidos</li>
+                    <li>[x] Listagem de todos os pedidos de um determinado aluno<ul>
+                        <li>[x] O aluno consegue visualizar e gerenciar os seus próprios pedidos.</li>
+                        <li>[x] O aluno consegue cancelar um pedido.</li>
+                        <li>[x] O aluno consegue confirmar o recebimento do material.</li>
+                    </ul>
+                    </li>
+                    <li>[x] Listagem de todos os pedidos que estão na situação: Aguardando Doador<ul>
+                        <li>[x] O doador tem a possibilidade de selecionar um aluno, verificar o que ele precisa e escolher o que irá doar.</li>
+                    </ul>
+                    </li>
+                    <li>[x] Listagem de todos os pedidos que um doador se prontificou a participar<ul>
+                        <li>[x] O doador consegue visualizar os materiais que se prontificou a doar.</li>
+                        <li>[x] Caso o doador escolha um pedido incorretamente, ele consegue cancelar o seu interesse no pedido.</li>
+                    </ul>
+                    </li>
+                </ul>
+                <hr>
+                <h2 id="-pr-requisitos">🔶Pré Requisitos</h2>
+                <h4>Api</h4>
+                <ul>
+                  <li><a href="https://git-scm.com/">Git</a></li>
+                  <li><a href="https://nodejs.org/en/">Node.js</a></li>
+                  <li><a href="https://www.postgresql.org/">Postgresql versão: 12.3</a></li>
+                  <li><a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/">Npm</a></li>
+                </ul>
+                <hr>
+                <h4>Aplicação web</h4>
+                <ul>
+                    <li><a href="https://nodejs.org/en/download/">Node.js</a></li>
+                    <li><a href="https://git-scm.com/downloads">Git</a> ou <a href="https://gitforwindows.org/">Git Bash</a> para usuários Windows</li>
+                    <li>Baixar api para instalação local <a href="https://github.com/squad37/api-solidareduca">Api-solidareduca</a></li>
+                    <li>Instalar a extensão <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc">Moesif Origin &amp; CORS Changer</a></li>
+                </ul>
+                <hr>
+                <h2 id="-instala-o">🔶 Instalação</h2>
+                <h4>Api</h4>
+                <ul>
+                    <li>
+                        Criar banco de dados chamado solidareduca, no Postgresql;
+                    </li>
+                    <li>
+                        Instalar o <a href="https://yarnpkg.com/">Yarn</a> ou <a href="https://www.npmjs.com/">Npm</a>.
+                    </li>
+                    <li>
+                        Clone o repositorio do projeto:
+                        <code>git clone https://github.com/squad37/api-solidareduca.git</code>
+                    </li>
+                    <li>
+                        Copie e renomei o arquivo: <code>ormconfig-example.json</code>
+                        Para <code>ormconfig.json</code>
+                    </li>
+                    <li>
+                        Configure o arquivo: <code>ormconfig.json</code>
+                        <code>port username password</code>, referente ao banco de dados criado anteriormente
+                    </li>
+                    <li>
+                        Instale as dependências: <code>yarn</code></p>
+                    </li>
+                    <li>
+                        Execute as migrations : <code>yarn typeorm migration:run</code>
+                    </li>
+                    <li>
+                        Execute a aplicação : <code>yarn dev</code>
+                    </li>
+                    <li>
+                        A aplicação sera aberta na porta:3333
+                    </li>
+                    <li>
+                        Para acessar a documentação da API, acesse a url: <code>localhost:3333/api-docs</code>
+                    </li>
+                </ul>
+                <hr>
+                <h4>Aplicação web</h4>
+                <ul>
+                    <li>Copie o arquivo .env-example, renomeando para .env</li>
+                    <li>npm install - para instalar as bibliotecas</li>
+                    <li>Com a api em execução <a href="https://github.com/squad37/api-solidareduca">Api-solidareduca</a>;</li>
+                    <li>npm start - para executar o projeto</li>
+                    <li>Observação: Caso for realizar um cadastro e ficar retornando não cadastrado, verificar se em Console ao clicar com f12 não está dando erro referente ao CORS, caso sim será preciso adicionar a extensão <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc">https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc</a> para o navegador e ativa-la clicando em ON.</li>
+                </ul>
+                <h2 id="-tecnologias"><i class="desktop icon"></i> Tecnologias</h2>
+                <p>Essa aplicacão foi desenvolvida com as seguintes ferramentas:</p>
+                <ul>
+                    <li><a href="https://expressjs.com/pt-br/">Express</a></li>
+                    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
+                    <li><a href="https://typeorm.io">TypeORM</a></li>
+                    <li><a href="https://www.postgresql.org/">Postgresql</a></li>
+                    <li><a href="https://www.beekeeperstudio.io/">BeekeeperStudio</a></li>
+                    <li><a href="https://swagger.io/">Swagger</a></li>
+                    <li><a href="https://insomnia.rest/">Insomnia</a></li>
+                    <li><a href="https://www.npmjs.com/package/vanilla-router">Vanilla Router</a></li>
+                    <li><a href="https://semantic-ui.com/">Semantic UI</a></li>
+                    <li><a href="https://handlebarsjs.com/">Handlebars</a></li>
+                </ul>
+                <hr>
+                <h2 id="-autores">📙 Autores</h2>
+                <ul>
+                    <li><a href="https://www.linkedin.com/in/breno-moura-43b09b21/">Breno Moura</a></li>
+                    <li><a href="https://www.linkedin.com/in/daniel-barbosa-da-silva-b1ab8b170/">Daniel Barbosa</a></li>
+                    <li><a href="https://www.linkedin.com/in/guilherme-bento-7a1400128/">Guilherme Bento</a></li>
+                    <li><a href="https://www.linkedin.com/in/jean-higa-8374311a6/">Jean Higa</a></li>
+                    <li><a href="https://www.linkedin.com/in/laisa-mendes-6669b620a">Laísa Mendes</a></li>
+                    <li><a href="https://www.linkedin.com/in/tais-rampani/">Taís Rampani</a></li>
+                </ul>
+                <hr>
+            </div>
+
+        </script>
+
+        <!-- Autenticar Aluno Template -->
+        <script id="autenticacaoAluno-template" type="text/x-handlebars-template">
+            <div class="ui middle aligned center aligned grid">
+                <div class="four wide column"></div>
+                <div class="eight wide column">
+                    <h2 class="ui teal image header">
+                        <div class="content">
+                            Login Aluno
+                        </div>
+                    </h2>
+                    <form class="ui form">
+                        <div class="ui stacked segment">
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" id="email" name="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" id="senha" name="password" placeholder="Senha">
+                                </div>
+                            </div>
+                            <div class="ui fluid teal submit button">Logar</div>
+                        </div>
+                        <div class="ui error message"></div>
+                    </form>
+                </div>
+                <div class="four wide column"></div>
+            </div>
+        </script>
+
+        <!-- Cadastrar Pedido Template -->
+        <script id="cadastrarPedido-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
+            <hr>
+            <div class="ui basic loading segment">
                 <form class="ui form">
-                    <div class="ui stacked segment">
+                    <div class="three fields">
                         <div class="field">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input type="text" id="email" name="email" placeholder="E-mail">
+                            <div class="field">
+                                <label>Material</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="id_material" id="id_material">
+                                    <option value="">Selecione o material</option>
+                                    {{#each materiais}}
+                                    <option value="{{this.id}}">{{this.nome}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Quantidade</label>
+                                <input type="number" name="quantidade" id="quantidade" placeholder="Quantidada do item">
+                            </div>
+                            <div class="field">
+                                <input type="hidden" name="id_aluno" id="id_aluno" value="{{alunoObj.id_aluno}}">
                             </div>
                         </div>
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="lock icon"></i>
-                                <input type="password" id="senha" name="password" placeholder="Senha">
-                            </div>
-                        </div>
-                        <div class="ui fluid teal submit button">Logar</div>
                     </div>
+                    <div class="ui primary submit button">Solicitar Pedido</div>
                     <div class="ui error message"></div>
                 </form>
-            </div>
-            <div class="four wide column"></div>
-        </div>
-    </script>
-
-    <!-- Cadastrar Pedido Template -->
-    <script id="cadastrarPedido-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
-                        <div class="field">
-                            <label>Material</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="id_material" id="id_material">
-                                <option value="">Selecione o material</option>
-                                {{#each materiais}}
-                                <option value="{{this.id}}">{{this.nome}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Quantidade</label>
-                            <input type="number" name="quantidade" id="quantidade" placeholder="Quantidada do item">
-                        </div>
-                        <div class="field">
-                            <input type="hidden" name="id_aluno" id="id_aluno" value="{{alunoObj.id_aluno}}">
-                        </div>
-                    </div>
-                </div>
-                <div class="ui primary submit button">Solicitar Pedido</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-            <br>
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Material</th>
-                    <th>Quantidade</th>
-                    <th>Local de Entrega</th>
-                    <th>Endereço de Entrega</th>
-                    <th>Situação</th>
-                    <th>Previsão de Entrega</th>
-                    <th>Agradecer</th>
-                </tr>
-                </thead>
-                {{#each pedidos}}
-                <tr>
-                    <td>{{this.material.nome}}</td>
-                    <td>{{this.quantidade}}</td>
-                    <td>{{this.local_entrega}}</td>
-                    <td>{{this.endereco_entrega}}</td>
-                    <td>{{this.situacao}}</td>
-                    <td>{{this.previsao_entrega}}</td>
-                    <td>
-                        <button class="ui primary button agradecerPedido" data-json="{{this.id}}">
-                            Enviar Mensagem
-                        </button>
-                    </td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
-
-    <!-- Alunos de uma escola Template -->
-    <script id="alunosDaEscola-template" type="text/x-handlebars-template">
-
-        <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
-        <hr>
-        <div class="ui loading basic segment">
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Endereço</th>
-                    <th>Cep</th>
-                    <th>Uf</th>
-                    <th>Nome Responsável</th>
-                    <th>Pedidos</th>
-                </tr>
-                </thead>
-                {{#each alunos}}
-                <tr>
-                    <td>{{this.nome}}</td>
-                    <td>{{this.endereco}}</td>
-                    <td>{{this.cep}}</td>
-                    <td>{{this.uf}}</td>
-                    <td>{{this.nome_responsavel}}</td>
-                    <td>
-                        <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
-                            Ver materiais pedidos
-                        </button>
-                    </td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
-
-     <!-- Pedidos de um aluno de uma escola Template -->
-     <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
-
-        <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
-        <hr>
-        <div class="ui loading basic segment">
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Nome do Responsável</th>
-                    <th>Nome do Material</th>
-                    <th>Quantidade</th>
-                    <th>Situação</th>
-                    <th>Doar</th>
-                </tr>
-                </thead>
-                {{#each pedidos}}
-                <tr>
-                    <td>{{this.aluno.nome_responsavel}}</td>
-                    <td>{{this.material.nome}}</td>
-                    <td>{{this.quantidade}}</td>
-                    <td>{{this.situacao}}</td>
-                    <td>
-                        <button class="ui primary button fazerDoacao" data-json="{{this.id}}">
-                            Fazer Doação
-                        </button>
+                <br>
+                <br>
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Quantidade</th>
+                        <th>Local de Entrega</th>
+                        <th>Endereço de Entrega</th>
+                        <th>Situação</th>
+                        <th>Previsão de Entrega</th>
+                        <th>Agradecer</th>
+                    </tr>
+                    </thead>
+                    {{#each pedidos}}
+                    <tr>
+                        <td>{{this.material.nome}}</td>
+                        <td>{{this.quantidade}}</td>
+                        <td>{{this.local_entrega}}</td>
+                        <td>{{this.endereco_entrega}}</td>
+                        <td>{{this.situacao}}</td>
+                        <td>{{this.previsao_entrega}}</td>
+                        <td>
+                            <button class="ui primary button agradecerPedido" data-json="{{this.id}}">
+                                Enviar Mensagem
+                            </button>
                         </td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
 
-     <!-- Autenticar Doador Template -->
-     <script id="autenticacaoDoador-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Login Doador</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+        <!-- Alunos de uma escola Template -->
+        <script id="alunosDaEscola-template" type="text/x-handlebars-template">
+
+            <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
+            <hr>
+            <div class="ui loading basic segment">
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Cep</th>
+                        <th>Uf</th>
+                        <th>Nome Responsável</th>
+                        <th>Pedidos</th>
+                    </tr>
+                    </thead>
+                    {{#each alunos}}
+                    <tr>
+                        <td>{{this.nome}}</td>
+                        <td>{{this.endereco}}</td>
+                        <td>{{this.cep}}</td>
+                        <td>{{this.uf}}</td>
+                        <td>{{this.nome_responsavel}}</td>
+                        <td>
+                            <button class="ui primary button pedidosAluno" data-json="{{this.id}}">
+                                Ver materiais pedidos
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+        <!-- Pedidos de um aluno de uma escola Template -->
+        <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
+
+            <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
+            <hr>
+            <div class="ui loading basic segment">
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Nome do Responsável</th>
+                        <th>Nome do Material</th>
+                        <th>Quantidade</th>
+                        <th>Situação</th>
+                        <th>Doar</th>
+                    </tr>
+                    </thead>
+                    {{#each pedidos}}
+                    <tr>
+                        <td>{{this.aluno.nome_responsavel}}</td>
+                        <td>{{this.material.nome}}</td>
+                        <td>{{this.quantidade}}</td>
+                        <td>{{this.situacao}}</td>
+                        <td>
+                            <button class="ui primary button fazerDoacao" data-json="{{this.id}}">
+                                Fazer Doação
+                            </button>
+                            </td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+        <!-- Autenticar Doador Template -->
+        <script id="autenticacaoDoador-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Login Doador</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="E-mail">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Senha</label>
-                            <input type="password" name="senha" id="senha" placeholder="Senha">
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" name="email" id="email" placeholder="E-mail">
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Senha</label>
+                                <input type="password" name="senha" id="senha" placeholder="Senha">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui primary submit button">Logar</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-        </div>
-    </script>
+                    <div class="ui primary submit button">Logar</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+            </div>
+        </script>
 
-    <!-- doarPedido Template -->
-    <script id="doarPedido-template" type="text/x-handlebars-template">
-        <h1 class="ui header">Realizar Doação</h1>
-        <hr>
-        <div class="ui basic loading segment">
-            <form class="ui form">
-                <div class="three fields">
-                    <div class="field">
+        <!-- doarPedido Template -->
+        <script id="doarPedido-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Realizar Doação</h1>
+            <hr>
+            <div class="ui basic loading segment">
+                <form class="ui form">
+                    <div class="three fields">
                         <div class="field">
-                            <label>Quer ser anônimo nessa doação?</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
-                                <option value="true">SIM</option>
-                                <option value="false">NÃO</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Onde quer entregar está doação?</label>
-                            <!--<input >-->
-                            <select class="ui dropdown" name="local_entrega" id="local_entrega">
-                                <option value="Residência do Aluno">Residência do Aluno</option>
-                                <option value="Escola">Escola do Aluno</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label>Quando pretende entregar está doação?</label>
-                            <!--<input >-->
-                            <input type="date" name="previsao_entrega" id="previsao_entrega">
-                            <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
-                            <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
-                            <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
-                            <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
+                            <div class="field">
+                                <label>Quer ser anônimo nessa doação?</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
+                                    <option value="true">SIM</option>
+                                    <option value="false">NÃO</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Onde quer entregar está doação?</label>
+                                <!--<input >-->
+                                <select class="ui dropdown" name="local_entrega" id="local_entrega">
+                                    <option value="Residência do Aluno">Residência do Aluno</option>
+                                    <option value="Escola">Escola do Aluno</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <label>Quando pretende entregar está doação?</label>
+                                <!--<input >-->
+                                <input type="date" name="previsao_entrega" id="previsao_entrega">
+                                <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
+                                <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
+                                <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
+                                <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui primary submit button">Confirmar Doação</div>
-                <div class="ui error message"></div>
-            </form>
-            <br>
-            <br>
-            <table class="ui celled striped selectable inverted table">
-                <thead>
-                <tr>
-                    <th>Material</th>
-                    <th>Quantidade</th>
-                    <th>Local de Entrega</th>
-                    <th>Endereço de Entrega</th>
-                    <th>Situação</th>
-                    <th>Previsão de Entrega</th>
-                    <th>Anônimo</th>
-                    <th>Contato da Escola</th>
-                    <th>Contato do Aluno</th>
-                    <th>Mensagem</th>
-                </tr>
-                </thead>
-                {{#each pedidos}}
-                <tr>
-                    <td>{{this.material.nome}}</td>
-                    <td>{{this.quantidade}}</td>
-                    <td>{{this.local_entrega}}</td>
-                    <td>{{this.endereco_entrega}}</td>
-                    <td>{{this.situacao}}</td>
-                    <td>{{this.previsao_entrega}}</td>
-                    <td>{{this.doador_anonimo}}</td>
-                    <td>{{this.aluno.escola.telefone}}</td>
-                    <td>{{this.aluno.telefone}}</td>
-                    <td>{{this.mensagem_agradecimento}}</td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </script>
+                    <div class="ui primary submit button">Confirmar Doação</div>
+                    <div class="ui error message"></div>
+                </form>
+                <br>
+                <br>
+                <table class="ui celled striped selectable inverted table">
+                    <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Quantidade</th>
+                        <th>Local de Entrega</th>
+                        <th>Endereço de Entrega</th>
+                        <th>Situação</th>
+                        <th>Previsão de Entrega</th>
+                        <th>Anônimo</th>
+                        <th>Contato da Escola</th>
+                        <th>Contato do Aluno</th>
+                        <th>Mensagem</th>
+                    </tr>
+                    </thead>
+                    {{#each pedidos}}
+                    <tr>
+                        <td>{{this.material.nome}}</td>
+                        <td>{{this.quantidade}}</td>
+                        <td>{{this.local_entrega}}</td>
+                        <td>{{this.endereco_entrega}}</td>
+                        <td>{{this.situacao}}</td>
+                        <td>{{this.previsao_entrega}}</td>
+                        <td>{{this.doador_anonimo}}</td>
+                        <td>{{this.aluno.escola.telefone}}</td>
+                        <td>{{this.aluno.telefone}}</td>
+                        <td>{{this.mensagem_agradecimento}}</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
 
         <!-- Application Root -->
         <div id="app"></div>
