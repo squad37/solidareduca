@@ -29,7 +29,7 @@
                         <!--</div>-->
                     </div>
                     <div class="two wide column columnLogin">
-                        <div class="ui primary button logarButtonHead buttonReceber" onclick="location.href='/autenticacaoAluno'">Login Aluno</div>
+                        <!--<div class="ui primary button logarButtonHead buttonReceber" onclick="location.href='/autenticacaoAluno'">Login Aluno</div>-->
                     </div>
                 </form>
             </div>
@@ -39,10 +39,10 @@
         <div class="ui content botoes-doar-receber">
             <div class="ui two column grid">
                 <div class="eight wide column">
-                    <button class="ui button fluid buttonDoar" type="button" onclick="location.href='/cadastroDoador'">Doar</button>
+                    <button class="ui button fluid buttonDoar" type="button" onclick="location.href='/autenticacaoDoador'">Doar</button>
                 </div>
                 <div class="eight wide column">
-                    <button class="ui button fluid buttonReceber" type="button" onclick="location.href='/cadastroAluno'">Receber doação</button>
+                    <button class="ui button fluid buttonReceber" type="button" onclick="location.href='/autenticacaoAluno'">Receber doação</button>
                 </div>
             </div>
         </div>
@@ -55,11 +55,8 @@
                 SolidarEduca
             </div>
         </a>
-        <!--<a class="item" href="/cadastro">-->
-            <!--Cadastro-->
-        <!--</a>-->
         <a class="item" href="/sobre">
-            Sobre
+            <b>Sobre</b>
         </a>
     </div>
     <div class="ui container fluid main">
@@ -157,28 +154,12 @@
             </div>
         </script>
 
-        <!-- Cadastro Template -->
-        <script id="cadastro-template" type="text/x-handlebars-template">
-                <h1 class="ui header">Quem vamos cadastrar?</h1>
-                <hr>
-                <div class="ui basic segment">
-                    <a class="item" href="/cadastroAluno">
-                        <label style="font-size: 25px;">Aluno</label>
-                    </a>
-                    <br>
-                    <br>
-                    <a class="item" href="/cadastroDoador">
-                        <label style="font-size: 25px;">Doador</label>
-                    </a>
-                </div>
-            </script>
-
         <!-- Cadastro do aluno Template -->
         <script id="cadastroAluno-template" type="text/x-handlebars-template">
             <h1 class="ui header textCenter">Cadastro do Aluno</h1>
-            <div class="ui padded  grid">
+            <div class="ui padded  grid ">
                 <div class="two wide column"></div>
-                <div class="twelve wide column">
+                <div class="twelve wide column white">
                     <div class="ui basic loading segment">
                         <form class="ui form">
                             <div class="two fields">
@@ -287,9 +268,9 @@
         <!-- Cadastro do doador Template -->
         <script id="cadastroDoador-template" type="text/x-handlebars-template">
             <h1 class="ui header textCenter">Cadastro do Doador</h1>
-            <div class="ui padded  grid">
+            <div class="ui padded  grid ">
                 <div class="two wide column"></div>
-                <div class="twelve wide column">
+                <div class="twelve wide column white">
                     <div class="ui basic loading segment">
                         <form class="ui form">
                             <div class="two fields">
@@ -378,7 +359,7 @@
         <!-- Sobre Template -->
         <script id="sobre-template" type="text/x-handlebars-template">
             <div class="white container">
-                <h1 align="center">Solidareduca Web</h1>
+                <h1 align="center">Solidareduca</h1>
 
                 <h4 align="center">
                     🚀 Concluído 🚀
@@ -570,7 +551,14 @@
                                     <input type="password" id="senha" name="password" placeholder="Senha">
                                 </div>
                             </div>
-                            <div class="ui fluid teal submit button">Logar</div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <div class="ui button fluid submit buttonDoar">Logar</div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui fluid button buttonReceber" onclick="location.href='/cadastroAluno'">Cadastrar</div>
+                                </div>
+                            </div>
                         </div>
                         <div class="ui error message"></div>
                     </form>
@@ -581,12 +569,12 @@
 
         <!-- Cadastrar Pedido Template -->
         <script id="cadastrarPedido-template" type="text/x-handlebars-template">
-            <h1 class="ui header">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
+            <h1 class="ui header middle aligned center">Cadastrar Pedido {{alunoObj.nome_aluno}}</h1>
             <hr>
             <div class="ui basic loading segment">
-                <form class="ui form">
-                    <div class="three fields">
-                        <div class="field">
+                <div class="field">
+                    <form class="ui form">
+                        <div class="three fields white p-2">
                             <div class="field">
                                 <label>Material</label>
                                 <!--<input >-->
@@ -597,57 +585,56 @@
                                     {{/each}}
                                 </select>
                             </div>
-                            <br>
                             <div class="field">
                                 <label>Quantidade</label>
                                 <input type="number" name="quantidade" id="quantidade" placeholder="Quantidada do item">
                             </div>
-                            <div class="field">
+                            <div class="field buttonAdd">
+                                <div class="ui fluid primary submit button buttonDoar"><i class="add icon"></i>Adicionar</div>
                                 <input type="hidden" name="id_aluno" id="id_aluno" value="{{alunoObj.id_aluno}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="ui primary submit button">Solicitar Pedido</div>
-                    <div class="ui error message"></div>
-                </form>
-                <br>
-                <br>
-                <table class="ui celled striped selectable inverted table">
-                    <thead>
-                    <tr>
-                        <th>Material</th>
-                        <th>Quantidade</th>
-                        <th>Local de Entrega</th>
-                        <th>Endereço de Entrega</th>
-                        <th>Situação</th>
-                        <th>Previsão de Entrega</th>
-                        <th>Agradecer</th>
-                    </tr>
-                    </thead>
-                    {{#each pedidos}}
-                    <tr>
-                        <td>{{this.material.nome}}</td>
-                        <td>{{this.quantidade}}</td>
-                        <td>{{this.local_entrega}}</td>
-                        <td>{{this.endereco_entrega}}</td>
-                        <td>{{this.situacao}}</td>
-                        <td>{{this.previsao_entrega}}</td>
-                        <td>
-                            <button class="ui primary button agradecerPedido" data-json="{{this.id}}">
-                                Enviar Mensagem
-                            </button>
-                        </td>
-                    </tr>
-                    {{/each}}
-                    </tbody>
-                </table>
+                        <div class="ui error message"></div>
+                    </form>
+                </div>
+                <div class="field">
+                    <table class="ui celled striped selectable inverted table">
+                        <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Quantidade</th>
+                            <th>Local de Entrega</th>
+                            <th>Endereço de Entrega</th>
+                            <th>Situação</th>
+                            <th>Previsão de Entrega</th>
+                            <th>Agradecer</th>
+                        </tr>
+                        </thead>
+                        {{#each pedidos}}
+                        <tr>
+                            <td>{{this.material.nome}}</td>
+                            <td>{{this.quantidade}}</td>
+                            <td>{{this.local_entrega}}</td>
+                            <td>{{this.endereco_entrega}}</td>
+                            <td>{{this.situacao}}</td>
+                            <td>{{this.previsao_entrega}}</td>
+                            <td>
+                                <button class="ui primary button agradecerPedido" data-json="{{this.id}}">
+                                    Enviar Mensagem
+                                </button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </script>
 
         <!-- Alunos de uma escola Template -->
         <script id="alunosDaEscola-template" type="text/x-handlebars-template">
 
-            <h1 class="ui header">Alunos da escola {{alunos.[0].escola.nome}} </h1>
+            <h1 class="ui header middle aligned center aligned">Alunos da escola {{alunos.[0].escola.nome}} </h1>
             <hr>
             <div class="ui loading basic segment">
                 <table class="ui celled striped selectable inverted table">
@@ -683,7 +670,7 @@
         <!-- Pedidos de um aluno de uma escola Template -->
         <script id="pedidosDoAlunoDaEscola-template" type="text/x-handlebars-template">
 
-            <h1 class="ui header">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
+            <h1 class="ui header middle aligned center aligned">Pedidos do aluno {{pedidos.[0].aluno.nome}} </h1>
             <hr>
             <div class="ui loading basic segment">
                 <table class="ui celled striped selectable inverted table">
@@ -716,72 +703,87 @@
 
         <!-- Autenticar Doador Template -->
         <script id="autenticacaoDoador-template" type="text/x-handlebars-template">
-            <h1 class="ui header">Login Doador</h1>
-            <hr>
-            <div class="ui basic loading segment">
-                <form class="ui form">
-                    <div class="three fields">
-                        <div class="field">
+            <div class="ui middle aligned center aligned grid">
+                <div class="four wide column"></div>
+                <div class="eight wide column">
+                    <h2 class="ui teal image header">
+                        <div class="content">
+                            Login Doador
+                        </div>
+                    </h2>
+                    <form class="ui form">
+                        <div class="ui stacked segment">
                             <div class="field">
-                                <label>E-mail</label>
-                                <input type="text" name="email" id="email" placeholder="E-mail">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" id="email" name="email" placeholder="E-mail">
+                                </div>
                             </div>
-                            <br>
                             <div class="field">
-                                <label>Senha</label>
-                                <input type="password" name="senha" id="senha" placeholder="Senha">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" id="senha" name="password" placeholder="Senha">
+                                </div>
+                            </div>
+                            <div class="two fields">
+                                <div class="field">
+                                    <div class="ui button fluid submit buttonDoar">Logar</div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui fluid button buttonReceber" onclick="location.href='/cadastroDoador'">Cadastrar</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="ui primary submit button">Logar</div>
-                    <div class="ui error message"></div>
-                </form>
-                <br>
+                        <div class="ui error message"></div>
+                    </form>
+                </div>
+                <div class="four wide column"></div>
             </div>
         </script>
 
         <!-- doarPedido Template -->
         <script id="doarPedido-template" type="text/x-handlebars-template">
-            <h1 class="ui header">Realizar Doação</h1>
+            <h1 class="ui header middle aligned center aligned">Realizar Doação</h1>
             <hr>
             <div class="ui basic loading segment">
-                <form class="ui form">
+                <form class="ui form white pt-2 pb-2">
                     <div class="three fields">
                         <div class="field">
-                            <div class="field">
-                                <label>Quer ser anônimo nessa doação?</label>
-                                <!--<input >-->
-                                <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
-                                    <option value="true">SIM</option>
-                                    <option value="false">NÃO</option>
-                                </select>
-                            </div>
-                            <br>
-                            <div class="field">
-                                <label>Onde quer entregar está doação?</label>
-                                <!--<input >-->
-                                <select class="ui dropdown" name="local_entrega" id="local_entrega">
-                                    <option value="Residência do Aluno">Residência do Aluno</option>
-                                    <option value="Escola">Escola do Aluno</option>
-                                </select>
-                            </div>
-                            <br>
-                            <div class="field">
-                                <label>Quando pretende entregar está doação?</label>
-                                <!--<input >-->
-                                <input type="date" name="previsao_entrega" id="previsao_entrega">
-                                <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
-                                <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
-                                <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
-                                <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
-                            </div>
+                            <label>Quer ser anônimo nessa doação?</label>
+                            <!--<input >-->
+                            <select class="ui dropdown" name="doador_anonimo" id="doador_anonimo">
+                                <option value="true">SIM</option>
+                                <option value="false">NÃO</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Onde quer entregar está doação?</label>
+                            <!--<input >-->
+                            <select class="ui dropdown" name="local_entrega" id="local_entrega">
+                                <option value="Residência do Aluno">Residência do Aluno</option>
+                                <option value="Escola">Escola do Aluno</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Quando pretende entregar está doação?</label>
+                            <!--<input >-->
+                            <input type="date" name="previsao_entrega" id="previsao_entrega">
+                            <input type="hidden" name="id_pedido" id="id_pedido" value="{{pedido_aSerDoadoObj.id_pedido}}">
+                            <input type="hidden" name="id_doador" id="id_doador" value="{{doadorObj.id_doador}}">
+                            <input type="hidden" name="endereco_entrega_aluno" id="endereco_entrega_aluno" value="{{pedidos_do_alunoObj.[0].aluno.endereco}}">
+                            <input type="hidden" name="endereco_entrega_escola" id="endereco_entrega_escola" value="{{pedidos_do_alunoObj.[0].aluno.escola.endereco}}">
                         </div>
                     </div>
-                    <div class="ui primary submit button">Confirmar Doação</div>
+                    <div class="three fields">
+                        <div class="field"></div>
+                        <div class="field"></div>
+                        <div class="field end aligned end aligned">
+                            <div class="ui primary submit button buttonDoar right floated">Confirmar Doação</div>
+                        </div>
+                    </div>
                     <div class="ui error message"></div>
                 </form>
-                <br>
-                <br>
+
                 <table class="ui celled striped selectable inverted table">
                     <thead>
                     <tr>
