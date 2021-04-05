@@ -52,6 +52,7 @@ Solidareduca é um projeto que tem como objetivo possibilitar a conexão entre a
 * [Git](https://git-scm.com/downloads) ou [Git Bash](https://gitforwindows.org/) para usuários Windows
 * Baixar api para instalação local [Api-solidareduca](https://github.com/squad37/api-solidareduca)
 * Instalar a extensão [Moesif Origin & CORS Changer](https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc)
+* Testado no navegador Chrome Versão 89.0.4389.114
 
 ---
 
