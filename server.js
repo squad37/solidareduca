@@ -1,8 +1,7 @@
-const { getRates, getSymbols, getEscolas, getAlunos } = require('./lib/api-solidareduca');
-const { convertCurrency } = require('./lib/free-currency-service');
+const { getEscolas, getAlunos, cadastrarAluno, getAlunosDaEscola, getMateriais, getPedidosDoAluno, getPedidosDoAlunoDaEscola } = require('./lib/api-solidareduca');
 
 require('dotenv').config(); // read .env files
-
+const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +11,20 @@ app.use(express.static('public'));
 
 // Allow front-end access to node_modules folder
 app.use('/scripts', express.static(`${__dirname}/node_modules/`));
+app.use('/assets', express.static(`${__dirname}/assets/`));
+
+const cors = require('cors');
+app.use(cors()); // Use this after the variable declaration
+
+/** Place this code right before the error handler function **/
+
+// Parse POST data as URL encoded data
+app.use(bodyParser.urlencoded({
+    extended: true,
+  }));
+  
+  // Parse POST data as JSON
+  app.use(bodyParser.json());
 
 // Express Error handler
 const errorHandler = (err, req, res) => {
@@ -50,40 +63,72 @@ app.get('/api/alunos',async (req, res) => {
     }
  });
 
-// Fetch Latest Currency Rates
-// app.get('/api/rates', async (req, res) => {
-//     try {
-//         const data = await getRates();
-//         res.setHeader('Content-Type', 'application/json');
-//         res.send(data);
-//     } catch (error) {
-//         errorHandler(error, req, res);
-//     }
-// });
+ //Fetch Materiais
+app.get('/api/materiais',async (req, res) => {
+    try{
+        const data = await getMateriais();
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        errorHandler(error, req, res);
+    }
+ });
 
-// Fetch Symbols
-// app.get('/api/symbols', async (req, res) => {
-//     try {
-//         const data = await getSymbols();
-//         res.setHeader('Content-Type', 'application/json');
-//         res.send(data);
-//     } catch (error) {
-//         errorHandler(error, req, res);
-//     }
-// });
+ //Procurar por alunos de uma única escola
+app.get('/api/alunosDaescola/:id_escola', async (req,res) => {
+    try{
+        const  id_escola  = req.params.id_escola;
+        const data = await getAlunosDaEscola(id_escola);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        console.log("errochamadalocal");
+        console.log(error);
+        errorHandler(error, req, res);
+    }
+ });
 
-// Convert Currency
-// app.post('/api/convert', async (req, res) => {
-//     try {
-//         const { from, to } = req.body;
-//         const data = await convertCurrency(from, to);
-//         res.setHeader('Content-Type', 'application/json');
-//         console.log(data);
-//         res.send(data);
-//     } catch (error) {
-//         errorHandler(error, req, res);
-//     }
-// });
+  //Procurar por pedidos de um aluno
+app.get('/api/pedidosDoAluno/:id_aluno', async (req,res) => {
+    try{
+        const  id_aluno  = req.params.id_aluno;
+        const data = await getPedidosDoAluno(id_aluno);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        console.log("errochamadalocal");
+        console.log(error);
+        errorHandler(error, req, res);
+    }
+ });
+
+ //Procurar por pedidos de um aluno de uma esocla
+app.get('/api/pedidosDoAlunoDaEscola/:id_aluno', async (req,res) => {
+    try{
+        const  id_aluno  = req.params.id_aluno;
+        const data = await getPedidosDoAlunoDaEscola(id_aluno);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+    } catch (error) {
+        console.log("errochamadalocal");
+        console.log(error);
+        errorHandler(error, req, res);
+    }
+ });
+
+// Cadastro de Aluno
+app.post('alunos', async (req, res) => {
+     try {
+         const { nome, email, cpf, cep, uf, endereco, nome_responsavel, id_escola } = req.body;
+         const data = await cadastrarAluno(nome, email, cpf, cep, uf, endereco, nome_responsavel, id_escola);
+         res.setHeader('Content-Type', 'application/json');
+         res.setHeader('id_escola', id_escola);
+         console.log(data);
+         res.send(data);
+     } catch (error) {
+         errorHandler(error, req, res);
+     }
+ });
 
 // Redirect all traffic to index.html
 app.use((req, res) => res.sendFile(`${__dirname}/public/index.html`));
@@ -94,31 +139,16 @@ app.listen(port, () => {
 });
 
 
-
-// Place this block at the bottom
-// const test = async() => {
-//     const data = await getRates();
-//     console.log(data);
-// }
-//
-
-
-// Test Symbols Endpoint
-// const test = async() => {
-//     const data = await getSymbols();
-//     console.log(data);
-// }
-
-// Test Currency Conversion Endpoint
-// const test = async() => {
-//     const data = await convertCurrency('USD', 'KES');
-//     console.log(data);
-// }
-//
 // Test Escolas Endpoint
 // const test = async() => {
 //     const data = await getEscolas();
 //     console.log(data);
 // }
+
+// Test Escolas Endpoint
+// const test = async() => {
+//     const data = await getAlunos(`df177b49-d371-423b-b81d-082d92fd1c48`);
+//     console.log(data);
+// };
 
 // test();

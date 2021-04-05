@@ -1,0 +1,142 @@
+body {
+    background-image: url('/assets/images/background.jpg') !important;
+    background-size: cover !important;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.logoIcon {
+    margin-right: 0.5vw;
+    filter: brightness(1) invert(1)!important;
+}
+
+.banner{
+    background-image: url('/assets/images/banner.jpg') !important;
+    background-size: inherit;
+    height: 20vh;
+    transform: scaleX(-1);
+}
+
+.botoes-doar-receber {
+    transform: scaleX(-1)!important;
+    padding-top: 13vh;
+    padding-bottom: 1vw!important;
+}
+
+.header-topo {
+    background: #5BADA7;
+    height: 8vh;
+    padding-left: 1vw;
+}
+
+.buttonDoar {
+    background: #5BADA7!important;
+    color: #FFFFFF!important;
+}
+
+.buttonDoar:hover {
+    background: #FFFFFF!important;
+    color: #5BADA7!important;
+    border: 1px solid #5BADA7;
+}
+
+.buttonReceber {
+    background: #7D66AA!important;
+    color: #FFFFFF!important;
+}
+
+.buttonReceber:hover {
+    background: #FFFFFF!important;
+    color: #7D66AA!important;
+    border: 1px solid #7D66AA;
+}
+
+.main{
+    flex: 1;
+}
+
+.cardEscolas {
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%)!important;
+    box-sizing: border-box;
+    margin-bottom: 3vh!important;
+}
+
+.rankingEscolas {
+    height: 49vh;
+    overflow-y: auto;
+    margin-left: 10vw!important;
+    margin-right: 10vw!important;
+}
+
+button.alunosEscola {
+    background: #7D66AA!important;
+    color: #FFFFFF!important;
+}
+
+button.alunosEscola:hover {
+    background: #FFFFFF!important;
+    color: #7D66AA!important;
+    border: 1px solid #7D66AA;
+}
+
+.footer {
+    text-align: -webkit-center;
+    color: #D9D9D9;
+    background: #5BADA7;
+    font-weight: bold;
+    font-size: medium;
+    padding: 0.5vw;
+    margin-top: 1vh!important;
+}
+
+.thumbnail {
+    background-image: url('/assets/images/escola.jpg') !important;
+    background-size: cover !important;
+    border-top-left-radius: 12px!important;
+    border-bottom-left-radius: 12px!important;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.contentEscolas {
+    padding-left: 1vw;
+}
+
+.padMenu{
+    margin-top:0px!important;
+}
+
+.emailInputHead {
+    height: 5vh;
+    width: -webkit-fill-available;
+}
+
+.senhaInputHead {
+    height: 5vh;
+    width: -webkit-fill-available;
+}
+
+.logarButtonHead {
+    height: 5vh;
+    width: -webkit-fill-available;
+}
+
+.columnLogin {
+    padding: 0.4vh 0.1vw 1vh 0vw!important;
+}
+
+.noborder {
+    border: none!important;
+}
+
+.white {
+    background-color: white;
+}
+
+.buttonAdd {
+    margin-top: 2.5vh!important;
+}
