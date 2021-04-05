@@ -77,12 +77,12 @@ Essa aplicacão foi desenvolvida com as seguintes ferramentas:
 
 ## 📙 Autores
 
+- [Breno Moura](https://www.linkedin.com/in/breno-moura-43b09b21/)
+- [Daniel Barbosa](https://www.linkedin.com/in/daniel-barbosa-da-silva-b1ab8b170/)
 - [Guilherme Bento](https://www.linkedin.com/in/guilherme-bento-7a1400128/)
 - [Jean Higa](https://www.linkedin.com/in/jean-higa-8374311a6/)
-- [Daniel Barbosa](https://www.linkedin.com/in/daniel-barbosa-da-silva-b1ab8b170/)
-- [Breno Moura](https://www.linkedin.com/in/breno-moura-43b09b21/)
-- [Taís Rampani](https://www.linkedin.com/in/tais-rampani/)
 - [Laísa Mendes](https://www.linkedin.com/in/laisa-mendes-6669b620a)
+- [Taís Rampani](https://www.linkedin.com/in/tais-rampani/)
 
 ---
 
