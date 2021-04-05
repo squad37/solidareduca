@@ -83,49 +83,56 @@
         <!-- Ranking Template -->
         <script id="ranking-template" type="text/x-handlebars-template">
             <h1 class="ui header textCenter">Ranking das Escolas!</h1>
+            <div class="ui form">
+                <div class="five fields">
+                    <div class="field"></div>
+                    <div class="field">
+                        <label>Nome da Escola</label>
+                        <input type="text" name="nomeEscola" id="nomeEscola" placeholder="Escola">
+                    </div>
+                    <div class="field">
+                        <label>Estado</label>
+                        <select class="ui dropdown" name="ufEscola" id="ufEscola">
+                            <option value="todos">Todos</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <button id="searchEscola" class="ui fluid button searchEscolas buttonReceber buttonAdd">
+                            Buscar
+                        </button>
+                    </div>
+                    <div class="field"></div>
+                </div>
+            </div>
             <div class="ui loading basic segment rankingEscolas">
                 <div class="ui internally celled grid">
-                    <form class="ui form">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Nome da Escola</label>
-                                <input type="text" name="nomeEscola" id="nomeEscola" placeholder="Escola">
-                            </div>
-                            <div class="field">
-                                <label>Estado</label>
-                                <select class="ui dropdown" name="ufEscola" id="ufEscola">
-                                    <option value="todos">Todos</option>
-                                    <option value="AC">Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SP">São Paulo</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
                     {{#each escolas}}
                         <div class="row cardEscolas" style="background-color: white;">
                             <div class="three wide column thumbnail">
