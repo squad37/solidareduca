@@ -143,7 +143,13 @@
                                         <div class="header">{{this.nome}}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
+                                        {{#xif "this.pontos >5"}}
+                                            <label>Pontos: {{this.pontos}}</label>
+                                            <div class="ui star rating"  data-rating="5"  data-max-rating="5"></div>
+                                        {{else}}
+                                            <label>Pontos: {{this.pontos}}</label>
+                                            <div class="ui star rating"  data-rating="{{this.pontos}}"  data-max-rating="5"></div>
+                                        {{/xif}}
                                     </div>
                                     <div class="row">
                                         <div class="meta">
@@ -366,7 +372,7 @@
         <!-- Sobre Template -->
         <script id="sobre-template" type="text/x-handlebars-template">
             <div class="white container">
-                <h1 align="center">Solidareduca</h1>
+                <h1 align="center">SolidarEduca</h1>
 
                 <h4 align="center">
                     🚀 Concluído 🚀
