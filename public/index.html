@@ -820,7 +820,12 @@
                         <td>{{this.endereco_entrega}}</td>
                         <td>{{this.situacao}}</td>
                         <td>{{this.previsao_entrega}}</td>
-                        <td>{{this.doador_anonimo}}</td>
+                        {{#xif "this.doador_anonimo" }}
+                            <td>Sim</td>
+                        {{else}}
+                            <td>Não</td>
+                        {{/xif}}
+
                         <td>{{this.aluno.escola.telefone}}</td>
                         <td>{{this.aluno.telefone}}</td>
                         <td>{{this.mensagem_agradecimento}}</td>
