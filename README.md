@@ -1,4 +1,4 @@
-<h1 align="center">Solidareduca Web</h1>
+<h1 align="center">SolidarEduca Web</h1>
 
 <h3 align="center">
     Aplicação Web referente ao Projeto Solidareduca do Programa de Formação FCamara.
